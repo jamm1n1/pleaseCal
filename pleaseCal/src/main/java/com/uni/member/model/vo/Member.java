@@ -9,9 +9,11 @@ public class Member {
 	private String userName;
 	private String phone;
 	private String address;
+	private int mileage;
 	private int coupon;
-	private int milege;
 	private String status;
+	
+	
 	
 	
 	public Member() {}
@@ -35,15 +37,15 @@ public class Member {
 		this.userName = userName;
 		this.phone = phone;
 		this.address = address;
-		this.milege = milege;
+		this.mileage = milege;
 		this.status = status;
 	}
 
 
 
 
-	public Member(int userNo, String userId, String userPwd, String userName, String phone, String address, int coupon,
-			int milege, String status) {
+	public Member(int userNo, String userId, String userPwd, String userName, String phone, String address, int mileage,
+			int coupon, String status) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -51,12 +53,10 @@ public class Member {
 		this.userName = userName;
 		this.phone = phone;
 		this.address = address;
+		this.mileage = mileage;
 		this.coupon = coupon;
-		this.milege = milege;
 		this.status = status;
 	}
-
-
 
 
 	public int getUserNo() {
@@ -102,10 +102,10 @@ public class Member {
 		this.coupon = coupon;
 	}
 	public int getMilege() {
-		return milege;
+		return mileage;
 	}
 	public void setMilege(int milege) {
-		this.milege = milege;
+		this.mileage = milege;
 	}
 	public String getStatus() {
 		return status;
@@ -118,7 +118,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", phone=" + phone + ", address=" + address + ", coupon=" + coupon + ", milege=" + milege
+				+ ", phone=" + phone + ", address=" + address + ", coupon=" + coupon + ", mileage=" + mileage
 				+ ", status=" + status + "]";
 	}
 	

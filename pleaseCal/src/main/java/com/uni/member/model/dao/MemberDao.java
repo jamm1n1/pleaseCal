@@ -29,9 +29,11 @@ public class MemberDao {
 		}
 	}
 	public Member loginMember(Connection conn, String userId, String userPwd) {
-		Member loginUser = null;
+        Member loginUser = null;
+		
 		PreparedStatement pstmt = null;
-	    ResultSet rset = null;
+		
+		ResultSet rset = null;
 		
 	     
 		String sql = prop.getProperty("loginMember");
@@ -41,8 +43,7 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 		
 		rset = pstmt.executeQuery();
-		
-		
+	
 		
 		if(rset.next()) {
 			loginUser = new Member(
@@ -58,7 +59,7 @@ public class MemberDao {
 					);
 		}
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
