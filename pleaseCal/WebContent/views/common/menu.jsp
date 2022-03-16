@@ -39,6 +39,11 @@
                        Cart
                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                    </button>
+                   
+                                   
+                   <button class="btn btn-outline-dark" type="submit">
+                   <a href = "<%=request.getContextPath() %>/LoginPage.do">로그인</a>
+                   </button>
                </form>
            </div>
        </div>
