@@ -14,7 +14,7 @@ public class Member {
 	private String status;
 	
 	
-	
+	public Member() {}
 	
 	
 	public Member(String userId, String userPwd) {
@@ -113,4 +113,13 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
+				+ ", phone=" + phone + ", address=" + address + ", coupon=" + coupon + ", milege=" + milege
+				+ ", status=" + status + "]";
+	}
+	
 }
