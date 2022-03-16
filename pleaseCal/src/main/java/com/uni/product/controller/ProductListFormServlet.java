@@ -15,16 +15,16 @@ import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
 
 /**
- * Servlet implementation class ProductSelectListServlet
+ * Servlet implementation class ProductlistServlet
  */
-@WebServlet("/selectListProduct.do")
-public class ProductSelectListServlet extends HttpServlet {
+@WebServlet("/productlistForm.do")
+public class ProductListFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
-     */
-    public ProductSelectListServlet() {
+     */  
+    public ProductListFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,30 +34,9 @@ public class ProductSelectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int category = Integer.parseInt(request.getParameter("no"));
-		
-		ArrayList<Product> list = new ProductService().selectListProduct(category);
-		
-		ArrayList<Product> changelist = new ArrayList<Product>();
-		if(category == 2) {
-			for(Product p : list) {
-				if(p.getpQuantity() == 500) {
-					changelist.add(p);
-					
-				}
-			}
-			request.setAttribute("list", changelist);
-			response.setContentType("application/json; charset=utf-8"); 
-			new Gson().toJson(list, response.getWriter());
-		} else {
-			request.setAttribute("list", list);
-			response.setContentType("application/json; charset=utf-8"); 
-			new Gson().toJson(list, response.getWriter());
-		}
-	
-		
-		
-		
+		RequestDispatcher rd = request.getRequestDispatcher("views/product/productlist.jsp");
+		rd.forward(request, response);
+
 	}
 
 	/**
