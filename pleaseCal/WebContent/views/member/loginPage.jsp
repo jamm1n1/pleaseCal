@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import = "com.uni.member.model.vo.Member" %>
+    <%
+    Member loginUser = (Member)session.getAttribute("loginUser");
+     
+    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,11 +52,13 @@
                     <!-- Sign In Form -->
                       <form id = "loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post" onsubmit="return loginValidate();">
                       <div class="form-floating mb-3">
-                        <input type="id" class="form-control" id="floatingInput" placeholder="아이디를 입력하세요">
+                     
+                        <input type="id" class="form-control" id="userId" placeholder="아이디를 입력하세요" name="userId">
                         
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호를 입력하세요">
+                      
+                        <input type="password" class="form-control" id="userPwd" placeholder="비밀번호를 입력하세요" name="userPwd">
                         
                       </div>
       
@@ -61,12 +68,13 @@
       
                       <div class="d-grid">
                         <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" width="40%">Sign in</button>
+                        </form>
                         <div class="text-center">
                           <a class="small" href="#">회원 가입</a>
                         </div>
                       </div>
       
-                    </form>
+                    
                   </div>
                 </div>
               </div>

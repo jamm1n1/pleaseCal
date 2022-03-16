@@ -33,11 +33,12 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 	    ResultSet rset = null;
 		
+	     
 		String sql = prop.getProperty("loginMember");
 		try {
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, userId);
-		pstmt.setString(2, userPwd);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
 		
 		rset = pstmt.executeQuery();
 		
@@ -50,9 +51,9 @@ public class MemberDao {
 					rset.getString("USER_PWD"),
 					rset.getString("USER_NAME"),
 					rset.getString("PHONE"),					
-					rset.getString("ADDRESS"),		
-					rset.getInt("COUPON"),
-			        rset.getInt("milege"),
+					rset.getString("ADDRESS"),	
+					rset.getInt("MILEAGE"),
+					rset.getInt("C_ID"),		  
 					rset.getString("STATUS")
 					);
 		}
@@ -62,6 +63,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println(loginUser);
 		return loginUser;
 	}
 	}
