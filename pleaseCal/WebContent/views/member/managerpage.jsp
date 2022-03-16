@@ -7,9 +7,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Shop Homepage - Start Bootstrap Template</title>
-<!-- Core theme CSS (includes Bootstrap)-->
+<title>mypage</title>
+ <style>
+ 
+ #Members{
+     margin-left: 20%;
+    margin-top: 5%;
+    height:300px;
+    width:1200px;
+ }
+
+ 
+ #membut{
+ 
+   height:200px;
+    width:300px;
+ }
+ 
+ </style>
+
 <link href="././resources/css/styles.css" rel="stylesheet" />
+ <link rel="stylesheet" href="../resource/css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
@@ -33,7 +52,10 @@
                        </ul>
                    </li>
                </ul>
-               <form class="d-flex">
+              
+           </div>
+            <div align="right">
+               <form >
                    <button class="btn btn-outline-dark" type="submit">
                        <i class="bi-cart-fill me-1"></i>
                        Cart
@@ -42,10 +64,10 @@
                    
                                    
                    <button class="btn btn-outline-dark" type="submit">
-                   <a href = "<%=request.getContextPath() %>/LoginPage.do">로그인</a>
+                   <a href = "<%=request.getContextPath() %>/LoginPage.do">로그아웃</a>
                    </button>
                </form>
-           </div>
+               </div>
        </div>
    </nav>
    <!-- Header-->
@@ -57,6 +79,12 @@
            </div>
        </div>
    </header>
+   <strong><h4>managerPage</h4></strong>
    
+   <div id="Members">
+   <input id="membut" type="button" value="회원 목록"></input>
+     
+    <input id="membut" type="button" value="상품 관리" style="margin-left: 400px;"></input>
+   </div>
 </body>
 </html>
