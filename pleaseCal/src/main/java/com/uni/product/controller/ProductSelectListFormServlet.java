@@ -1,7 +1,6 @@
 package com.uni.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.uni.product.model.service.ProductService;
-import com.uni.product.model.vo.Product;
-
 /**
- * Servlet implementation class ProductSelectListServlet
+ * Servlet implementation class ProductSelectListFormServlet
  */
-@WebServlet("/selectListProduct.do")
-public class ProductSelectListServlet extends HttpServlet {
+@WebServlet("/selectProductListForm.do")
+public class ProductSelectListFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSelectListServlet() {
+    public ProductSelectListFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,30 +29,11 @@ public class ProductSelectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int category = Integer.parseInt(request.getParameter("no"));
+		int no = Integer.parseInt(request.getParameter("category"));
 		
-		ArrayList<Product> list = new ProductService().selectListProduct(category);
-		
-		ArrayList<Product> changelist = new ArrayList<Product>();
-		if(category == 2) {
-			for(Product p : list) {
-				if(p.getpQuantity() == 500) {
-					changelist.add(p);
-					
-				}
-			}
-			request.setAttribute("list", changelist);
-			response.setContentType("application/json; charset=utf-8"); 
-			new Gson().toJson(list, response.getWriter());
-		} else {
-			request.setAttribute("list", list);
-			response.setContentType("application/json; charset=utf-8"); 
-			new Gson().toJson(list, response.getWriter());
-		}
-	
-		
-		
-		
+		request.setAttribute("no", no);
+		RequestDispatcher rd = request.getRequestDispatcher("views/product/selectProductList.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

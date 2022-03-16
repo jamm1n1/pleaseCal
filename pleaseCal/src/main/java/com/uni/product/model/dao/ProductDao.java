@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.sun.net.httpserver.Authenticator.Result;
 import com.uni.product.model.vo.Product;
 
 public class ProductDao {
@@ -33,7 +32,7 @@ public class ProductDao {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	public ArrayList<Product> productList(Connection conn) {
@@ -59,7 +58,8 @@ public class ProductDao {
 										rs.getString("P_CARBO"),
 										rs.getString("P_PROTEIN"),
 										rs.getString("P_FAT"),
-										rs.getString("P_NATRIUM")
+										rs.getString("P_NATRIUM"),
+										rs.getString("PI_NAME")
 						);
 			
 				
@@ -101,7 +101,8 @@ public class ProductDao {
 										rs.getString("P_CARBO"),
 										rs.getString("P_PROTEIN"),
 										rs.getString("P_FAT"),
-										rs.getString("P_NATRIUM")
+										rs.getString("P_NATRIUM"),
+										rs.getString("PI_NAME")
 						);
 			
 				
@@ -111,6 +112,9 @@ public class ProductDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		
 		return list;
@@ -140,7 +144,8 @@ public class ProductDao {
 										rs.getString("P_CARBO"),
 										rs.getString("P_PROTEIN"),
 										rs.getString("P_FAT"),
-										rs.getString("P_NATRIUM")
+										rs.getString("P_NATRIUM"),
+										rs.getString("PI_NAME")
 						);
 			
 				
@@ -155,6 +160,76 @@ public class ProductDao {
 		}
 		
 		return list;
+	}
+
+	public Product selectProduct(Connection conn, int no) {
+		
+		Product p = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				p = new Product(rs.getInt("P_ID"),
+								rs.getString("P_NAME"),
+								rs.getInt("P_PRICE"),
+								rs.getInt("P_QUANTITY"),
+								rs.getString("P_KCAL"),
+								rs.getString("P_CARBO"),
+								rs.getString("P_PROTEIN"),
+								rs.getString("P_FAT"),
+								rs.getString("P_NATRIUM"),
+								rs.getString("PI_NAME")
+						);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  finally {
+			close(rs);
+			close(pstmt);
+		}
+		return p;
+	}
+
+	public Product changeProduct(Connection conn, int q, String name) {
+		
+		Product p = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("changeProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, q);
+			pstmt.setString(2, name);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				p = new Product();
+				p.setpPrice(rs.getInt("P_PRICE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  finally {
+			close(rs);
+			close(pstmt);
+		}
+		return p;
 	}
 
 }

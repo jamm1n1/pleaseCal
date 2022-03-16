@@ -12,13 +12,27 @@ public class Product {
 	private String pProtin;
 	private String pFat;
 	private String pNatrium;
+	private String piName;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Product(int pId, String pName, int pPrice, int pQuantity, String pKacl, String pCarbo,
+			String pProtin, String pFat, String pNatrium, String piName) {
+		super();
+		this.pId = pId;
+		this.pName = pName;
+		this.pPrice = pPrice;
+		this.pQuantity = pQuantity;
+		this.pKacl = pKacl;
+		this.pCarbo = pCarbo;
+		this.pProtin = pProtin;
+		this.pFat = pFat;
+		this.pNatrium = pNatrium;
+		this.piName = piName;
+	}
 	
-
 	public Product(int pId, String pName, int pPrice, int pQuantity, int cId, String pKacl, String pCarbo,
 			String pProtin, String pFat, String pNatrium) {
 		super();
@@ -34,6 +48,11 @@ public class Product {
 		this.pNatrium = pNatrium;
 	}
 
+	public Product(int pId, String pName, int pPrice, int pQuantity, int cId, String pKacl, String pCarbo,
+			String pProtin, String pFat, String pNatrium, String piName) {
+		this(pId, pName, pPrice, pQuantity, cId, pKacl, pCarbo, pProtin, pFat, pNatrium);
+		this.piName = piName;
+	}
 
 
 	public int getpId() {
@@ -115,16 +134,23 @@ public class Product {
 	public void setpNatrium(String pNatrium) {
 		this.pNatrium = pNatrium;
 	}
+	
+	
+	public String getPiName() {
+		return piName;
+	}
+
+
+	public void setPiName(String piName) {
+		this.piName = piName;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Product [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pQuantity=" + pQuantity + ", cId="
 				+ cId + ", pKacl=" + pKacl + ", pCarbo=" + pCarbo + ", pProtin=" + pProtin + ", pFat=" + pFat
-				+ ", pNatrium=" + pNatrium + "]";
+				+ ", pNatrium=" + pNatrium + ", piName=" + piName + "]";
 	}
-
-	
-	
-	
 
 }

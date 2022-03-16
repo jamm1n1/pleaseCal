@@ -3,18 +3,18 @@ package com.uni.product.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
 
 /**
- * Servlet implementation class ProductlistServlet
+ * Servlet implementation class ProductListServlet
  */
 @WebServlet("/listProduct.do")
 public class ProductListServlet extends HttpServlet {
@@ -34,11 +34,12 @@ public class ProductListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Product> list = new ProductService().productList();
+		System.out.println(list);
 		
 		request.setAttribute("list", list);
-		RequestDispatcher rd = request.getRequestDispatcher("views/product/productlist.jsp");
-		rd.forward(request, response);
-		
+
+		response.setContentType("application/json; charset=utf-8"); 
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

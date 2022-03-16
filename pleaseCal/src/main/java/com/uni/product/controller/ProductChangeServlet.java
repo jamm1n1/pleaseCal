@@ -1,30 +1,33 @@
 package com.uni.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.google.gson.Gson;
 import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
 
+import netscape.javascript.JSObject;
+
 /**
- * Servlet implementation class ProductSelectListServlet
+ * Servlet implementation class ProductChangeServlet
  */
-@WebServlet("/selectListProduct.do")
-public class ProductSelectListServlet extends HttpServlet {
+@WebServlet("/changeProduct.do")
+public class ProductChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSelectListServlet() {
+    public ProductChangeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,30 +37,13 @@ public class ProductSelectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int category = Integer.parseInt(request.getParameter("no"));
+		int q = Integer.parseInt(request.getParameter("q"));
+		String name = request.getParameter("name");
 		
-		ArrayList<Product> list = new ProductService().selectListProduct(category);
-		
-		ArrayList<Product> changelist = new ArrayList<Product>();
-		if(category == 2) {
-			for(Product p : list) {
-				if(p.getpQuantity() == 500) {
-					changelist.add(p);
-					
-				}
-			}
-			request.setAttribute("list", changelist);
-			response.setContentType("application/json; charset=utf-8"); 
-			new Gson().toJson(list, response.getWriter());
-		} else {
-			request.setAttribute("list", list);
-			response.setContentType("application/json; charset=utf-8"); 
-			new Gson().toJson(list, response.getWriter());
-		}
-	
-		
-		
-		
+		Product p = new ProductService().changeProduct(q, name);
+		int price =p.getpPrice();
+
+		response.getWriter().print(price);
 	}
 
 	/**
