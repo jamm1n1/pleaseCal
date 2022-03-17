@@ -69,9 +69,16 @@
                       <div class="d-grid">
                         <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" width="40%">Sign in</button>
                         </form>
+                        
                         <div class="text-center">
-                          <a class="small" href="#">회원 가입</a>
+                          <button id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button>
+                          <script>
+                           function enrollPage(){
+    	                    location.href = "<%= request.getContextPath()%>/newfacego.do"; 
+                                   } 
+                          </script>
                         </div>
+                       
                       </div>
       
                     

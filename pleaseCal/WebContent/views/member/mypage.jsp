@@ -32,6 +32,7 @@
 h5{
 display: inline;
 }
+
  </style>
 
 <link href="././resources/css/styles.css" rel="stylesheet" />
@@ -95,8 +96,9 @@ display: inline;
    <strong><h5 style="margin-left: 470px">원</h5></strong>
    <strong><h5 style="margin-left: 100px">Coupon</h5></strong>
    <button style="margin-left: 355px" >조회</button>
+    <hr width="1200px"  style="border: solid 2px black;" align="right">
    </div>
-   <hr  width="1200px"  style="border: solid 2px black;">
+  
    <div id="Members">
    <input id="membut" type="button" value="주문 목록"></input>
      <input id="membut" type="button" value="회원 정보변경" style="margin-left: 200px;"></input>
