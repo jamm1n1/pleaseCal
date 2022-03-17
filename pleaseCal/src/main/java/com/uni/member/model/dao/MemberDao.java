@@ -29,9 +29,11 @@ public class MemberDao {
 		}
 	}
 	public Member loginMember(Connection conn, String userId, String userPwd) {
-		Member loginUser = null;
+        Member loginUser = null;
+		
 		PreparedStatement pstmt = null;
-	    ResultSet rset = null;
+		
+		ResultSet rset = null;
 		
 	     
 		String sql = prop.getProperty("loginMember");
@@ -41,8 +43,7 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 		
 		rset = pstmt.executeQuery();
-		
-		
+	
 		
 		if(rset.next()) {
 			loginUser = new Member(
@@ -58,7 +59,7 @@ public class MemberDao {
 					);
 		}
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
@@ -66,6 +67,30 @@ public class MemberDao {
 		System.out.println(loginUser);
 		return loginUser;
 	}
+	public int insertMember(Connection conn, Member mem) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,mem.getUserId());
+			pstmt.setString(2,mem.getUserPwd());
+			pstmt.setString(3,mem.getUserName());
+			pstmt.setString(4,mem.getPhone());		
+			pstmt.setString(5,mem.getAddress());			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
+	}
+	
+	
+	
 
 
