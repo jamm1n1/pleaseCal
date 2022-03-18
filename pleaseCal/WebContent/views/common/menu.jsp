@@ -3,7 +3,7 @@
 <%@ page import="com.uni.member.model.vo.Member"%>
 <%
 Member loginUser = (Member) session.getAttribute("loginUser");
-String contextPath = request.getContextPath();
+
 %>
 
 <!DOCTYPE html>
@@ -40,6 +40,9 @@ String contextPath = request.getContextPath();
                            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/selectProductListForm.do?category=3">도시락</a></li>
                        </ul>
                    </li>
+                   <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/noticeList.do">공지사항</a>
+                   <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/boardList.do">Q&A</a>
+                   <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/ordertest.do?">주문내역테스트용</a>
                </ul>
 				<form class="d-flex">
 					<button class="btn btn-outline-dark" type="submit">
@@ -47,48 +50,37 @@ String contextPath = request.getContextPath();
 							class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 					</button>
 
-					<%
-					if (loginUser == null) {
-					%>
+					<%if (loginUser == null) {%>
 
-					<button class="btn btn-outline-dark" type="submit">
-						<a href="<%=request.getContextPath()%>/LoginPage.do">로그인</a>
-					</button>
+						<button class="btn btn-outline-dark" type="submit">
+							<a href="<%=request.getContextPath() %>/LoginPage.do">로그인</a>
+						</button>
+					
+					<% } else { %>
+
+						<% if (loginUser != null && loginUser.getUserId().equals("admin")) { %>
+		
+							<div class="btns" align="center">
+								<a href="<%=request.getContextPath()%>/managerPage.do">관리자페이지</a>
+								<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
+							</div>
+		
+						<% } else { %>
+	
+							<div id="userInfo">
+								<b style="color: blue;"><%=loginUser.getUserName()%> 님 </b> 어서오세요.
+								<br>
+								<br>
+								<div class="btns" align="center">
+									<a href="<%=request.getContextPath()%>/mypageMember.do">마이페이지</a>
+									<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
+								</div>
+							</div>
+						<% } %>
+						
+					<%}%>
 				</form>
-				<%
-				} else {
-				%>
-
-				<%
-				if (loginUser != null && loginUser.getUserId().equals("admin")) {
-				%>
-
-				<div class="btns" align="center">
-					<a href="<%=request.getContextPath()%>/managerPage.do">관리자페이지</a>
-					<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
-				</div>
-
-				<%
-				} else {
-				%>
-
-				<div id="userInfo">
-					<b style="color: blue;"><%=loginUser.getUserName()%> 님 </b> 어서오세요.
-					<br>
-					<br>
-					<div class="btns" align="center">
-						<a href="<%=request.getContextPath()%>/mypageMember.do">마이페이지</a>
-						<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
-					</div>
-				</div>
-				<%
-				}
-				%>
-				<%
-				}
-				%>
 			</div>
-
 		</div>
 	</nav>
 

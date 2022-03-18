@@ -42,7 +42,7 @@ public class HealthResultServlet extends HttpServlet {
 		int active = Integer.parseInt(request.getParameter("loa"));
 		
 		int result;
-		if(userNo != 0 && age != 0 && (gen != 'T' ||  gen != 'F') && hei != 0 && wei != 0 && active != 0) {
+		if(userNo != 0 && age != 0 && (gen != 'M' ||  gen != 'F') && hei != 0 && wei != 0 && active != 0) {
 			
 			HealthInfo h = new HealthInfo(userNo, age, gen, hei, wei, active);
 		
@@ -53,7 +53,7 @@ public class HealthResultServlet extends HttpServlet {
 		}
 		
 		if(result > 0) {
-			request.setAttribute("userNo", userNo);
+			// 저장 성공후 다시 로그인한 회원번호를 받고 입장하기 위한 건강계산기 창 입장 서블릿으로
 			response.sendRedirect("healthInfo.do");
 		} else {
 			

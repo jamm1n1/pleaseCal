@@ -37,11 +37,11 @@ public class ProductChangeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int q = Integer.parseInt(request.getParameter("q"));
-		String name = request.getParameter("name");
+		int q = Integer.parseInt(request.getParameter("q")); // 포장용량
+		String name = request.getParameter("name"); // 제품명
 		
 		Product p = new ProductService().changeProduct(q, name);
-		int price =p.getpPrice();
+		int price = p.getpPrice();
 
 		response.getWriter().print(price);
 	}

@@ -29,6 +29,8 @@ public class ProductSelectListFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 메뉴바 카테고리별 상품 
+		// selectProductListForm.do?category=?
 		int no = Integer.parseInt(request.getParameter("category"));
 		
 		request.setAttribute("no", no);
