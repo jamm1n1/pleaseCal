@@ -37,7 +37,8 @@ public class IogoServlet extends HttpServlet {
 		int pnum = Integer.parseInt(request.getParameter("pnum")) ;
 		Product_IO pIO = new ProductIoService().piO(pid,pnum); 
 		
-		response.sendRedirect(request.getContextPath());
+		RequestDispatcher rd = request.getRequestDispatcher("views/member/managerpage.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

@@ -64,7 +64,7 @@ String contextPath = request.getContextPath();
 					<button class="btn btn-outline-dark" type="submit">
 						<a href="<%=request.getContextPath()%>/LoginPage.do">로그인</a>
 					</button>
-				</form>
+				
 				<%
 				} else {
 				%>
@@ -100,6 +100,7 @@ String contextPath = request.getContextPath();
 			</div>
 
 		</div>
+		</form>
 	</nav>
 	<!-- Header-->
 	<header class="bg-dark py-5">
