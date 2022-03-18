@@ -29,13 +29,14 @@ public class HealthInfoDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 정보 삭제 클릭시 
 		int userNo = Integer.parseInt(request.getParameter("no"));  
 		
 		int result = new HealthInfoService().deleteHealthInfo(userNo);
 		
 		if(result > 0) {
 			
-			request.setAttribute("userNo", userNo);
+			// 건강계산시 창으로 들어가는 servlet으로 입장, 유저정보 받아야하기때문
 			response.sendRedirect("healthInfo.do");
 		}
 	}

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,17 +18,7 @@
 	padding: 0 0.5%;
 	width: 90%;
 }
-.resp_code { 
-    background: none repeat scroll 0 0 #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 0.25em;
-    color: #333;
-    font: 1em/1.3em Tahoma,Geneva,sans-serif;
-    margin: 5px 10px 10px 20%;
-    overflow: auto;
-    padding: 10px 20px;
-    width:50%;
-}
+
 .hidden{
 	display:none;
 }
@@ -39,7 +31,7 @@
 <body>
 	<jsp:include page = "../common/menu.jsp"/>
 
-	<div class='resp_code' align='center'>
+	<div class="container px-4 px-lg-5 mt-5" align='center' style=background:#f8f8f8 >
 		<table id ='tab' align='center' style="width:60%;">
 			<tr>
 				<td align=center><h3>일일 권장 칼로리 계산기</h3>
@@ -63,7 +55,7 @@
 						</td>
 						<td>
 							
-							<input type="radio" class="btn-check" name="gen" id="gen1" value="T" checked> 
+							<input type="radio" class="btn-check" name="gen" id="gen1" value="M" checked> 
 							<label class="btn btn-outline-dark btn-sm" for="gen1">남성</label>
 							<input type="radio" class="btn-check" name="gen" id="gen2" value="F">
 							<label class="btn btn-outline-dark btn-sm" for="gen2">여성</label>
@@ -104,8 +96,14 @@
 				
 				<div>
 					<br>
-					<button type="submit" id="save" class="btn btn-outline-success btn-sm"> 정보저장 </button>
-					<button type="submit" id="delete" class="btn btn-outline-danger btn-sm" > 정보삭제 </button>
+					<c:choose> 
+                    	<c:when test="${userNo ne '0' && check eq 'Y'}">
+                    		<button type="submit" id="delete" class="btn btn-outline-danger btn-sm" > 정보삭제 </button>
+                    	</c:when> 
+                    	<c:when test= "${userNo ne '0' && check eq 'N'}">
+                    		<button type="submit" id="save" class="btn btn-outline-success btn-sm"> 정보저장 </button>
+                    	</c:when> 
+                    </c:choose>
 				</div>
 				
 				</form>
@@ -130,7 +128,7 @@
 			
 				<div>
 					<p>▼일일 권장 영양 섭취▼</p>
-				<div>
+				</div>
 				
 		   		
 		   		<table class="frms noborders">
@@ -175,15 +173,17 @@
 		</div>
 	</table>
 	</div>
-	<div class='resp_code' align='center'>
-	<section class="py-5"><h3>추천상품</h3>
-       <div class="container px-4 px-lg-5 mt-5">
+
+	<section class="py-5">
+       <div class="container px-4 px-lg-5 mt-5" align='center' style=background:#f8f8f8 >
+       	   <h3>추천상품</h3>
+       	   <br>
            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="list">
-           		<!-- 모든상품 삽입 -->
+           		<!-- 추천상품 삽입 -->
            </div>
        </div>
    </section>
-	</div>
+
 	<script>
 		
 		$(function(){
@@ -217,37 +217,36 @@
 				})
 				
 
-			} else if (userNo == 0){ // 비회원일때 버튼들 안보임
-				$('#save').hide();
-				$('#delete').hide(); 
-			
 			} 
 			
 			
 			$.ajax({
-   		   		url: "listProduct.do",
+				
+   		   		url: "ranListProduct.do",
    		   		
    		   		type: "get",
    		   		
    		   		success:function(list){
    		   	
    		   			let value = "";
-   		   			
+
    		   			for(var i in list){
    		   				
 
 						value += '<div class="col mb-5">'+
-								'<div class="card h-100">'+
-								'<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/'+list[i].piName+'" alt="상품이미지" /></a>'+
-								'<div class="card-body p-4">'+
-								'<div class="text-center">'+
-								'<h5 class="fw-bolder">'+list[i].pName+'</h5>'+list[i].pPrice+'</div>'+
-								'</div>'+
-								'<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">'+
-								'<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'">상세정보</a></div>'+
-								'</div></div></div>';
-		                  
+						'<div class="card h-100">'+
+						'<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/'+list[i].piName+'" alt="상품이미지" /></a>'+
+						'<div class="card-body p-4">'+
+						'<div class="text-center">'+
+						'<h5 class="fw-bolder">'+list[i].pName+'</h5>'+list[i].pPrice+'</div>'+
+						'</div>'+
+						'<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">'+
+						'<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'">상세정보</a></div>'+
+						'</div></div></div>';
+
+   		   				
 					}
+   		   			
 					$("#list").html(value);
    		   		},
    		   		
@@ -276,21 +275,20 @@
 			let bmr; // 비만도
 			
 			// 나이, 키(cm), 몸부계
-			let age=parseInt($("#age").val());
-			let cm =$("#cen").val();
-			let weight=$("#weight").val();
+			let age = parseInt($("#age").val());
+			let cm = $("#cen").val();
+			let weight= $("#weight").val();
 			
 			if (age!='' && cm!='' && weight!='') {
 				
-				let loa=$('#loa').val();
-				
 				// 남여체크에 따른 BMR계산 
-				if($('input[name=gen]:checked').val() == '남') {
+				if($('input[name=gen]:checked').val() == 'M') {
 					bmr=(10*weight)+(6.25*cm)-(5*age)+5;
 				} else {
 					bmr=(10*weight)+(6.25*cm)-(5*age)-161;
 				}
 				
+				let loa=$('#loa').val(); // 활동량 체크 값
 				// Harris-Benedict 방정식 -> 총 일일 칼로리 요구량을 결정
 				switch(loa) {
 					case "1":
@@ -332,20 +330,15 @@
 			
 		function cknum(event,num) {
 			
-			let key;
+			let key = event.keyCode; // 숫자를 누를때 찍히는 이벤트번호
 			
-			if(window.event) { // 숫자를 누를때
-				key=event.keyCode; // 찍히는 이벤트번호
-			} else {
-				key=event.which;
-			}
 			console.log(event.keyCode)
 	
-			let a = num.value; // 나이입력칸의 값
+			let val = num.value; // 나이입력칸의 값
 			
 			if(key==48) { // 0 입력시
 				
-				if(a=="") { // 빈값에서 처음 0 입력시 
+				if(val=="") { // 빈값에서 처음 0 입력시 
 					return false; // 불가
 				} else {
 					return true;

@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
+<title>상품 상세페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
@@ -48,8 +49,6 @@
                        <input type="hidden" id ="changePrice" name="pPrice" value="${p.pPrice}">
                        ₩<span id="price" >${p.pPrice}</span>원
                     </div>
-
-
                     
                     <c:if test= "${fn:contains(p.pName, '임팩트')}">
                     	<p class="lead">건강하게 기른 소의 원유를 건조, 필터, 분말화의 세분화된 공정을 통하여 제조한 유청 단백질입니다.
@@ -93,12 +92,14 @@
 						  <label class="btn btn-outline-dark" for="btnradio1">200g</label>
 						</c:if>
 					</div>
+					
 					<div><br></div>
                     <div class="d-flex">
     					<button type="button" class="btn btn-secondary" id="minus">-</button>
                         <input id="numBox" type="num" style="max-width: 3rem" value="1" readonly/>
                         <button type="button" class="btn btn-secondary" id="plus">+</button>
                     </div>
+                    
                     <div><br></div>
                     <div>
                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
@@ -118,8 +119,8 @@
     	
 	    $('.btn-check').click(function(){ // 그램수변경할때마다 가격변경
 
-			let q = $('input[name="btnradio"]:checked').val();
-			let name = $('#title').html();
+			let q = $('input[name="btnradio"]:checked').val(); // 포장용량
+			let name = $('#title').html(); // 제품이름
 			
 			$.ajax({
 				

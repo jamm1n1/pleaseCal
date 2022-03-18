@@ -2,7 +2,6 @@ package com.uni.member.model.vo;
 
 public class Member {
 
-	
 	private int userNo;
 	private String userId;
 	private String userPwd;
@@ -13,12 +12,6 @@ public class Member {
 	private int coupon;
 	private String status;
 	
-	
-	
-	
-
-	
-	
 	public Member(String userId, String userPwd, String userName, String phone, String address) {
 		super();
 		this.userId = userId;
@@ -28,17 +21,11 @@ public class Member {
 		this.address = address;
 	}
 
-
-
-
 	public Member(String userId, String userPwd) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
-	
-	
-	    
 	
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String address, int milege,
 			String status) {
@@ -52,9 +39,6 @@ public class Member {
 		this.mileage = milege;
 		this.status = status;
 	}
-
-
-
 
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String address, int mileage,
 			int coupon, String status) {

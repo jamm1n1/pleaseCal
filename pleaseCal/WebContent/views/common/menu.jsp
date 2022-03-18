@@ -3,7 +3,7 @@
 <%@ page import="com.uni.member.model.vo.Member"%>
 <%
 Member loginUser = (Member) session.getAttribute("loginUser");
-String contextPath = request.getContextPath();
+
 %>
 
 <!DOCTYPE html>
@@ -22,6 +22,7 @@ String contextPath = request.getContextPath();
 </head>
 <body>
 <!-- Navigation-->
+
    	<nav class="navbar navbar-expand-lg navbar-light bg-light">
        	<div class="container px-4 px-lg-5">
            	<a class="navbar-brand" href="#!">CAL</a>
@@ -43,6 +44,7 @@ String contextPath = request.getContextPath();
    	                   	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/noticeList.do">공지사항</a>
 	                   	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/boardList.do">Q&A</a>
                    	</li>
+
                </ul>
 				<form class="d-flex">
 					<button class="btn btn-outline-dark" type="submit">
@@ -83,7 +85,6 @@ String contextPath = request.getContextPath();
 					
 				</form>
 			</div>
-
 		</div>
 	</nav>
 

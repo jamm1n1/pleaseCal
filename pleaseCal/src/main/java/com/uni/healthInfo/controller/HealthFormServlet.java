@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.healthInfo.model.service.HealthInfoService;
+import com.uni.healthInfo.model.vo.HealthInfo;
 import com.uni.member.model.vo.Member;
 
 /**
@@ -29,11 +31,20 @@ public class HealthFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 건강계산기 창 들어가기전 로그인유저의 정보 받음
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
+		// 회원인경우 회원번호 받음, 비회원인경우 0 으로 반환
 		int userNo = 0;
 		if(loginUser != null) {
 			userNo = loginUser.getUserNo(); 	
+			// 회원일때 기존 저장정보가 있는지
+			HealthInfo h = new HealthInfoService().selectHealth(userNo);
+			if(h != null) {
+				request.setAttribute("check", "Y");
+			} else {
+				request.setAttribute("check", "N");
+			}
 		} 
 		
 		request.setAttribute("userNo", userNo);

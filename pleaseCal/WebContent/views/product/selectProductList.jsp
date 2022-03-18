@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<title>카테고리별 상품</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 <meta name="description" content="" />
 <meta name="author" content="" />
 </head>
@@ -40,27 +41,42 @@
 						
    		   				
   		   				value += '<div class="col mb-5">'+
-						'<div class="card h-100">'+
-						'<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/'+list[i].piName+'" alt="상품이미지" /></a>'+
-						'<div class="card-body p-4">'+
-						'<div class="text-center">'+
-						'<h5 class="fw-bolder">'+list[i].pName+'</h5>'+list[i].pPrice+'</div>'+
-						'</div>'+
-						'<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">'+
-						'<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'">상세정보</a></div>'+
-						'</div></div></div>';
-						console.log(i);
+  		   				
+									'<div class="card h-100">'+
+										'<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/'+list[i].piName+'" alt="상품이미지" /></a>'+
+										
+										'<div class="card-body p-4">'+
+									
+											'<div class="text-center">'+
+												'<h5 class="fw-bolder">'+list[i].pName+'</h5>'+list[i].pPrice+
+											'</div>'+
+											
+										'</div>'+
+									
+										'<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">'+
+										
+											'<div class="text-center">'+
+												'<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'">상세정보</a>'+
+											'</div>'+
+											
+										'</div>'+
+										
+									'</div>'+
+									
+								'</div>';
+								
+								console.log(i);
 							
    		   			
    		   			}
+   		   			
    		   			$("#list").html(value);  	
    		   			
-					},
-					error:function(){
-	   		   			console.log("ajax통신실패");
-	   		   		}
+				},
+				error:function(){
+   		   			console.log("ajax통신실패");
+   		   		}
 	
-   		   		
    	   		})
    		})
    		

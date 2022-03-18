@@ -38,6 +38,7 @@ public class ProductSelectListServlet extends HttpServlet {
 		
 		ArrayList<Product> list = new ProductService().selectListProduct(category);
 		
+		// 전체상품중에 프로틴 제품은 포장용량 500 인것만 골라서 반환
 		ArrayList<Product> changelist = new ArrayList<Product>();
 		if(category == 2) {
 			for(Product p : list) {

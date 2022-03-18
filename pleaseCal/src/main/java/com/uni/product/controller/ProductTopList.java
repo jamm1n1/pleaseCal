@@ -33,10 +33,9 @@ public class ProductTopList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 대표상품 리스트 각 카테고리별 1개만
 		ArrayList<Product> list = new ProductService().topProduct();
 		
-		//System.out.println(list);
-
 		response.setContentType("application/json; charset=utf-8"); 
 		new Gson().toJson(list, response.getWriter());
 
