@@ -26,7 +26,7 @@
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<%=request.getContextPath() %>/resources/image/${p.piName}" alt="상품이미지" /></div>
                 <div class="col-md-6">
                 
-     			 <form id="orderStart" action="" method="post">
+     			 <form id="orderStart" action="<%=request.getContextPath()%>/order.do" method="post">
                 
                     <input type="hidden" name="pId" value="${p.pId}">
                 
@@ -41,8 +41,11 @@
                     	<h4>도시락</h4>
                     	</c:if>
                     </div>
+                    
+                    <input type="hidden" name="pName" value="${p.pName}">
                     <h1 id="title" class="display-5 fw-bolder">${p.pName}</h1>
                     <div class="fs-5 mb-5">
+                       <input type="hidden" id ="changePrice" name="pPrice" value="${p.pPrice}">
                        ₩<span id="price" >${p.pPrice}</span>원
                     </div>
 
@@ -102,7 +105,7 @@
                             <i class="bi-cart-fill me-1"></i>
                             장바구니담기
                         </button>
-                        <button type="button" class="btn btn-primary"> 주문하기 </button>
+                        <button type="submit" class="btn btn-primary"> 주문하기 </button>
                     </div>
                     
                  </form>
@@ -131,7 +134,8 @@
 				
 				success:function(result){
 					$('#price').text(result);
-				
+					$('#changePrice').val(result);
+
 				},
 				
 				error:function(){
