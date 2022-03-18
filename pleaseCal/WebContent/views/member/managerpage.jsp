@@ -64,7 +64,7 @@
                    
                                    
                    <button class="btn btn-outline-dark" type="submit">
-                   <a href = "<%=request.getContextPath() %>/LoginPage.do">로그아웃</a>
+                   <a href = "<%=request.getContextPath() %>/logoutMember.do">로그아웃</a>
                    </button>
                </form>
                </div>
@@ -80,11 +80,14 @@
        </div>
    </header>
    <strong><h4>managerPage</h4></strong>
-   
+   <form>
    <div id="Members">
    <input id="membut" type="button" value="회원 목록"></input>
      
-    <input id="membut" type="button" value="상품 관리" style="margin-left: 400px;"></input>
+    <input id="membut" type="button" value="상품 관리" style="margin-left: 400px;" onClick="location.href='<%=request.getContextPath() %>/Product_IO.do'">
+    
+    </input>
+    </form>
    </div>
 </body>
 </html>
