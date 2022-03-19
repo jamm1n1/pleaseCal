@@ -52,7 +52,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 							class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 					</button>
 
-					<% if (loginUser == null) { %>
+				<% if (loginUser == null) { %>
 
 						<button class="btn btn-outline-dark" type="submit">
 							<a href="<%=request.getContextPath()%>/LoginPage.do">로그인</a>
