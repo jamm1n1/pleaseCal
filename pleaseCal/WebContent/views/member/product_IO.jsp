@@ -4,6 +4,7 @@
      <%
        ArrayList<Product_IO> list = (ArrayList<Product_IO>)request.getAttribute("list");
      
+
     %>
     
 <!DOCTYPE html>

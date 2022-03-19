@@ -13,16 +13,16 @@ import com.uni.member.model.service.MemberService;
 import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class MyPageServlet
+ * Servlet implementation class UpdatePwdServlet
  */
-@WebServlet("/mypageMember.do")
-public class MyPageServlet extends HttpServlet {
+@WebServlet("/updatePwdMember.do")
+public class UpdatePwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageServlet() {
+    public UpdatePwdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +31,27 @@ public class MyPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		String userId = loginUser.getUserId();
 		
-		Member member = new MemberService().selectMember(userId);
+	    String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+	    Member member = new MemberService().selectMember(userId);
+		String userPwd = request.getParameter("userPwd");
+		String newPwd = request.getParameter("newPwd");
+		String orginPwd = (String)request.getAttribute("orginPwd");
 		
+		Member updateMem = new MemberService().updatePwd(userId,userPwd,newPwd);
+				
+		RequestDispatcher view = request.getRequestDispatcher("views/member/mypage.jsp"); 
+		if(updateMem != null) { // 수정한 객체가 null이 아니면 된거임 
+			request.setAttribute("loginUser", member);			
+			request.getSession().setAttribute("loginUser", updateMem);
+			request.getSession().setAttribute("loginPwd", orginPwd);
+		}else {
+			request.setAttribute("msg", "비밀번호 변경에 실패 했습니다.");
+		}
 		
-		
-		if(member != null) {
-			request.setAttribute("loginUser", member);
-			RequestDispatcher mem = request.getRequestDispatcher("views/member/mypage.jsp");
-			mem.forward(request, response);
-		
-	}
+		view.forward(request, response);
 	}
 
 	/**
