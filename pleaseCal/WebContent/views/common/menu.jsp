@@ -57,61 +57,42 @@ String contextPath = request.getContextPath();
 							class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 					</button>
 
-					<%
-					if (loginUser == null) {
-					%>
+				<% if (loginUser == null) { %>
 
-					<button class="btn btn-outline-dark" type="submit">
-						<a href="<%=request.getContextPath()%>/LoginPage.do">로그인</a>
-					</button>
+						<button class="btn btn-outline-dark" type="submit">
+							<a href="<%=request.getContextPath()%>/LoginPage.do">로그인</a>
+						</button>
 				
-				<%
-				} else {
-				%>
-
-				<%
-				if (loginUser != null && loginUser.getUserId().equals("admin")) {
-				%>
-
-				<div class="btns" align="center">
-					<a href="<%=request.getContextPath()%>/managerPage.do">관리자페이지</a>
-					<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
-				</div>
-
-				<%
-				} else {
-				%>
-
-				<div id="userInfo">
-					<b style="color: blue;"><%=loginUser.getUserName()%> 님 </b> 어서오세요.
-					<br>
-					<br>
-					<div class="btns" align="center">
-						<a href="<%=request.getContextPath()%>/mypageMember.do">마이페이지</a>
-						<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
-					</div>
-				</div>
-				<%
-				}
-				%>
-				<%
-				}
-				%>
+						
+					<% } else { %>
+	
+					<% if (loginUser != null && loginUser.getUserId().equals("admin")) { %>
+	
+						<div class="btns" align="center">
+							<a href="<%=request.getContextPath()%>/managerPage.do">관리자페이지</a>
+							<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
+						</div>
+	
+					<% } else { %>
+	
+						<div id="userInfo">
+							<b style="color: blue;"><%=loginUser.getUserName()%> 님 </b> 어서오세요.
+							<br>
+							<br>
+							<div class="btns" align="center">
+								<a href="<%=request.getContextPath()%>/mypageMember.do">마이페이지</a>
+								<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
+							</div>
+						</div>
+						
+						<%}%>
+					<%}%>
+					
+				</form>
 			</div>
-
 		</div>
-		</form>
 	</nav>
-	<!-- Header-->
-	<header class="bg-dark py-5">
-		<div class="container px-4 px-lg-5 my-5">
-			<div class="text-center text-white">
-				<h1 class="display-4 fw-bolder">칼로리를 부탁해</h1>
-				<p class="lead fw-normal text-white-50 mb-0">With this shop
-					hompeage template</p>
-			</div>
-		</div>
-	</header>
+
 
 </body>
 </html>
