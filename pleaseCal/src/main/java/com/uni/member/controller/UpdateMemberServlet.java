@@ -1,7 +1,6 @@
-package com.uni.product_IO.controller;
+package com.uni.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,20 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.uni.member.model.service.MemberService;
 import com.uni.member.model.vo.Member;
-import com.uni.product_IO.model.service.ProductIoService;
-import com.uni.product_IO.model.vo.Product_IO;
 
 /**
- * Servlet implementation class ProductGoServlet
+ * Servlet implementation class UpdateMemberServlet
  */
-@WebServlet("/Product_IO.do")
-public class ProductGoServlet extends HttpServlet {
+@WebServlet("/memberupdate.do")
+public class UpdateMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductGoServlet() {
+    public UpdateMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +31,19 @@ public class ProductGoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
-		ArrayList<Product_IO> list = new ProductIoService().selectList();
-		request.setAttribute("list", list);		
-		RequestDispatcher rd = request.getRequestDispatcher("views/member/product_IO.jsp");
-		rd.forward(request, response);
+		Member member = new MemberService().selectMember(userId);
+		
+		
+		
+		if(member != null) {
+			request.setAttribute("loginUser", member);
+		RequestDispatcher view = request.getRequestDispatcher("views/member/updatepwd.jsp");
+		view.forward(request, response);
+		}
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

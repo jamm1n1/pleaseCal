@@ -17,7 +17,7 @@ public class ProductIoService {
 		ArrayList<Product_IO> list = new ProductIoDao().selectList(conn);
 
 		close(conn);
-		 System.out.println(list+"서비스");
+		 
 		return list;
 	}
 
