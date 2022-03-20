@@ -96,6 +96,14 @@ public class MemberService {
 		return mem;
 	}
 
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		int result = new MemberDao().idCheck(conn,userId);
+		System.out.println(userId+"서비스");
+		close(conn);
+		return result;
+	}
+
 	
 
 
