@@ -2,21 +2,14 @@ package com.uni.product_IO.model.vo;
 
 public class Product_IO {
 
-	
 	private int pId;
 	private String pName;
 	private int pnum;
-	
-	
-
-	
 	
 	public Product_IO(int pnum) {
 		super();
 		this.pnum = pnum;
 	}
-	
-	
 	
 	public Product_IO(int pId, String pName, int pnum) {
 		super();
@@ -25,15 +18,15 @@ public class Product_IO {
 		this.pnum = pnum;
 	}
 
-
-
 	public Product_IO(int pId, int pnum) {
 		super();
 		this.pId = pId;
 		this.pnum = pnum;
 	}
 
-
+	public Product_IO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getpId() {
 		return pId;
