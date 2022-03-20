@@ -33,7 +33,9 @@ height:50px;
 				<tr>	
 				<td>아이디</td>			
 					<td><input type="text"  name="userId"  placeholder="아이디를 입력하세요" width="300px" required></td>
-					
+					<td>
+						<button type="button" id="idCheckBtn" onclick="checkId();">아이디중복체크</button>
+					</td>
 						
 					</td>
 				</tr>
@@ -68,7 +70,7 @@ height:50px;
 			</table>
 			<br>
 			<div class="btns" align="center">				
-				<button type="submit" id="joinBtn">가입하기</button>
+				<button type="submit" id="joinBtn" disabled>가입하기</button>
 			
 				
 			</div>
@@ -107,7 +109,39 @@ height:50px;
 		
 		
 	}
-	
+	function checkId(){
+		var userId = $("#newFace input[name=userId]");
+		
+		if(userId.val() ==""){
+			alert("아이디를 입력해주세요")
+			return false;
+		}
+		
+		$.ajax({
+			url:"idCheck.do",
+			type:"post",
+			data:{userId:userId.val()},
+			success:function(result){
+				if(result =="fail"){
+					alert("사용불가한 아이디입니다.");
+					userId.focus();
+					
+				}else{
+					if(confirm("사용가능한 아이디입니다.")){
+						userId.attr("readonly","true");
+						$("#joinBtn").removeAttr("disabled");
+					}else{
+						userId.focus();
+					}
+				}
+			},
+			error:function(){
+				console.log("서버통신실패")
+			}
+		});
+		
+	}
+
 	</script>
 
 
