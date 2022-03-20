@@ -36,8 +36,6 @@ public class ProductListServlet extends HttpServlet {
 		ArrayList<Product> list = new ProductService().productList();
 		System.out.println(list);
 		
-		request.setAttribute("list", list);
-
 		response.setContentType("application/json; charset=utf-8"); 
 		new Gson().toJson(list, response.getWriter());
 	}

@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.uni.member.model.vo.Member;
 import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
+import com.uni.product_IO.model.service.ProductIoService;
+import com.uni.product_IO.model.vo.Product_IO;
 
 /**
  * Servlet implementation class ProductDetailServlet
@@ -36,8 +39,18 @@ public class ProductDetailServlet extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 
 		Product p = new ProductService().selectProduct(no);
-
+		Product_IO io = new ProductIoService().selctProductIo(no);
+		
 		request.setAttribute("p", p);
+		request.setAttribute("io", io);
+		
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		if(m == null) {
+			request.setAttribute("userNo", "0");
+		} else {
+			request.setAttribute("userNo", m.getUserNo());
+		}
+
 		request.getRequestDispatcher("views/product/productDetailView.jsp").forward(request, response);
 		
 	}

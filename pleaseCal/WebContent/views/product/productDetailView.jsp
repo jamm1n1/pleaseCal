@@ -11,11 +11,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<link href="././resources/css/styles2.css" rel="stylesheet" />
+<link href="././resources/css/styles2.css" rel="stylesheet"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <style>
 	.date {
   	text-align: right;
   }
+	#wrap #box{ 
+	    width:50%;
+	    height:300px;
+	    position:absolute;
+	    left:50%;
+	    margin-left:-150px;
+	    margin-bottom:-150px;
+	}
 </style>
 </head>
 <body>
@@ -27,7 +36,8 @@
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="<%=request.getContextPath() %>/resources/image/${p.piName}" alt="상품이미지" /></div>
                 <div class="col-md-6">
                 
-     			 <form id="orderStart" action="<%=request.getContextPath()%>/order.do" method="post">
+                 <input type="hidden" id="io" value="${io.pnum}">
+     			 <form id="orderStart" action="views/test/orderForm.jsp" method="post">
                 
                     <input type="hidden" name="pId" value="${p.pId}">
                 
@@ -52,7 +62,7 @@
                     
                     <c:if test= "${fn:contains(p.pName, '임팩트')}">
                     	<p class="lead">건강하게 기른 소의 원유를 건조, 필터, 분말화의 세분화된 공정을 통하여 제조한 유청 단백질입니다.
-						독립 리뷰 단체인 랩도어로 부터 품질 및 가치 부문 A등급을 받은 우수한 품질의 임팩트 웨이 프로틴을 지금 바로 경험해 보세요.</p>
+						독립 리뷰 단체인 랩도어로 부터 품질 및 가치 부문 A등급을 받은 우수한 품질의 임팩트 프로틴을 지금 바로 경험해 보세요.</p>
                     </c:if>
                     <c:if test= "${fn:contains(p.pName, '다이어트')}">
                     	<p class="lead">단백질을 증가시키기 위해 특별히 개발된 유청 단백질 파우더입니다. 
@@ -80,7 +90,7 @@
                     
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                     	<c:if test= "${fn:contains(p.pName, '프로틴')}">
-						  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="500" autocomplete="off" >
+						  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="500" autocomplete="off"  checked>
 						  <label class="btn btn-outline-dark" for="btnradio1">500g</label>
 						  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="1000" autocomplete="off" >
 						  <label class="btn btn-outline-dark" for="btnradio2">1kg</label>
@@ -96,17 +106,19 @@
 					<div><br></div>
                     <div class="d-flex">
     					<button type="button" class="btn btn-secondary" id="minus">-</button>
-                        <input id="numBox" type="num" style="max-width: 3rem" value="1" readonly/>
+                        <input id="numBox" name="numBox" type="num" style="max-width: 3rem" value="1" readonly/>
                         <button type="button" class="btn btn-secondary" id="plus">+</button>
                     </div>
                     
                     <div><br></div>
                     <div>
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <button class="btn btn-outline-success" type="button" id="cart">
                             <i class="bi-cart-fill me-1"></i>
                             장바구니담기
                         </button>
-                        <button type="submit" class="btn btn-primary"> 주문하기 </button>
+                        <button type="submit" class="btn btn-outline-primary" id="submit"> 주문하기 </button>
+                        <br>
+                        <label id = "userCheck"></label>
                     </div>
                     
                  </form>
@@ -116,6 +128,17 @@
         </div>
     </section>
     <script>
+    	
+    	$(function(){
+    		
+    		console.log(${userNo})
+    		if(${userNo} == 0) {
+    			$("#submit").hide();
+    			$("#cart").hide();
+    			$("#userCheck").text("비회원은 주문불가합니다").css("color", "red");
+    		} 
+    		 
+    	})
     	
 	    $('.btn-check').click(function(){ // 그램수변경할때마다 가격변경
 
@@ -133,10 +156,13 @@
 					name:name
 				},
 				
-				success:function(result){
-					$('#price').text(result);
-					$('#changePrice').val(result);
-
+				success:function(object){
+					
+					// 상품이 변할때마다 가격, 재고량, 주문량 변경
+					$('#price').text(object.price);
+					$('#changePrice').val(object.price);
+					$("#io").val(object.count);
+					$("#numBox").val(1);
 				},
 				
 				error:function(){
@@ -149,34 +175,34 @@
 		})
 		
     	$("#plus").click(function(){
-    	   var num = $("#numBox").val();
-    	   var plusNum = Number(num) + 1;
-    	   
-    	   
-    	   //if(plusNum >= ${view.gdsStock}) {
-    	   // $(".numBox").val(num);
-    	   //} else {
-    	    $("#numBox").val(plusNum);          
-    	   //}
+    		
+    	   let num = $("#numBox").val();
+    	   let plusNum = Number(num) + 1;
+    	   let count = $("#io").val();
+			
+    	   // 재고량보다 많이 선택하는 경우 더이상 증가불가, 알람띄우기
+    	   if(plusNum > count) {
+    	    	$(".numBox").val(num);
+    	    	alert("재고량이 부족합니다. 더 이상 주문할 수 없습니다")
+    	   } else {
+    	    	$("#numBox").val(plusNum);          
+    	   }
     	   
     
    	  	 });
      	  
 	    
    	    $("#minus").click(function(){
-    	   var num = $("#numBox").val();
-    	   var minusNum = Number(num) - 1;
+    	  
+   	       let num = $("#numBox").val();
+    	   let minusNum = Number(num) - 1;
     	   
     	   if(minusNum == 0) {
     		   $("#numBox").val(minusNum+1);          
     	   } else {
     		  $("#numBox").val(minusNum);    
     	   }
-    	   //if(minusNum <= 0) {
-    	   // $("#numBox").val(num);
-    	   //} else {
-    	     
-    	   //}
+    	 
     	   
 			
    	     });
@@ -212,7 +238,7 @@
 			      <td>${p.pFat}g</td>
 			   </tr>
 			   <tr>
-			      <th>나트륨g</th>
+			      <th>나트륨</th>
 			      <td>${p.pNatrium}g</td>
 			   </tr>
 			 </tbody> 
@@ -221,42 +247,82 @@
      </section>
      
      <section class="py-5 bg-light">
-        <div class="container px-4 px-lg-4 mt-4">
-			<table class="table table-striped">
-			 <h2 class="fw-bolder mb-4">상품 후기</h2>
-		
-			 <thead>
-			 	<tr>
-			 		<th>너무맛있어요</th>
-			 		<th class="date">2022년 3월 16일</th>
-			 	</tr>
-			 </thead>
-			 <tbody>
-			   <tr>
-			      <th colspan="2">잘먹었습니다잘먹었습니다잘먹었습니다잘먹었습니다잘먹었습니다잘먹었습니다잘먹었습니다잘먹었습니다잘먹었습니다</th>
-			      
-			   </tr>
-			 </tbody>
-			 </table>
-			 
-			 <table class="table table-striped">
-			  <thead>
-			 	<tr>
-			 		<th>운동에 최고예여</th>
-			 		<th class="date">2022년 3월 20일</th>
-			 	</tr>
-			 </thead>
-			 <tbody>
-			   <tr>
-			      <th colspan="2">운동최고운동최고운동최고운동최고운동최고운동최고운동최고운동최고운동최고</th>
-			      
-			   </tr>
-			 </tbody> 
-			 
-			</table>
+     	<div class="container px-4 px-lg-4 mt-4">
+     		<h2 class="fw-bolder mb-4">상품 후기</h2>
+     	</div>
+        <div class="container px-4 px-lg-4 mt-4" id="list">
+			<!-- 후기 내역 -->
 			
         </div>
-     </section>
+    </section>
+    <script>
+    	
+    	let pId = ${p.pId};
+    
+    	$(function(){
+    		
+			$.ajax({
+				
+				url: "selcetReviewList.do",
+				
+				type: "post",
+				
+				data:{
+					pId: pId
+				},
+				
+				success:function(list){
+					
+					let value = "";
+					
+					// 후기 없을때
+					if(list.length == 0 ) {
+   		   				
+						value += '<div class="container px-4 px-lg-4 mt-4" id="wrap">'+
+					   				'<div class="container px-4 px-lg-4 mt-4" id="box">'+
+									'<h4 class="fw-bolder mb-4">등록된 후기가 없습니다</h4>'+
+									'</div><br><br>'+
+								'</div>'
+   		   				
+   		   			}
+					// 후기 있을때		
+   		   			for(var i in list){
+   		   				
+   		   				$("#list").html("");
+   		   				// 날짜 포맷 moment 라이브러리
+						value += '<table class="table table-striped">'+
+						 			'<thead>'+
+									 	'<tr>'+
+									 		'<th>'+list[i].rName+'</th>'+
+									 		'<th class="date">'+moment(list[i].update).format("YYYY년MM월DD일")+'</th>'+
+									 	'</tr>'+
+									 '</thead>'+
+									 '<tbody>'+
+									  '<tr>'+
+									      '<th colspan="2">'+list[i].rContent+'</th>'+  
+									   '</tr>'+
+									 '</tbody>'+
+			 					 '</table>';
+		                  
+					}
+   		   			
+							
+					$("#list").html(value);
+				},
+				
+				error:function(e){
+   		   			
+					console.log(e)
+
+   		   		}
+
+			})
+
+    	})
+    
+    
+    </script> 
+     
     <jsp:include page = "../common/footer.jsp"/>
 </body>
 </html>

@@ -13,10 +13,13 @@ public class Product {
 	private String pFat;
 	private String pNatrium;
 	private String piName;
+	private int pIoCount;
+	
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
+
 	
 	public Product(int pId, String pName, int pPrice, int pQuantity, String pKacl, String pCarbo,
 			String pProtin, String pFat, String pNatrium, String piName) {
@@ -53,7 +56,6 @@ public class Product {
 		this(pId, pName, pPrice, pQuantity, cId, pKacl, pCarbo, pProtin, pFat, pNatrium);
 		this.piName = piName;
 	}
-
 
 	public int getpId() {
 		return pId;
@@ -135,17 +137,22 @@ public class Product {
 		this.pNatrium = pNatrium;
 	}
 	
-	
 	public String getPiName() {
 		return piName;
 	}
 
-
 	public void setPiName(String piName) {
 		this.piName = piName;
 	}
+	
+	public int getpIoCount() {
+		return pIoCount;
+	}
 
-
+	public void setpIoCount(int pIoCount) {
+		this.pIoCount = pIoCount;
+	}
+	
 	@Override
 	public String toString() {
 		return "Product [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pQuantity=" + pQuantity + ", cId="

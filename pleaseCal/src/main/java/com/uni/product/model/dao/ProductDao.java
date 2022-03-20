@@ -221,6 +221,7 @@ public class ProductDao {
 			if(rs.next()) {
 				p = new Product();
 				p.setpPrice(rs.getInt("P_PRICE"));
+				p.setpIoCount(rs.getInt("P_NUM"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
