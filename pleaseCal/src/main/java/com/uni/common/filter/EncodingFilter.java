@@ -17,7 +17,7 @@ public class EncodingFilter implements Filter { // javax.servlet.Filter;
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		System.out.println("인코딩 필터 동작");
+		//System.out.println("인코딩 필터 동작");
 		
 		if(((HttpServletRequest)request).getMethod().equalsIgnoreCase("post")) {
 			System.out.println("post방식요청됨");
@@ -26,7 +26,7 @@ public class EncodingFilter implements Filter { // javax.servlet.Filter;
 		
 		chain.doFilter(request, response); // 이 곳 기준 윗부분은 servlet에 넘어가는부분
 		
-		System.out.println("=== servlet 다 동작하고 나서 출력됨");
+		//System.out.println("=== servlet 다 동작하고 나서 출력됨");
 	}
 
 }

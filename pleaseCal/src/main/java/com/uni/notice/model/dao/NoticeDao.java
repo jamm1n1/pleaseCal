@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import static com.uni.common.JDBCTemplate.*;
 
+import com.uni.board.model.vo.PageInfo;
 import com.uni.notice.model.vo.Notice;
 
 public class NoticeDao {
@@ -36,8 +37,42 @@ public class NoticeDao {
 	}
 	
 	
+	// 총 게시글 개수 카운트하는 메소드
+	public int getListCount(Connection conn) {
+		
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// sql 구문 가져오기
+		String sql = prop.getProperty("getListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			// 조회 결과 총 개수 하나이기 때문에 if
+			if(rset.next()) {
+				listCount = rset.getInt(1); // 결과 listCount에 담기
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 역순으로 닫아주기
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+	
+	
 	// 전체 조회하는 메소드
-	public ArrayList<Notice> selectList(Connection conn) {
+	public ArrayList<Notice> selectList(Connection conn, PageInfo pi) {
 		
 		// list 선언
 		ArrayList<Notice> list = new ArrayList<Notice>();
@@ -48,8 +83,15 @@ public class NoticeDao {
 		// sql 구문 가져오기
 		String sql = prop.getProperty("selectList");
 		
+		// 페이징 시작, 끝 페이지 로 해야 전체 조회 가능
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			

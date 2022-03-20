@@ -4,18 +4,33 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import static com.uni.common.JDBCTemplate.*;
 
+import com.uni.board.model.dao.BoardDao;
+import com.uni.board.model.vo.PageInfo;
 import com.uni.notice.model.dao.NoticeDao;
 import com.uni.notice.model.vo.Notice;
 
 public class NoticeService {
 
+	// 총 게시글 개수 카운트하는 메소드
+	public int getListCount() {
+		
+		Connection conn = getConnection(); // 커넥션 연결
+		
+		// 총 게시글 개수 반환하기 위해
+		int listCount = new NoticeDao().getListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
 	// 전체 조회하는 메소드
-	public ArrayList<Notice> selectList() {
+	public ArrayList<Notice> selectList(PageInfo pi) {
 		
 		Connection conn = getConnection(); // 커넥션 연결
 		
 		// 그대로 가져오기만 할 거라 커넥션만 넘겨 받은 결과 list에 담기
-		ArrayList<Notice> list = new NoticeDao().selectList(conn);
+		ArrayList<Notice> list = new NoticeDao().selectList(conn, pi);
 		
 		close(conn); // 커넥션 닫기
 		
