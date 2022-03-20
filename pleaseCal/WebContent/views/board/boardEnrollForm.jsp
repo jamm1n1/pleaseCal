@@ -52,14 +52,14 @@
 		<h2 align="center">질문 게시글 작성하기</h2>
 		
 		<%-- enctype="multipart/form-data" : 첨부파일 넘겨 받을 때 사용 --%>
-		<form id="enrollForm" action="<%=request.getContextPath()%>/boardInsert.do" method="post"  enctype="multipart/form-data">
+		<form id="enrollForm" action="<%=request.getContextPath()%>/boardInsert.do" method="post" enctype="multipart/form-data">
 			
 			<table align="center">
 
 				<tr>
 					<th width="100">카테고리</th>
 					<td width="500">
-						<select name="category">
+						<select id="category" name="category">
 							<option>상품 문의</option>
 							<option>배송 문의</option>
 							<option>기타 문의</option>
@@ -69,7 +69,7 @@
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea rows="15" name="content" style="resize:none;"></textarea>
+						<textarea rows="15" id="content" name="content" style="resize:none;"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -78,14 +78,14 @@
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input tyle="text" name="pwd"></td>
+					<td><input tyle="text" id="pwd" name="pwd"></td>
 				</tr>
 				<tr>
 					<th>비밀글 설정</th>
 					<td>
 						<label>
 					    	<input type="radio" id="public" name="public" disabled> 공개글
-					    	<input type="radio" id="secret" name="secret"> 비밀글
+					    	<input type="radio" id="secret" name="secret" checked> 비밀글
 					  	</label>
 					</td>
 				</tr>
@@ -101,6 +101,45 @@
 		</form>
 	
 	</div>
+	
+	<script>
+	
+		// 폼 제출 시 카테고리, 내용, 비밀번호 비어 있으면 알림창 띄우기
+		$("form").submit(function() {
+			// 내용, 비밀번호 값을 변수에 담아서
+			var content = $("#content").val();
+			var pwd = $("#pwd").val();
+			
+			// 내용이 비어있는 경우
+			if(content == "" || content == null) {
+				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
+				$(this).removeAttr("action");
+				// 알림 띄우기
+				alert("내용을 작성해주세요.");
+				// 해당 입력창에 포커스 주기
+				$("#content").attr("tabindex", -1).focus();
+				
+				return false;
+			
+			// 비밀번호가 비어있는 경우
+			} else if(pwd == "" || pwd == null) {
+				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
+				$(this).removeAttr("action");
+				// 알림 띄우기
+				alert("비밀번호를 작성해주세요.");
+				// 해당 입력창에 포커스 주기
+				$("#pwd").focus();
+				
+				return false;
+			
+			// 잘 작성이 되어있으면
+			} else {
+				// 제거했던 액션 태그 다시 추가해서 잘 진행되도록
+				$(this).attr("action", "<%=request.getContextPath()%>/boardInsert.do");
+			}	
+		})
+		
+	</script>
 	
 	<!-- footer-->
    	<jsp:include page = "../common/footer.jsp"/>
