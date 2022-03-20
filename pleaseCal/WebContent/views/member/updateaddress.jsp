@@ -43,7 +43,7 @@ margin-top:100px;
  <div id="update" align="center">
 <table>
 <tr>
- <input id ="pwupdate"  type="button" value="비밀번호 변경"  onClick="location.href='<%=request.getContextPath() %>/addressupdate.do'"></input>
+ <input id ="pwupdate"  type="button" value="비밀번호 변경"  onClick="location.href='<%=request.getContextPath() %>/memberupdate.do'"></input>
  <input id ="updateadrress" type="button" value="주소 변경" onclick="address()"  style="background-color: aqua;"></input>
  </tr>
  </table>
