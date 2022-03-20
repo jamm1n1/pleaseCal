@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.google.gson.Gson;
+
 import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
 
-import netscape.javascript.JSObject;
 
 /**
  * Servlet implementation class ProductChangeServlet
@@ -39,11 +38,23 @@ public class ProductChangeServlet extends HttpServlet {
 		
 		int q = Integer.parseInt(request.getParameter("q")); // 포장용량
 		String name = request.getParameter("name"); // 제품명
-		
-		Product p = new ProductService().changeProduct(q, name);
-		int price = p.getpPrice();
 
-		response.getWriter().print(price);
+		Product p = new ProductService().changeProduct(q, name);
+		
+		if(p != null) {
+			
+			JSONObject changeP = new JSONObject();
+			changeP.put("count", p.getpIoCount());
+			changeP.put("price", p.getpPrice());
+			
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(changeP);
+			out.flush();
+			out.close();
+			
+		}
+		
 	}
 
 	/**
