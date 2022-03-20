@@ -70,7 +70,12 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 	
 					<% if (loginUser != null && loginUser.getUserId().equals("admin")) { %>
 	
-						 
+						 	<div class="btns" align="center" style="margin-left:10px">
+				        <i class="fa-thin fa-people-roof"></i>
+						<input class="btn btn-outline-dark" id="manager" type="button" value="관리자페이지" onClick="location.href='<%=request.getContextPath() %>/managerPage.do'"><span
+							class="badge bg-dark text-white ms-1 rounded-pill"></span>
+					
+					</div>
 						
 					<div class="btns" align="center" style="margin-left:10px">
 					<i class="fa-thin fa-people-roof"></i>
@@ -84,7 +89,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 						
 							<div class="btns" align="center" style="margin-left:10px">
 				        <i class="fa-thin fa-people-roof"></i>
-						<input class="btn btn-outline-dark" id="manager" type="button" value="마이페이지" onClick="location.href='<%=request.getContextPath() %>/mypageMember.doo'"><span
+						<input class="btn btn-outline-dark" id="manager" type="button" value="마이페이지" onClick="location.href='<%=request.getContextPath() %>/mypageMember.do'"><span
 							class="badge bg-dark text-white ms-1 rounded-pill"></span>
 					
 					</div>
