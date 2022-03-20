@@ -15,6 +15,9 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Shop Homepage - Start Bootstrap Template</title>
+<style>
+
+</style>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="././resources/css/styles.css" rel="stylesheet" />
 <script
@@ -46,37 +49,53 @@ Member loginUser = (Member) session.getAttribute("loginUser");
                    	</li>
 
                </ul>
+               <div class="btns" align="center">
 				<form class="d-flex">
 					<button class="btn btn-outline-dark" type="submit">
 						<i class="bi-cart-fill me-1"></i> Cart <span
 							class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 					</button>
-
+                  </div>
 				<% if (loginUser == null) { %>
 
-						<button class="btn btn-outline-dark" type="submit">
-							<a href="<%=request.getContextPath()%>/LoginPage.do">로그인</a>
-						</button>
-				
+	               <div class="btns" align="center" style="margin-left:10px">				
 						
+						<i class="fa-thin fa-people-roof"></i>
+						<input class="btn btn-outline-dark" id="manager" type="button" value="로그인" onClick="location.href='<%=request.getContextPath() %>/LoginPage.do'"><span
+							class="badge bg-dark text-white ms-1 rounded-pill"></span>
+					
+					</div>
+									
 					<% } else { %>
 	
 					<% if (loginUser != null && loginUser.getUserId().equals("admin")) { %>
 	
-						<div class="btns" align="center">
-							<a href="<%=request.getContextPath()%>/managerPage.do">관리자페이지</a>
-							<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
+						 
+						
+					<div class="btns" align="center" style="margin-left:10px">
+					<i class="fa-thin fa-people-roof"></i>
+						<input class="btn btn-outline-dark" id="manager" type="button" value="로그아웃" onClick="location.href='<%=request.getContextPath() %>/logoutMember.do'"><span
+							class="badge bg-dark text-white ms-1 rounded-pill"></span>
+					
 						</div>
 	
 					<% } else { %>
 	
-						<div id="userInfo">
+						
+							<div class="btns" align="center" style="margin-left:10px">
+				        <i class="fa-thin fa-people-roof"></i>
+						<input class="btn btn-outline-dark" id="manager" type="button" value="마이페이지" onClick="location.href='<%=request.getContextPath() %>/mypageMember.doo'"><span
+							class="badge bg-dark text-white ms-1 rounded-pill"></span>
+					
+					</div>
+								<div class="btns" align="center" style="margin-left:10px">
+					<i class="fa-thin fa-people-roof"></i>
+						<input class="btn btn-outline-dark" id="manager" type="button" value="로그아웃" onClick="location.href='<%=request.getContextPath() %>/logoutMember.do'"><span
+							class="badge bg-dark text-white ms-1 rounded-pill"></span>
+					
+						</div>
+								<div id="userInfo" style="margin-left:10px">
 							<b style="color: blue;"><%=loginUser.getUserName()%> 님 </b> 어서오세요.
-							<br>
-							<br>
-							<div class="btns" align="center">
-								<a href="<%=request.getContextPath()%>/mypageMember.do">마이페이지</a>
-								<a href="<%=request.getContextPath()%>/logoutMember.do">로그아웃</a>
 							</div>
 						</div>
 						
