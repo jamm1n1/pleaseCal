@@ -1,13 +1,11 @@
 <%@page import="com.uni.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%-- jstl import --%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-	// 해당 공지사항 가져와서 내용 띄우기
-	// servlet 에서 넘긴 notice는 object 형이기 때문에 형변환 필요
-	Notice n = (Notice)request.getAttribute("notice");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +64,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea name="content" cols="60" rows="15" style="resize:none;"> value="${notice.noticeContent}"</textarea>
+						<textarea name="content" cols="60" rows="15" style="resize:none;">${notice.noticeContent}</textarea>
 					</td>
 				</tr>	
 			</table>

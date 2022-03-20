@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.member.model.service.MemberService;
+import com.uni.member.model.vo.Member;
+
 /**
  * Servlet implementation class MyPageServlet
  */
@@ -28,8 +31,19 @@ public class MyPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("views/member/mypage.jsp");
-		view.forward(request, response);
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		String userId = loginUser.getUserId();
+		
+		Member member = new MemberService().selectMember(userId);
+		
+		
+		
+		if(member != null) {
+			request.setAttribute("loginUser", member);
+			RequestDispatcher mem = request.getRequestDispatcher("views/member/mypage.jsp");
+			mem.forward(request, response);
+		
+	}
 	}
 
 	/**

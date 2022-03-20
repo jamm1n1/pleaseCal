@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.uni.member.model.service.MemberService;
+import com.uni.member.model.vo.Member;
 import com.uni.product_IO.model.service.ProductIoService;
 import com.uni.product_IO.model.vo.Product_IO;
 
@@ -32,11 +34,13 @@ public class ProductGoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		ArrayList<Product_IO> list = new ProductIoService().selectList();
 		request.setAttribute("list", list);		
 		RequestDispatcher rd = request.getRequestDispatcher("views/member/product_IO.jsp");
 		rd.forward(request, response);
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

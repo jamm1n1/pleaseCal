@@ -1,12 +1,11 @@
 <%@page import="com.uni.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
-<%
-	// servlet에서 넘긴 notice 객체 가져오기 - object로 넘어오기 때문에 형변환 꼭 해야 함
-	//Notice n = (Notice)request.getAttribute("notice");
-%>
+<%-- jstl import --%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +70,7 @@
 		
 			<a href="noticeList.do">목록으로</a> &nbsp;&nbsp;
 				
-			
+			<%-- 로그인이 되어있고 해당 아이디가 관리자라면 --%>
 			<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
 			
 			<%-- 바로 url 연결해줘서 서블릿으로 연결 / 쿼리스트링으로 --%>

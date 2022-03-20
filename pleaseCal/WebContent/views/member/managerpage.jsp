@@ -82,7 +82,7 @@
    <strong><h4>managerPage</h4></strong>
    <form>
    <div id="Members">
-   <input id="membut" type="button" value="회원 목록"></input>
+   <input id="membut" type="button" value="회원 목록"  onClick="location.href='<%=request.getContextPath() %>/MemberCheck.do'"></input>
      
     <input id="membut" type="button" value="상품 관리" style="margin-left: 400px;" onClick="location.href='<%=request.getContextPath() %>/Product_IO.do'">
     
