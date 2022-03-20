@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.uni.notice.model.vo.Notice, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="com.uni.board.model.vo.PageInfo"%>
     
 <%-- jstl import --%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -54,28 +54,27 @@
          <div class="col-md-12">
            <div class="card">
              <div class="card-header">
-               <h4 class="card-title">Notice</h4>
+               <h4 class="card-title">Q&A</h4>
              </div>
              <div class="card-body">
                <div class="table-responsive">
+               
+                  <table class="table" id="blist">
                   
-                  <table class="table">
-                    
-                    <thead class=" text-primary">
-                    
+                    <thead class="text-primary">
                       <th>No</th>
-                      <th>Title</th>
+                      <th>Category</th>
                       <th>Writer</th>
-                      <th>Count</th>
                       <th>Date</th>
-                      
+                      <th>Count</th>
                     </thead>
                     
-                    <tbody>
+                    <tbody id="boardList">
+						
 						<%-- list가 비어있으면 --%>
 	                    <c:if test="${ empty list }">
 	                         <tr>
-	                           <td colspan="5">존재하는 공지사항이 없습니다.</td>
+	                           <td colspan="5">존재하는 게시글이 없습니다.</td>
 	                        </tr>
 	                    </c:if>
 	                    
@@ -87,15 +86,15 @@
 		                	<c:forEach items="${list}" varStatus="st">
 			                 	<%-- st.index : 0부터 순서대로 인덱스 실행 --%>
 			                 	<tr>
-			                     <td>${list[st.index].noticeNo}</td>
-			                     <td>${list[st.index].noticeTitle}</td>
-			                     <td>관리자</td>
-			                     <td>${list[st.index].count}</td>
+			                     <td>${list[st.index].boardNo}</td>
+			                     <td>${list[st.index].category}</td>
+			                     <td>${list[st.index].boardWriter}</td>
 			                     <td>${list[st.index].createDate}</td>
+			                     <td>${list[st.index].count}</td>
 			                   	</tr>
 			                 </c:forEach>
 			            </c:if>
-  
+			            
 		         	</tbody>
 		         	
 		          </table>
@@ -107,10 +106,11 @@
       </div>
     </div>
 	
+	
 	<!-- 페이징바 만들기 -->
 	<div class="pagingArea" align="center">
 		<!-- 맨 처음으로 (<<) -->
-		<button onclick="location.href='<%=request.getContextPath()%>/noticeList.do?currentPage=1'"> &lt;&lt; </button>
+		<button onclick="location.href='<%=request.getContextPath()%>/boardList.do?currentPage=1'"> &lt;&lt; </button>
 	
 		<!-- 이전페이지로(<) -->
 		<c:choose>
@@ -122,7 +122,7 @@
 			<%-- 그 외에는 --%>
 			<c:otherwise>
 				<%-- 현재 페이지에서 하나 뺀 페이지로 이동하도록 --%>
-				<button onclick="location.href='<%= request.getContextPath() %>/noticeList.do?currentPage=${pi.currentPage - 1}'"> &lt; </button>
+				<button onclick="location.href='<%= request.getContextPath() %>/boardList.do?currentPage=${pi.currentPage - 1}'"> &lt; </button>
 			</c:otherwise>
 		</c:choose>
 		 
@@ -136,7 +136,7 @@
 				</c:when>
 				<%-- 그 외에는 클릭하면 해당 페이지로 넘어가도록 --%>
 				<c:otherwise>
-					<button onclick="location.href='<%=request.getContextPath() %>/noticeList.do?currentPage=${p}'"> ${p} </button>
+					<button onclick="location.href='<%=request.getContextPath() %>/boardList.do?currentPage=${p}'"> ${p} </button>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -151,15 +151,16 @@
 			<%-- 그 외에는 --%>
 			<c:otherwise>
 				<%-- 현재 페이지에서 하나 더한 페이지로 이동하도록 --%>
-				<button onclick="location.href='<%= request.getContextPath() %>/noticeList.do?currentPage=${pi.currentPage + 1}'"> &gt; </button>
+				<button onclick="location.href='<%= request.getContextPath() %>/boardList.do?currentPage=${pi.currentPage + 1}'"> &gt; </button>
 			</c:otherwise>
 		</c:choose>
 	
 		<!-- 맨 끝으로 (>>) -->
-		<button onclick="location.href='<%=request.getContextPath()%>/noticeList.do?currentPage=${pi.maxPage}'"> &gt;&gt; </button>
+		<button onclick="location.href='<%=request.getContextPath()%>/boardList.do?currentPage=${pi.maxPage}'"> &gt;&gt; </button>
 		</div> 
 	</div>
-	       	       	
+	
+	
    	<form class="searchArea" align="center">
         <select id="condition" name="condition">
            <option value="title">제목</option>
@@ -169,39 +170,77 @@
         <button type="submit">검색하기</button>
   	</form>
 	
+	
      <div id="insertBtn" align="center">
-        
-		<%-- 세션에서 가져온 로그인 유저가 비어있지 않고, 로그인 유저 아이디가 admin 이라면 --%>
-     	<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
-			<%-- 클릭 시 작성하기 폼으로 화면 전환하는 서블릿 연결 --%>
-	        <button onclick="location.href='<%=request.getContextPath()%>/noticeEnrollForm.do'">작성하기</button>     		
-     	</c:if>
+		<%-- 클릭 시 작성하기 폼으로 화면 전환하는 서블릿 연결 --%>
+        <button onclick="location.href='<%=request.getContextPath()%>/boardEnrollForm.do'">작성하기</button>
     </div>
-     
+	
 	<br>
 	
-	
 	<script>
-		<%-- list 가 비어있지 않으면 --%>
+		/*
+		$(function() {
+			
+			$("#boardList").empty(); // 리스트 가져올 때마다 비우고 새로 가져오도록
+			
+			$.ajax({
+				url: "boardList.do",
+				
+				type: "get",
+				
+				//dataType: "html",
+				
+				success: function(list) {
+					console.log(list);
+					
+					var value = "";
+					
+					if(list != null) {
+	                     
+						for(var i in list) {
+							value += '<tr>' +
+										'<td>' + list[i].boardNo + '</td>' +
+										'<td>' + list[i].category + '</td>' +
+										'<td>' + list[i].boardWriter + '</td>' +
+										'<td>' + list[i].createDate + '</td>' +
+										'<td>' + list[i].count + '</td>' +
+									 '</tr>';
+						}
+						
+					} else {
+						
+						value = '<tr><td>존재하는 게시글이 없습니다.</td></tr>';
+					}
+					
+					$("#boardList").html(value);
+				},
+				
+				error: function(e) {
+					console.log("ajax 통신 실패");
+				}
+
+			})
+			
+		})*/
+
+		// list 가 비어있지 않으면
 		<c:if test="${!empty list}">
-	
 			$(function() {
 	   			// 게시글 클릭했을 때
 	   			$(".table>tbody>tr").click(function() {
-	   				
-	   				let nno = $(this).children().eq(0).text(); // n.getNoticeNo()
-	   				
+	   				// 게시글 번호 가져와서 변수에 담기
+	   				let bno = $(this).children().eq(0).text();
 	   				// 해당 공지사항 상세 페이지로 넘어가기
 	   				// 쿼리스트링으로 작성
-	   				location.href= "<%=request.getContextPath()%>/noticeDetail.do?nno="+nno;
+	   				location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
 	   			})
 	   		})
-   		</c:if>	   		
+   		</c:if>
+			
 	</script>
 	
-	
-	
-	
+
 	<!-- footer-->
    	<jsp:include page = "../common/footer.jsp"/>
 
