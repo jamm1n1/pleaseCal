@@ -1,4 +1,4 @@
-package com.uni.board.model.vo;
+package com.uni.notice.model.vo;
 
 import lombok.Data;
 
