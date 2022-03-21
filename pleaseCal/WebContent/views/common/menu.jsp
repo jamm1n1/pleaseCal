@@ -63,7 +63,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
                   <div class="btns" align="center" style="margin-left:10px">            
                   
                   <i class="fa-thin fa-people-roof"></i>
-                  <input class="btn btn-outline-dark" id="manager" type="button" value="로그인" onClick="location.href='<%=request.getContextPath() %>/LoginPage.do'"><span
+                  <input class="btn btn-outline-dark" id="manager" type="button" value="로그인" onClick="location.href='<%=request.getContextPath() %>/managerPage.do'"><span
                      class="badge bg-dark text-white ms-1 rounded-pill"></span>
                
                </div>
@@ -114,3 +114,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
       </div>
       
    </nav>
+
+
+</body>
+</html>
