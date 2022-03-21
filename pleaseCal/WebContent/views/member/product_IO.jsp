@@ -46,8 +46,9 @@
 		</tr>
 		<tr>
 		<form action="<%=request.getContextPath()%>/iogogo.do" method="post">
-		<td><input type="number"  id="pid" name="pid"></input></td>
 		<td><input type="number"  id="pnum" name="pnum"></input></td>
+		<td><input type="number"  id="pid" name="pid"></input></td>
+		
 		
 					
 					<td><button onclick="io()" >입고및출고</button></td>
@@ -92,13 +93,12 @@
 	</div>
 <script>
 function io(){
-	let pnum = $("#pnum").val();
+	let pnum = $("#pid").val();
 	
-	if(pnum > 0){
-	
+	if(pnum > 0){	
 		window.alert("입고완료~!");
 	}
-	if(pnum) < 0 ){
+	if(pnum < 0 ){
 		window.alert("출고완료~!");
 	}
 	

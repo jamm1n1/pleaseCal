@@ -92,7 +92,7 @@ public class ProductIoDao {
 				close(rset);
 				close(pstmt);
 			}
-			
+			System.out.println(pio+"다오");
 			return pio;
 		}
 	
