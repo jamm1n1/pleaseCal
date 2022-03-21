@@ -375,23 +375,15 @@
 </head>
 <body>
 <jsp:include page = "../common/menu.jsp"/>
-
-<section id="contents-cart" class="contents-cart async-content" style="visibility: visible;">    <!-- 전체 섹션 -->    
-        <section class="cart-title">
-        <i class="bi-cart-fill me-1"></i>   장바구니
-        </section>
-      
-    <div id="cartContent">
-    <div id="list">
+<div id="list">
     	<%--모든상품 삽입 --%>
     </div>
-    <%-- 여기서부터 반복 --%>
-    <script>
+ <script>
    	
    		$(function(){
    			
    			$.ajax({
-   		   		url: "cartListData.do",
+   		   		url: "productPayment.do",
    		   		
    		   		type: "get",
    		   		
@@ -547,108 +539,6 @@
    		})
    	})
    </script>
-        <%-- 여기까지 반복 --%>
-           
-
-            
-            <div class="download-coupon-area" style="display: none;"></div>
-
-
-            
-            <div class="cart-total-price" data-total-price="0" data-discount-price="0">
-                <div class="cart-total-price__inner">
-                    <div class="price-area">
-                        <h2 class="sr-only" id="cart-total-price">
-                            장바구니 총 주문금액 정보
-                        </h2>
-
-                        총 상품가격
-                        <em class="final-product-price">0</em>원
-                        <span class="final-sale-area">
-                        
-                        </span>
-
-                        <span class="symbol-plus1"><span class="sr-only">더하기</span></span>
-                        총 배송비
-                        <em class="final-delivery-charge">0</em>원
-                        <span class="symbol-equal1"><span class="sr-only">결과는</span></span>
-                        총 주문금액
-                        <em class="final-order-price" data-final-order-price="0">
-                          0원
-                        </em>
-                    </div>
-                </div>
-            </div>
-   
-
-            
-            <div class="order-buttons">
-                <a id="continueShoopingBtn" class="goShopping logging" href=<%=request.getContextPath()%>>계속 쇼핑하기</a>
-                <a href="<%=request.getContextPath() %>/orderList.do" class="goPayment" id="btnPay"><strong>구매하기</strong></a>
-                <div class="item-disabled" style="display: none;"></div>
-            </div>
-        
-       
-    
-    <iframe id="ab_iframe" class="ab_test"width="0" height="0"></iframe> <!-- 여백설정 -->
-    
-</div>
-
-
-    </section>
-    <jsp:include page = "../common/footer.jsp"/>
-    
-    <script type="text/javascript">
-    for(var i in list){
-    (function(i){
-    $('[name="amountChange'+i+'"]').change(function(){
-    	
-		let q = $('[name="amountChange"]').val(); // 상품 본래 가격
-		let name = $('#title').val(); // 상품 이름
-		let p = $('[name="amountChange"]').val() * $('#price').val();
-		let result = $('[name="amountChange"]').val() * $('#price').val();
-		
-			console.log(result)
-			console.log($('[name="amountChange"]').val())
-			console.log($('#price').val())
-			console.log(q)
-			console.log(name)
-			console.log(price)
-	
-			$.ajax({
-				
-				url: "amountChange.do",
-				
-				type: "get",
-				
-				data:{
-					q:q,
-					name:name,
-					p:p
-		
-					},
-				
-				success:function(){
-					
-					$('#changePrice').html(result);
-					$('[name="ChangePrice"]').html(result);
-					$('[name="ChangePrice2"]').html(result+2500);
-					console.log(result)
-					
-				},
-				
-				error:function(){
-			   			console.log("ajax통신실패");
-			   			console.log(result)
-			   		}
-
-			
-				})
-				
-			})
-    })(i);
-    }
-    </script>
-    
+       <jsp:include page = "../common/footer.jsp"/>
 </body>
 </html>

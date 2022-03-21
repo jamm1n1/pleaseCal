@@ -12,7 +12,7 @@ import com.uni.product.model.vo.Product;
 import static com.uni.common.JDBCTemplate.*;
 
 public class CartService {
-/*
+
 	public ArrayList<Cart> CartList(String writer) {
 		Connection conn = getConnection();
 		
@@ -24,7 +24,7 @@ public class CartService {
 
 	}
 	
-	*/
+	/*
 	public Cart CartList(String writer) {
 		Connection conn = getConnection();
 		
@@ -36,7 +36,7 @@ public class CartService {
 		return c;
 
 	}
-
+*/
 	public int changeAmount(int q, String name, String writer, int p) {
 		Connection conn = getConnection();
 		
