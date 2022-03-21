@@ -49,7 +49,7 @@
 		<td><input type="number" value="1" id="pnum" name="pnum"></input></td>
 		<td><input type="number" value="0" id="pid" name="pid"></input></td>
 					
-					<td><button >입고및출고</button></td>
+					<td><button onclick="io()" >입고및출고</button></td>
 						</form>
 						</tr>
 		</table>
@@ -89,6 +89,20 @@
 		
 
 	</div>
+<script>
+function io(){
+	let pnum = String($("#pnum").val());
+	
+	if(String($("#pnum").val()) > 0){
+	
+		window.alert("입고완료~!");
+	}
+	if(String($("#pnum").val()) < 0 ){
+		window.alert("출고완료~!");
+	}
+	
+}
 
+</script>
 </body>
 </html>

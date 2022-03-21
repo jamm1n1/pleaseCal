@@ -53,7 +53,7 @@ margin-top:100px;
 				<input type="text" name="newaddress" id="newaddress" width="300px">	
 				<input type="button" id="waddress" value ="주소입력" width="30px"></input>
 				<br><br>		
-			<button>변경하기</button>
+			<button onclick="address()">변경하기</button>
 			</div>
 			
 	
@@ -74,6 +74,12 @@ margin-top:100px;
        }
    }).open();
 });
+}
+	
+</script>
+<script>
+function address(){
+	window.alert("주소가 변경됐어요");
 }
 </script>
 
