@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>칼로리 계산기/일일 권장 영양 섭취 계산기</title>
+<!-- google font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 .frms input[type="text"], select {
 	background: none repeat scroll 0 0 #fff;
@@ -18,20 +22,26 @@
 	padding: 0 0.5%;
 	width: 90%;
 }
+div {
+	
+	
 
-.hidden{
-	display:none;
 }
-
+#wrap{
+	text-align: center;
+	padding: 20px;
+	margin: 15px;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 
-<body>
+<body  style=background:#f8f8f8 >
 	<jsp:include page = "../common/menu.jsp"/>
-
-	<div class="container px-4 px-lg-5 mt-5" align='center' style=background:#f8f8f8 >
+	
+	<div id="wrap">
+	<div class="container px-4 px-lg-5 mt-5" align='center'>
 		<table id ='tab' align='center' style="width:60%;">
 			<tr>
 				<td align=center><h3>일일 권장 칼로리 계산기</h3>
@@ -173,14 +183,15 @@
 
 	<section class="py-5">
        <div class="container px-4 px-lg-5 mt-5" align='center' style=background:#f8f8f8 >
-       	   <h3>추천상품</h3>
+       	   <p>추천상품</p>
        	   <br>
            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="list">
            		<!-- 추천상품 삽입 -->
            </div>
        </div>
    </section>
-
+   </div>
+   
 	<script>
 		
 		$(function(){

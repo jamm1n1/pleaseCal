@@ -25,6 +25,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 <body>
 <!-- Navigation-->
 
+
       <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
           <div class="container px-4 px-lg-5">
               <a class="navbar-brand" href="#!">CAL</a>
@@ -57,6 +58,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
                   <i class="bi-cart-fill me-1"></i> Cart <span
                      class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                </button>
+
                   </div>
             <% if (loginUser == null) { %>
 
