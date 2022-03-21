@@ -35,7 +35,7 @@ public class IogoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pid = Integer.parseInt(request.getParameter("pid")) ;
 		int pnum = Integer.parseInt(request.getParameter("pnum")) ;
-		Product_IO pIO = new ProductIoService().piO(pid,pnum); 
+		Product_IO pIO = new ProductIoService().piO(pnum,pid); 
 		
 		RequestDispatcher rd = request.getRequestDispatcher("views/member/managerpage.jsp");
 		rd.forward(request, response);
