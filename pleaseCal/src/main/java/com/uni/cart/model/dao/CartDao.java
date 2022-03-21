@@ -35,7 +35,7 @@ private Properties prop = new Properties();
 			e.printStackTrace();
 		} 
 	}
-/*
+
 	public ArrayList<Cart> CartList(Connection conn, String writer) {
 		ArrayList<Cart> list = new ArrayList<>();
 		
@@ -55,6 +55,7 @@ private Properties prop = new Properties();
 				Cart c = new Cart(rset.getInt("CART_NO"),
 								  rset.getInt("P_ID"),
 								  rset.getString("PI_NAME"),
+								  rset.getInt("P_PRICE"),
 								  rset.getInt("PRODUCT_PRICE"),
 								  rset.getInt("PRODUCT_AMOUNT"),
 								  rset.getString("P_NAME"),
@@ -75,7 +76,8 @@ private Properties prop = new Properties();
 		//System.out.println("Dao list : " + list);
 		return list;
 	}
-	*/
+	
+	/*
 	public Cart CartList(Connection conn, String writer) {
 		Cart c = null;
 		
@@ -115,6 +117,8 @@ private Properties prop = new Properties();
 		//System.out.println("Dao list : " + list);
 		return c;
 	}
+	*/
+	
 	public int changeAmount(Connection conn, int q, String name, String writer, int p) {
 		int result = 0;
 		
