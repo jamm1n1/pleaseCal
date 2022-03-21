@@ -16,7 +16,6 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 <meta name="author" content="" />
 <title>Shop Homepage - Start Bootstrap Template</title>
 <style>
-
 </style>
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="././resources/css/styles.css" rel="stylesheet" />
@@ -26,7 +25,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 <body>
 <!-- Navigation-->
 
-   	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   	<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
        	<div class="container px-4 px-lg-5">
            	<a class="navbar-brand" href="#!">CAL</a>
            	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -49,9 +48,12 @@ Member loginUser = (Member) session.getAttribute("loginUser");
                    	</li>
 
                </ul>
+               	<form class="searching" action="<%=request.getContextPath() %>/searchProduct.do">
+			      <input class="form-control" type="text" placeholder="상품명을 검색하세요" name="search">
+			    </form>  &nbsp; &nbsp;
                <div class="btns" align="center">
 				<form class="d-flex">
-					<button class="btn btn-outline-dark" type="submit">
+					<button class="btn btn-outline-dark" type="submit" onClick="location.href='<%=request.getContextPath()%>/cartList.do'">
 						<i class="bi-cart-fill me-1"></i> Cart <span
 							class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 					</button>
@@ -110,6 +112,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 				</form>
 			</div>
 		</div>
+		
 	</nav>
 
 
