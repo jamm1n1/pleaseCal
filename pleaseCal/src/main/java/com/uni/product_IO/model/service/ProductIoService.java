@@ -22,11 +22,11 @@ public class ProductIoService {
 		return list;
 	}
 
-	public Product_IO piO(int pid, int pnum) {
+	public Product_IO piO(int pnum,int pid) {
 		
 		Connection conn = getConnection();
 		
-		Product_IO pio = new ProductIoDao().piO(conn,pid,pnum);
+		Product_IO pio = new ProductIoDao().piO(conn,pnum,pid);
 		
 		close(conn);
 		

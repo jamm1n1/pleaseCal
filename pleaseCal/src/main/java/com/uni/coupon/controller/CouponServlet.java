@@ -36,10 +36,10 @@ public class CouponServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		System.out.println(userId+"서블릿");
+		int userno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+	
 		
-			ArrayList<Coupon> list = new CouponService().selectcoupon(userId);
+			ArrayList<Coupon> list = new CouponService().selectcoupon(userno);
 			request.setAttribute("list", list);					
 		    RequestDispatcher view = request.getRequestDispatcher("views/member/coupon.jsp");
 		    view.forward(request, response);

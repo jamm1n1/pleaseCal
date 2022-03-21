@@ -1,4 +1,4 @@
-package com.uni.product_IO.controller;
+package com.uni.coupon.controller;
 
 import java.io.IOException;
 
@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.member.model.service.MemberService;
+import com.uni.coupon.model.service.CouponService;
+import com.uni.coupon.model.vo.MemberCoupon;
 import com.uni.member.model.vo.Member;
-import com.uni.product_IO.model.service.ProductIoService;
-import com.uni.product_IO.model.vo.Product_IO;
 
 /**
- * Servlet implementation class IogoServlet
+ * Servlet implementation class GetServlet
  */
-@WebServlet("/iogogo.do")
-public class IogoServlet extends HttpServlet {
+@WebServlet("/get.do")
+public class GetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IogoServlet() {
+    public GetServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,12 +32,12 @@ public class IogoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pid = Integer.parseInt(request.getParameter("pid")) ;
-		int pnum = Integer.parseInt(request.getParameter("pnum")) ;
-		Product_IO pIO = new ProductIoService().piO(pnum,pid); 
 		
-		RequestDispatcher rd = request.getRequestDispatcher("views/member/managerpage.jsp");
-		rd.forward(request, response);
+		int userno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int cid = Integer.parseInt(request.getParameter("cid")) ;
+		System.out.println(cid);
+		MemberCoupon c = new CouponService().get(userno,cid);
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**

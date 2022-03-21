@@ -61,7 +61,7 @@ public class ProductIoDao {
 		return list;
 	}
 
-	public Product_IO piO(Connection conn, int pid, int pnum) {
+	public Product_IO piO(Connection conn, int pnum,int pid) {
 		   Product_IO pio = null;
 			
 			PreparedStatement pstmt = null;
@@ -74,8 +74,8 @@ public class ProductIoDao {
 			String sql = prop.getProperty("updateIo");
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, pid);
-				pstmt.setInt(2, pnum);
+				pstmt.setInt(1, pnum);
+				pstmt.setInt(2, pid);
 			
 			rset = pstmt.executeQuery();
 		
@@ -92,7 +92,7 @@ public class ProductIoDao {
 				close(rset);
 				close(pstmt);
 			}
-			
+			System.out.println(pio+"다오");
 			return pio;
 		}
 	

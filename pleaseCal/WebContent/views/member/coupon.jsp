@@ -37,13 +37,17 @@
 		<h2 align="center">쿠폰함</h2>
 		<br>
 
+
+
+
 		<table class="listArea" align="center">
 		
 		<form  action="<%=request.getContextPath()%>/coupon.do" method="post">
 					
 			
 				<tr>
-					<th width="100">쿠폰이름</th>
+				    
+					<th width="150">쿠폰이름</th>
 					<th width="100">쿠폰할인율</th>				
 				</tr>
 			
@@ -55,8 +59,10 @@
 				<%}else{ %>
 					<% for(Coupon p : list){ %>
 					<tr>
-						<td><%= p.getCname() %></td>
-						<td><%= p.getCsale() %>%</td>										
+					    
+						<th><%= p.getCname() %></th>
+						<th><%= p.getCsale() %>%</th>	
+															
 					</tr>
 					
 					<%} %>

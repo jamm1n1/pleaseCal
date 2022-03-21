@@ -1,4 +1,4 @@
-package com.uni.product_IO.controller;
+package com.uni.member.controller;
 
 import java.io.IOException;
 
@@ -11,20 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.uni.member.model.service.MemberService;
 import com.uni.member.model.vo.Member;
-import com.uni.product_IO.model.service.ProductIoService;
-import com.uni.product_IO.model.vo.Product_IO;
 
 /**
- * Servlet implementation class IogoServlet
+ * Servlet implementation class GetCouponServlet
  */
-@WebServlet("/iogogo.do")
-public class IogoServlet extends HttpServlet {
+@WebServlet("/getcoupon.do")
+public class GetCouponServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IogoServlet() {
+    public GetCouponServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,12 +31,18 @@ public class IogoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pid = Integer.parseInt(request.getParameter("pid")) ;
-		int pnum = Integer.parseInt(request.getParameter("pnum")) ;
-		Product_IO pIO = new ProductIoService().piO(pnum,pid); 
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
-		RequestDispatcher rd = request.getRequestDispatcher("views/member/managerpage.jsp");
-		rd.forward(request, response);
+		Member member = new MemberService().selectMember(userId);
+		
+		
+		
+		if(member != null) {
+			request.setAttribute("loginUser", member);
+			RequestDispatcher mem = request.getRequestDispatcher("views/member/getcoupon.jsp");
+			mem.forward(request, response);
+	}
 	}
 
 	/**

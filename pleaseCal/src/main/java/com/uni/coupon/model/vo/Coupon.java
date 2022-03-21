@@ -12,6 +12,13 @@ public class Coupon {
 	
 	
 	 
+	public Coupon(int cid, int csale, String cname) {
+		super();
+		this.cid = cid;
+		this.csale = csale;
+		this.cname = cname;
+	}
+
 	public Coupon(int csale, String cname) {
 		super();
 		this.csale = csale;

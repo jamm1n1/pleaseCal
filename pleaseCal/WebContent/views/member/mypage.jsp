@@ -56,9 +56,11 @@ h5 {
 		<strong><h5 style="margin-left: 250px">Milege</h5></strong> 
 		<strong><h5	style="margin-left: 470px"><%=mileage%>원</h5></strong> 
 		<strong><h5 style="margin-left: 100px">Coupon</h5></strong>
-		<input type ="button" style="margin-left: 300px" value="조회" onClick="location.href='<%=request.getContextPath() %>/coupon.do'"></input>		
+		<input type ="button" style="margin-left: 200px" value="조회" onClick="location.href='<%=request.getContextPath() %>/coupon.do'"></input>		
+		<input type ="button"  value="쿠폰받기" onClick="location.href='<%=request.getContextPath() %>/howcoupon.do'"></input>		
+		
 	</div>
-        <hr width="1200px" style="border: solid 2px black;" align="right">
+        <hr  style="border: solid 2px black;" >
         <form id="updateForm" >
 	<div id="Members">
 		<input id="membut" type="button" value="주문 목록"></input> 

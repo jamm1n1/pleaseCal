@@ -28,7 +28,7 @@ height:50px;
 		
 		<h2 align="center">계정만들기</h2>
 		
-		<form id="newFace" action="<%=request.getContextPath() %>/insertMember.do" method="post">
+		<form id="newFace" action="<%=request.getContextPath() %>/insertMember.do" method="post" onsubmit="return insert();">
 			<table align="center" width="750px">
 				<tr>	
 				<td>아이디</td>			
@@ -70,7 +70,7 @@ height:50px;
 			</table>
 			<br>
 			<div class="btns" align="center">				
-				<button type="submit" id="joinBtn" disabled>가입하기</button>
+				<button type="submit" id="joinBtn" onclick="insert()" disabled >가입하기</button>
 			
 				
 			</div>
@@ -88,20 +88,20 @@ height:50px;
 });
 }
 	
-	function joinValidate(){
+	function insert(){
 		
-		if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#enrollForm input[name=userId]").val()))){
-			$("#enrollForm input[name=userId]").focus();
+		if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#newFace input[name=userId]").val()))){
+			$("#newFace input[name=userId]").focus();
 	        return false;
 		}
 		
-		if($("#enrollForm input[name=userPwd]").val() != $("#enrollForm input[name=checkPwd]").val()){
+		if($("#newFace input[name=userPwd]").val() != $("#newFace input[name=checkPwd]").val()){
 			$("#pwdResult").text("비밀번호 불일치").css("color", "red");
 			return false;			
 		}
 		
-		 if(!(/^[가-힣]{2,}$/.test($("#enrollForm input[name=userName]").val()))){
-			 $("#enrollForm input[name=userName]").focus();
+		 if(!(/^[가-힣]{2,}$/.test($("#newFace input[name=userName]").val()))){
+			 $("#newFace input[name=userName]").focus();
 	        return false;
 		 }
 		 
@@ -143,7 +143,12 @@ height:50px;
 	}
 
 	</script>
+<script>
+function insert(){
+	window.alert("회원가입 성공");
+}
 
+</script>
 
 
 </body>

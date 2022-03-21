@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.uni.board.model.service.BoardService;
-import com.uni.board.model.vo.PageInfo;
+import com.uni.common.model.vo.PageInfo;
 import com.uni.notice.model.service.NoticeService;
 import com.uni.notice.model.vo.Notice;
 
