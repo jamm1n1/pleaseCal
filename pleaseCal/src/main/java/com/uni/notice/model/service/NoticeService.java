@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import static com.uni.common.JDBCTemplate.*;
 
-import com.uni.board.model.dao.BoardDao;
-import com.uni.board.model.vo.PageInfo;
+import com.uni.common.model.vo.PageInfo;
 import com.uni.notice.model.dao.NoticeDao;
 import com.uni.notice.model.vo.Notice;
 

@@ -61,9 +61,17 @@ public class BoardInsertServlet extends HttpServlet {
 			String content = multiRequest.getParameter("content");
 			String pwd = multiRequest.getParameter("pwd");
 			
-			// 작성자 번호 세션에서 가져오기
+			// 로그인 유저
 			Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-			int userNo = loginUser.getUserNo();
+			
+			// 비회원이 게시글 작성할 경우 null로 들어가도록
+			String userId = null;
+			// 회원인 경우 회원의 아이디 담기
+			if(loginUser != null) {
+				userId = loginUser.getUserId();
+			}/* else {
+				userId = "비회원";
+			}*/
 			
 			// 게시글 객체 생성
 			Board b = new Board();
@@ -72,11 +80,7 @@ public class BoardInsertServlet extends HttpServlet {
 			b.setCategory(category);
 			b.setBoardContent(content.replaceAll("\n", "<br>"));
 			b.setBoardPwd(pwd);
-			b.setBoardWriter(String.valueOf(userNo));
-			
-			/*if(loginUser != null) {
-				b.setBoardWriter(String.valueOf(userNo));
-			}*/
+			b.setBoardWriter(userId);
 			
 			// 첨부파일 객체 생성
 			Attachment at = null;
@@ -129,9 +133,7 @@ public class BoardInsertServlet extends HttpServlet {
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 
 			}
-			
-			
-			
+
 		}
 		
 	}

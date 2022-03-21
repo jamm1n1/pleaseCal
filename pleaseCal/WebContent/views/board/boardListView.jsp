@@ -83,6 +83,7 @@
 	                    	<%-- for문 안에서 사용할 변수명과 배열 set --%>
 		                	<c:set var="list" value="${list}"/>
 		                	<%-- varStatus : 반복 횟수 변수명 --%>
+		                	<%--<c:forEach items="${list}" var="i" begin="0" end="${list.size()-1}" step="1"> --%>
 		                	<c:forEach items="${list}" varStatus="st">
 			                 	<%-- st.index : 0부터 순서대로 인덱스 실행 --%>
 			                 	<tr>

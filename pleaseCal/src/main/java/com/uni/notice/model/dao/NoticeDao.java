@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import static com.uni.common.JDBCTemplate.*;
 
-import com.uni.board.model.vo.PageInfo;
+import com.uni.common.model.vo.PageInfo;
 import com.uni.notice.model.vo.Notice;
 
 public class NoticeDao {

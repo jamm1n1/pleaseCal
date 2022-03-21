@@ -38,6 +38,8 @@ public class HealthInfoDeleteServlet extends HttpServlet {
 			
 			// 건강계산시 창으로 들어가는 servlet으로 입장, 유저정보 받아야하기때문
 			response.sendRedirect("healthInfo.do");
+		} else {
+			request.getRequestDispatcher("views/healthInfo/calsulator.jsp").forward(request, response);
 		}
 	}
 

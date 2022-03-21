@@ -7,7 +7,7 @@ import static com.uni.common.JDBCTemplate.*;
 import com.uni.board.model.dao.BoardDao;
 import com.uni.board.model.vo.Attachment;
 import com.uni.board.model.vo.Board;
-import com.uni.board.model.vo.PageInfo;
+import com.uni.common.model.vo.PageInfo;
 import com.uni.board.model.vo.Reply;
 
 public class BoardService {
