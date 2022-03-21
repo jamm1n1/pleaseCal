@@ -1,7 +1,6 @@
-package com.uni.coupon.controller;
+package com.uni.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,23 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import com.uni.coupon.model.service.CouponService;
-import com.uni.coupon.model.vo.Coupon;
+import com.uni.member.model.service.MemberService;
 import com.uni.member.model.vo.Member;
 
-
 /**
- * Servlet implementation class CouponServlet
+ * Servlet implementation class GetCouponServlet
  */
-@WebServlet("/coupon.do")
-public class CouponServlet extends HttpServlet {
+@WebServlet("/getcoupon.do")
+public class GetCouponServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CouponServlet() {
+    public GetCouponServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,16 +31,19 @@ public class CouponServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		int userno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-	
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		String userId = loginUser.getUserId();
 		
-			ArrayList<Coupon> list = new CouponService().selectcoupon(userno);
-			request.setAttribute("list", list);					
-		    RequestDispatcher view = request.getRequestDispatcher("views/member/coupon.jsp");
-		    view.forward(request, response);
-		}
-	
+		Member member = new MemberService().selectMember(userId);
+		
+		
+		
+		if(member != null) {
+			request.setAttribute("loginUser", member);
+			RequestDispatcher mem = request.getRequestDispatcher("views/member/getcoupon.jsp");
+			mem.forward(request, response);
+	}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

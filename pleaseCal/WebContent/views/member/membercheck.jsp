@@ -53,8 +53,7 @@
 					<th width="100">회원이름</th>	
 					<th width="150">전화번호</th>	
 					<th width="250">회원주소</th>										
-					<th width="100">마일리지</th>										
-					<th width="100">소유쿠폰</th>										
+					<th width="100">마일리지</th>																								
 					<th width="100">탈퇴유무</th>										
 				</tr>
 			<thead>
@@ -72,8 +71,7 @@
 						<td><%= m.getUserName()%></td>						
 						<td><%= m.getPhone()%></td>						
 						<td><%= m.getAddress()%></td>						
-						<td><%= m.getMilege()%></td>						
-						<td><%= m.getCoupon()%></td>						
+						<td><%= m.getMilege()%></td>																		
 						<td><%= m.getStatus()%></td>						
 					</tr>
 					

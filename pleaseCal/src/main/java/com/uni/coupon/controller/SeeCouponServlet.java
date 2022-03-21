@@ -10,23 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.uni.coupon.model.service.CouponService;
 import com.uni.coupon.model.vo.Coupon;
 import com.uni.member.model.vo.Member;
 
-
 /**
- * Servlet implementation class CouponServlet
+ * Servlet implementation class SeeCouponServlet
  */
-@WebServlet("/coupon.do")
-public class CouponServlet extends HttpServlet {
+@WebServlet("/howcoupon.do")
+public class SeeCouponServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CouponServlet() {
+    public SeeCouponServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,15 +34,12 @@ public class CouponServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		int userno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 	
-		
-			ArrayList<Coupon> list = new CouponService().selectcoupon(userno);
+			ArrayList<Coupon> list = new CouponService().selectcouponlist();
 			request.setAttribute("list", list);					
-		    RequestDispatcher view = request.getRequestDispatcher("views/member/coupon.jsp");
+		    RequestDispatcher view = request.getRequestDispatcher("views/member/getcoupon.jsp");
 		    view.forward(request, response);
-		}
-	
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

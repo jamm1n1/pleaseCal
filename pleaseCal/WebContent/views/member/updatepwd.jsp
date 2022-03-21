@@ -69,6 +69,8 @@ margin-top:70px;
 	</form>
 	<script>
 		function fnCheckPwd(){
+			window.alert("비밀번호가 변경돼었어요");
+			
 			var userPwd = $("#userPwd");
 			var newPwd = $("input[name='newPwd']");
 			var checkPwd = $("input[name='checkPwd']");
@@ -87,7 +89,16 @@ margin-top:70px;
 			}
 			
 			$("#updatePwdForm").submit();
+			
+			 
+			        
+			
+			
 		}
+		
+		
+		 
+		
 	</script>
  </div>
 
