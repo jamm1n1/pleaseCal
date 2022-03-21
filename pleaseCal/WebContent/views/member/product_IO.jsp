@@ -46,8 +46,8 @@
 		</tr>
 		<tr>
 		<form action="<%=request.getContextPath()%>/iogogo.do" method="post">
-		<td><input type="number"  id="pnum" name="pnum"></input></td>
 		<td><input type="number"  id="pid" name="pid"></input></td>
+		<td><input type="number"  id="pnum" name="pnum"></input></td>
 		
 		
 					
@@ -93,7 +93,7 @@
 	</div>
 <script>
 function io(){
-	let pnum = $("#pid").val();
+	let pnum = $("#pnum").val();
 	
 	if(pnum > 0){	
 		window.alert("입고완료~!");
