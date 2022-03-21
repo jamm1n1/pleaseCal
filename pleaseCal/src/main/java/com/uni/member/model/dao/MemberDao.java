@@ -56,8 +56,7 @@ public class MemberDao {
 					rset.getString("USER_NAME"),
 					rset.getString("PHONE"),					
 					rset.getString("ADDRESS"),	
-					rset.getInt("MILEAGE"),
-					rset.getInt("C_ID"),		  
+					rset.getInt("MILEAGE"),		  
 					rset.getString("STATUS")
 					);
 		}
@@ -110,8 +109,7 @@ public class MemberDao {
 						                       rset.getString("USER_NAME"),
 						                       rset.getString("PHONE"),
 						                       rset.getString("ADDRESS"),
-						                       rset.getInt("MILEAGE"),
-						                       rset.getInt("C_ID"),
+						                       rset.getInt("MILEAGE"),						                       
 						                       rset.getString("STATUS") );
 						                       
 						                                                
@@ -148,8 +146,7 @@ public class MemberDao {
                     rset.getString("USER_NAME"),
                     rset.getString("PHONE"),
                     rset.getString("ADDRESS"),
-                    rset.getInt("MILEAGE"),
-                    rset.getInt("C_ID"),
+                    rset.getInt("MILEAGE"),                   
                     rset.getString("STATUS") );
 		}
 		}catch(SQLException e) {
