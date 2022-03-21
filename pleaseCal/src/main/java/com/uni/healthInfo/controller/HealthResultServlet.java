@@ -56,9 +56,8 @@ public class HealthResultServlet extends HttpServlet {
 			// 저장 성공후 다시 로그인한 회원번호를 받고 입장하기 위한 건강계산기 창 입장 서블릿으로
 			response.sendRedirect("healthInfo.do");
 		} else {
-			
+			request.getRequestDispatcher("views/healthInfo/calsulator.jsp").forward(request, response);
 		}
-		
 		
 	}
 

@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.uni.board.model.service.BoardService;
 import com.uni.board.model.vo.Board;
-import com.uni.board.model.vo.PageInfo;
-import com.uni.notice.model.service.NoticeService;
+import com.uni.common.model.vo.PageInfo;
 
 /**
  * Servlet implementation class BoardListServlet

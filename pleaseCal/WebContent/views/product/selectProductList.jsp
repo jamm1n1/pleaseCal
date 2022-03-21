@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,35 @@
 
 	<section class="py-5">
        <div class="container px-4 px-lg-5 mt-5">
+       		<c:choose> 
+                <c:when test="${no eq 1}">
+                	<h1 id="title" class="display-5 fw-bolder">닭가슴살</h1>
+                	<div class="content">
+                		닭가슴살 1팩당 단백질이 54~55g으로 고함량 함유되어있습니다. <br>
+                		화학적 첨가물을 첨가하지 않아 더욱 건강하고 안전한 음식을 추구합니다
+                	</div>
+                	<div><br><br></div>
+                </c:when> 
+                <c:when test= "${no eq 2}">
+                	<h1 id="title" class="display-5 fw-bolder">단백질프로틴</h1>
+                 	<div class="content">
+                		단백질 보충제는 단백질을 보충하는 가장 대중적이고 간편한 방법이며, 
+                		운동 목표 달성을 위해서도 중요합니다. <br>
+                		가장 순수한 단백질 파우더와 식물성 단백질 제품까지 고객분들의 다양한 선택을 돕고자 합니다.
+                	</div>
+                	<div><br><br></div>
+                </c:when> 
+                <c:when test= "${no eq 3}">
+                	<h1 id="title" class="display-5 fw-bolder">도시락</h1>
+                 	<div class="content">
+                		한끼를 먹더라도 제대로 맛있게 먹을 수 없을까? <br>
+                		맛과 건강을 동시에 챙겼습니다.
+                	</div>
+                	<div><br><br></div>
+                </c:when> 
+       		</c:choose>
            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="list">
+       			
            		<!-- 모든상품 삽입 -->
            </div>
        </div>
@@ -22,6 +51,7 @@
    <script>
    
    		$(function(){
+   			console.log(${no})
 
    			$.ajax({
    		   		url: "selectListProduct.do",
@@ -39,7 +69,6 @@
    		   			
    		   			for(var i in list){
 						
-   		   				
   		   				value += '<div class="col mb-5">'+
   		   				
 									'<div class="card h-100">'+
@@ -49,7 +78,7 @@
 									
 											'<div class="text-center">'+
 												'<h5 class="fw-bolder">'+list[i].pName+'</h5>'+list[i].pPrice+
-											'</div>'+
+											' 원</div>'+
 											
 										'</div>'+
 									

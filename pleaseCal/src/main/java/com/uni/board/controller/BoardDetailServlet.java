@@ -38,7 +38,13 @@ public class BoardDetailServlet extends HttpServlet {
 		
 		// 게시글 번호로 해당 게시글 가져오기
 		Board b = new BoardService().selectBoard(bno);
+		
+		// 비회원이 작성한 게시글일 경우 설정
+		if(b.getBoardWriter() == null) {
+			b.setBoardWriter("비회원");
+		}
 		//System.out.println("b servlet : " + b);
+		
 		// 게시글 번호로 첨부파일 가져오기
 		Attachment at = new BoardService().selectAttachment(bno);
 		
@@ -58,7 +64,7 @@ public class BoardDetailServlet extends HttpServlet {
 			
 		} else {
 			// 에러메시지 jsp로 전달 - menubar 를 include 해서 가능
-			request.setAttribute("msg", "공지사항 조회 실패");
+			request.setAttribute("msg", "게시글 조회 실패");
 			// 에러페이지
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}

@@ -29,7 +29,7 @@
    		   		type: "get",
    		   		
    		   		success:function(list){
-   		   	
+   		   			
    		   			let value = "";
    		   			
    		   			for(var i in list){
@@ -42,7 +42,7 @@
 										
 											'<div class="text-center">'+
 											'<h5 class="fw-bolder">'+list[i].pName+'</h5>'+list[i].pPrice+
-											'</div>'+
+											' 원</div>'+
 										'</div>'+
 											
 										'<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">'+
@@ -55,6 +55,7 @@
 		                  
 					}
 					$("#list").html(value);
+					console.log(list)
    		   		},
    		   		
    		   		error:function(){

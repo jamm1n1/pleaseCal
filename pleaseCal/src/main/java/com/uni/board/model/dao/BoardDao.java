@@ -14,7 +14,7 @@ import java.util.Properties;
 
 import com.uni.board.model.vo.Attachment;
 import com.uni.board.model.vo.Board;
-import com.uni.board.model.vo.PageInfo;
+import com.uni.common.model.vo.PageInfo;
 import com.uni.board.model.vo.Reply;
 
 public class BoardDao {
@@ -100,13 +100,18 @@ public class BoardDao {
 			// 전체 리스트 가져오기 때문에 while로
 			while(rset.next()) {
 				 // Board 객체 생성
-				Board board = new Board(rset.getInt("BOARD_NO"),
-										rset.getString("USER_ID"),
+				Board b = new Board(rset.getInt("BOARD_NO"),
+										rset.getString("WRITER_ID"),
 										rset.getString("CATEGORY"),
 										rset.getInt("COUNT"),
 										rset.getDate("CREATE_DATE"));
 
-				list.add(board); // list에 notice 객체 담기
+				// 비회원이 작성한 게시글일 경우 설정
+				if(b.getBoardWriter() == null) {
+					b.setBoardWriter("비회원");
+				}
+				
+				list.add(b); // list에 notice 객체 담기
 			}
 			
 		} catch (SQLException e) {
@@ -136,11 +141,14 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			if(b.getBoardWriter() != null) {
-				pstmt.setInt(1, Integer.parseInt(b.getBoardWriter()));
+			/*if(b.getBoardWriter() != null) {
+				pstmt.setString(1, b.getBoardWriter());
 			} else {
-				pstmt.setInt(1, 0);
-			}
+				pstmt.setString(1, "비회원");
+			}*/
+			
+			pstmt.setString(1, b.getBoardWriter());
+			//System.out.println("boardWriter == dao == " + b.getBoardWriter());
 			
 			pstmt.setString(2, b.getCategory());
 			pstmt.setString(3, b.getBoardContent());
@@ -224,6 +232,8 @@ public class BoardDao {
 		
 		String sql = prop.getProperty("selectBoard");
 		
+		System.out.println("bno dao : " + bno);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -234,7 +244,7 @@ public class BoardDao {
 			// 게시글 하나만 가져오니까 if
 			if(rset.next()) {
 				b = new Board(rset.getInt("BOARD_NO"),
-							  rset.getString("USER_ID"),
+							  rset.getString("WRITER_ID"),
 							  rset.getString("CATEGORY"),
 							  rset.getString("BOARD_CONTENT"),
 							  rset.getString("BOARD_SECRET"),
@@ -243,7 +253,9 @@ public class BoardDao {
 							  rset.getDate("CREATE_DATE"));
 			}
 			
-			//System.out.println("b dao : " + b);
+			System.out.println("b.getBoardWriter() : " + b.getBoardWriter());
+			
+			System.out.println("b dao : " + b);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -95,6 +95,40 @@ public class ProductIoDao {
 			
 			return pio;
 		}
+	
+	public Product_IO selctProductIo(Connection conn, int no) {
+		
+		Product_IO io = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("selctProductIo");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				io = new Product_IO();
+				io.setPnum(rs.getInt("P_NUM"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return io;
 	}
+}
 
 
