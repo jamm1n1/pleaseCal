@@ -16,7 +16,6 @@
     height:300px;
     width:1200px;
  }
-
  
  #membut{
  
