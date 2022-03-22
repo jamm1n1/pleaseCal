@@ -59,7 +59,7 @@
                       <form id = "loginForm" action="<%=request.getContextPath()%>/loginMember.do" method="post" onsubmit="return loginValidate();">
                       <div class="form-floating mb-3">
                      
-                        <input type="id" class="form-control" id="userId" placeholder="아이디를 입력하세요" name="userId">
+                        <input type="id" class="form-control" id="userId" placeholder="아이디를 입력하세요" name="userId" autofocus>
                         
                       </div>
                       <div class="form-floating mb-3">

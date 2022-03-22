@@ -33,13 +33,13 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
+		//System.out.println(userId);
 		String userPwd = request.getParameter("userPwd");
-		System.out.println(userPwd);
+		//System.out.println(userPwd);
 		String originPwd = (String)request.getAttribute("originPwd");
 		
 		Member loginUser = new MemberService().loginMember(userId,userPwd); 
-		System.out.println("loginUser"+loginUser);
+		//System.out.println("loginUser"+loginUser);
 		
 		
 		if(loginUser != null) {
