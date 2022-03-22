@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.uni.board.model.vo.PageInfo"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%-- jstl import --%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 목록</title>
 
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 <!--     Fonts and icons     -->
@@ -224,7 +223,9 @@
 			})
 			
 		})*/
-
+		
+		
+		
 		// list 가 비어있지 않으면
 		<c:if test="${!empty list}">
 			$(function() {
@@ -232,16 +233,37 @@
 	   			$(".table>tbody>tr").click(function() {
 	   				// 게시글 번호 가져와서 변수에 담기
 	   				let bno = $(this).children().eq(0).text();
-	   				// 해당 공지사항 상세 페이지로 넘어가기
-	   				// 쿼리스트링으로 작성
-	   				location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
+	   				
+	   				// 관리자라면 비밀번호 입력 없이 바로 상세 조회 가능
+	   				if(${!empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}) {
+	   					
+	   					location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
+	   				
+	   				} else {
+	   					// 
+		   				let url = "<%=request.getContextPath()%>/boardDetailPwdCheck.do?bno="+bno;
+		   				let name = "boardPwdCheckPopup";
+	   					let option = "width = 500, height = 300, top = 100, left = 200, toolbar = yes, location = no"
+						
+		   				open(url, name, option);
+	   				}
+					
 	   			})
 	   		})
    		</c:if>
 			
 	</script>
+	<%-- 
+	// 비밀번호 입력창 팝업으로 열기
+	location.href= "<%=request.getContextPath()%>/boardPwdInsert.do?bno="+bno;
 	
-
+	상세 페이지로 넘어가는 서블릿
+	// 해당 게시글 상세 페이지로 넘어가기
+	// 쿼리스트링으로 작성
+	location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
+	--%>
+	
+	
 	<!-- footer-->
    	<jsp:include page = "../common/footer.jsp"/>
 

@@ -232,7 +232,7 @@ public class BoardDao {
 		
 		String sql = prop.getProperty("selectBoard");
 		
-		System.out.println("bno dao : " + bno);
+		//System.out.println("bno dao : " + bno);
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -253,9 +253,9 @@ public class BoardDao {
 							  rset.getDate("CREATE_DATE"));
 			}
 			
-			System.out.println("b.getBoardWriter() : " + b.getBoardWriter());
+			//System.out.println("b.getBoardWriter() : " + b.getBoardWriter());
 			
-			System.out.println("b dao : " + b);
+			//System.out.println("b dao : " + b);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -44,7 +44,7 @@
 	<!-- menu -->
 	<jsp:include page = "../common/menu.jsp"/>
 	
-	<div class="outer">
+	<div class="outer"><br><br>
 
 		<table id="detailArea" border="1">
 			<tr>
@@ -67,20 +67,38 @@
 		<br>
 		
 		<div class="btns" align="center">
-		
-			<a href="noticeList.do">목록으로</a> &nbsp;&nbsp;
-				
+
+			<button type="button" onclick="location.href='<%=request.getContextPath()%>/noticeList.do';">목록으로</button>
+			
 			<%-- 로그인이 되어있고 해당 아이디가 관리자라면 --%>
 			<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
-			
-			<%-- 바로 url 연결해줘서 서블릿으로 연결 / 쿼리스트링으로 --%>
-			<a href="noticeUpdateForm.do?nno=${notice.noticeNo}">수정하기</a> &nbsp;&nbsp;
-			<a href="noticeDelete.do?nno=${notice.noticeNo}">삭제하기</a>
-		
+				<%-- 바로 url 연결해줘서 서블릿으로 연결 / 쿼리스트링으로 --%>
+				<button type="button" onclick="location.href='<%=request.getContextPath()%>/noticeUpdateForm.do?nno=${notice.noticeNo}';">수정하기</button>
+				<button type="button" id="delete" onclick="deleteNotice()">삭제하기</button>
 			</c:if>
-			
 		</div>
 	</div>
+	
+	<script>
+		// 삭제 버튼 클릭 시
+		function deleteNotice() {
+			// 변수에 담아서
+			var result = confirm("정말 삭제하시겠습니까?");
+			// true 면 (삭제하려고 하면)
+			if(result) {
+				location.href="<%=request.getContextPath()%>/noticeDelete.do?nno=${notice.noticeNo}";
+				alert("삭제가 완료되었습니다.");
+				return true;
+			// false 면 (삭제 취소)
+			} else {
+				return false;
+			}
+			
+		}
+	
+	
+	</script>
+	
 	
 	<!-- footer-->
    	<jsp:include page = "../common/footer.jsp"/>

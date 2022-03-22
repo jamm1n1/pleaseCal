@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 상세 페이지</title>
 
 <style>
 	.outer{
@@ -97,7 +97,7 @@
 			<%-- 작성자가 본인이거나 관리자인 경우 수정, 삭제 버튼 활성화 --%>
 			<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.getUserId() == b.boardWriter
 							|| !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
-				<button type="button" onclick="updateForm();">수정하기</button>
+				<button type="submit" onclick="location.href='<%=request.getContextPath()%>/boardUpdateForm.do?bno=${b.boardNo}';">수정하기</button>
 				<button type="button" onclick="deleteBoard();">삭제하기</button>
 			</c:if>
 		</div>
@@ -106,18 +106,30 @@
 			<%-- 게시글 번호 히든으로 가져올 수 있도록 --%>
 			<input type="hidden" name="bno" value="${b.boardNo}">
 		</form>
-		<script>
-			function updateForm(){
-				$("#postForm").attr("action", "<%=request.getContextPath()%>/boardUpdateForm.do");
-				$("#postForm").submit();
-			}
-			
-			function deleteBoard(){
-				$("#postForm").attr("action", "<%=request.getContextPath()%>/boardDelete.do");
-				$("#postForm").submit();
-			}
-		</script>
+		
 	</div>
+	
+
+	<script>
+		
+		// 삭제 버튼 클릭 시
+		function deleteBoard(){
+			
+			let bno = ${b.boardNo};
+			
+			let url = "<%=request.getContextPath()%>/boardDeletePwdCheck.do?bno="+bno;
+			let name = "boardPwdCheckPopup";
+			let option = "width = 500, height = 300, top = 100, left = 200, location = no"
+		
+			open(url, name, option);
+		}
+		
+	</script>
+		
+		
+	
+	
+	
 	
 	<div class="replyArea">
 		<!-- 댓글 작성하는 div -->
@@ -198,7 +210,7 @@
 			})
 		})
 		
-		
+		// 댓글 리스트 조회
 		function selectReplyList() {
 			
 			$("#replyList").empty(); // 조회할 때마다 비우고 다시 출력하도록
@@ -230,11 +242,13 @@
 				},
 				
 				error: function(){
-					console.log("ajax 통신실패 -댓글조회");
+					console.log("ajax 통신실패 - 댓글조회");
 				}
 				
 			})
 		}
+		
+		
 
 	</script>
 
