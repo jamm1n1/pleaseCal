@@ -3,7 +3,6 @@ package com.uni.product.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +14,16 @@ import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
 
 /**
- * Servlet implementation class ProductSelectListServlet
+ * Servlet implementation class ProductOrderByServlet
  */
-@WebServlet("/selectListProduct.do")
-public class ProductSelectListServlet extends HttpServlet {
+@WebServlet("/orderbyProduct.do")
+public class ProductOrderByServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSelectListServlet() {
+    public ProductOrderByServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +33,21 @@ public class ProductSelectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int category = Integer.parseInt(request.getParameter("no"));
+		int orderby = Integer.parseInt(request.getParameter("orderby"));
+		System.out.println("이거:"+orderby);
 		
-		ArrayList<Product> list = new ProductService().selectListProduct(category);
+		ArrayList<Product> list = null;
+		if(orderby == 2) { // 가격내림차순
+			list = new ProductService().orderbyPriceDescProductList();
+		} else if(orderby == 3) { // 가격오름차순
+			list = new ProductService().orderbyPriceAscProductList();
+		} else { // 인기순
+			
+		}
 		
 		response.setContentType("application/json; charset=utf-8"); 
 		new Gson().toJson(list, response.getWriter());
-
+		
 	}
 
 	/**

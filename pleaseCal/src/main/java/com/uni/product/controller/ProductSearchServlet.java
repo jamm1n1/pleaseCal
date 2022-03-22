@@ -3,28 +3,28 @@ package com.uni.product.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import com.uni.notice.model.service.NoticeService;
+import com.uni.notice.model.vo.Notice;
 import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
 
 /**
- * Servlet implementation class ProductSelectListServlet
+ * Servlet implementation class ProductSearchServlet
  */
-@WebServlet("/selectListProduct.do")
-public class ProductSelectListServlet extends HttpServlet {
+@WebServlet("/searchProduct.do")
+public class ProductSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSelectListServlet() {
+    public ProductSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +34,15 @@ public class ProductSelectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int category = Integer.parseInt(request.getParameter("no"));
+		String search = request.getParameter("search");
 		
-		ArrayList<Product> list = new ProductService().selectListProduct(category);
+		ArrayList<Product> list = new ProductService().searchProduct(search);
+		ArrayList<Notice> nList = new NoticeService().searhNotice(search);
 		
-		response.setContentType("application/json; charset=utf-8"); 
-		new Gson().toJson(list, response.getWriter());
-
+		request.setAttribute("search", search);
+		request.setAttribute("list", list);
+		request.setAttribute("nList", nList);
+		request.getRequestDispatcher("views/product/searchProduct.jsp").forward(request, response);
 	}
 
 	/**

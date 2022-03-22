@@ -10,6 +10,7 @@ public class Review {
 	private String rName;
 	private String rContent;
 	private Date rUpdate;
+	private String piName;
 	
 	public Review() {
 		// TODO Auto-generated constructor stub
@@ -32,8 +33,6 @@ public class Review {
 		this.rId = rId;
 		this.rUpdate = rUpdate;
 	}
-
-	
 
 	public int getrId() {
 		return rId;
@@ -82,12 +81,23 @@ public class Review {
 	public void setrUpdate(Date rUpdate) {
 		this.rUpdate = rUpdate;
 	}
+	
+	
+	public String getPiName() {
+		return piName;
+	}
+
+	public void setPiName(String piName) {
+		this.piName = piName;
+	}
 
 	@Override
 	public String toString() {
 		return "Review [rId=" + rId + ", orderNo=" + orderNo + ", pId=" + pId + ", rName=" + rName + ", rContent="
-				+ rContent + ", rUpdate=" + rUpdate + "]";
+				+ rContent + ", rUpdate=" + rUpdate + ", piName=" + piName + "]";
 	}
+
+	
 	
 	
 }
