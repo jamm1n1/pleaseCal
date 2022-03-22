@@ -18,7 +18,13 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
- <style>
+<link rel="stylesheet" href="././resources/css/owl.carousel.css">
+<link rel="stylesheet" href="././resources/css/owl.carousel.min.css">
+<link href="././resources/css/styles.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="./resources/js/owl.carousel.js"></script>
+<script src="./resources/js/owl.carousel.min.js"></script>
+<style>
 
  * {
  	font-family: 'Noto Sans KR', sans-serif;
