@@ -6,7 +6,7 @@
 <%@ page import="com.uni.cart.model.vo.Cart" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-	//ArrayList<Cart> list = //(ArrayList<Cart>)request.getAttribute("list");
+	ArrayList<Cart> list = (ArrayList<Cart>)request.getAttribute("list");
 	Cart cd = new Cart();
 %>
 
@@ -21,7 +21,10 @@
 <link href="././resources/css/styles2.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
+
 	
 .date {
   	text-align: right;
@@ -374,16 +377,15 @@
 </style>
 </head>
 <body>
-<jsp:include page = "../common/menu.jsp"/>
-<div id="list">
+<jsp:include page = "../common/menu.jsp"/> 
+	<div id="list">
     	<%--모든상품 삽입 --%>
-    </div>
- <script>
+    	   <script>
    	
    		$(function(){
    			
    			$.ajax({
-   		   		url: "productPayment.do",
+   		   		url: "cartListData.do",
    		   		
    		   		type: "get",
    		   		
@@ -440,9 +442,9 @@
    						                           
    						                                '<div class="option-price-part" >'+
    						                               
-   						                               		'<span class="unit-cost"><span class="sr-only">제품가격</span>'+list[i].poPrice+'</span>'+
+   						                               		'<span class="unit-cost" id="original'+i+'">'+list[i].poPrice+'</span>'+
    						                                   
-   																'<select class="quantity-select" id="amountChange" name="amountChange'+i+'">'+
+   																'<select class="quantity-select" id="amountChange" name="amountChange'+i+'" onchange="change(this.value, this.name)" >'+
    																		
    																		'<option>'+list[i].pAmount+'</option>'+
    																		
@@ -467,10 +469,7 @@
    																		'<option value="10">10+</option>'+
    																		
    																'</select>'+
-   									
-   																'<span class="unit-price-area"><span class="unit-price" id="changePrice">'+list[i].pPrice+'</span></span>'+
-
-
+   																
    						                                   		'<a href="/memberCartItem/deleteItems?cartItemIds[]=18170189112&amp;itemStatus=CHECKED" data-url="/memberCartItem/deleteItems?cartItemIds[]=18170189112&amp;itemStatus=CHECKED" data-all="false" class="delete-option"><span class="sr-only">'+list[i].pName+' 상품삭제</span></a>'+
    						                                   
    						                                '</div>'+
@@ -481,7 +480,7 @@
    						                   
    						                   '<td class="unit-total-price">'+
    							                    
-   											   '<div class="unit-total-sale-price" name="ChangePrice">'+list[i].pPrice+'</div>'+
+   											   '<div class="unit-total-sale-price" name="twochangePrice'+i+'">'+list[i].pPrice+'</div>'+
    									
    										   '</td>'+
    						                   
@@ -501,7 +500,7 @@
    						               
    						                 '<span class="rocket-total-price-area">상품가격'+
    						                 
-   											 '<span class="total-product-price number"  name="ChangePrice" >'+list[i].pPrice+'</span>원 <span class="coupon-area">'+
+   											 '<span class="total-product-price number"  name="ChangePrice'+i+'" >'+list[i].pPrice+'</span>원 <span class="coupon-area">'+
    						                   
    							                     '<span class="symbol symbol-plus"><span class="sr-only">더하기</span></span>'+
    							                     
@@ -509,7 +508,7 @@
    												 
    												 '<span class="symbol symbol-equal"><span class="sr-only">결과는</span></span>'+
    												 
-   												 '주문금액 <span class="total-order-price number"  name="ChangePrice2">'+(list[i].pPrice +2500)+'</span>원'+
+   												 '주문금액 <span class="total-order-price number"  name="changetotal'+i+'">'+(list[i].pPrice +2500)+'</span>원'+
    						                 
    										     '</span>'+
    						           		  '</span>'+
@@ -518,14 +517,13 @@
    						   
    						   		'</tbody>'+
 
-   						     '</table>'
+   						     '</table>'+
    							                  
    						   	 '<form>'+
-   						       	 '<input type="hidden" id="title" value="'+list[i].pId+'">'+	
-   						       	 '<input type="hidden" id="price" value="'+list[i].poPrice+'">'+	
-   						       	 
+   						       	 '<input type="hidden" id="title'+i+'" name="title'+i+'" value="'+list[i].pId+'">'+	
+   						       	 '<input type="hidden" id="price'+i+'" value="'+list[i].poPrice+'">'+	
    						     '</form>' <%-- 본문 끝--%>
-   							//console.log($('[name="amountChange'i'"]').val());
+   							
    		   			} <%-- for문 끝--%>
    		   		
    		   		$('#list').html(value);
@@ -539,6 +537,110 @@
    		})
    	})
    </script>
+   
+   
+        </div>
+        <table>
+		<tr>
+			<td>
+				    <p>아임 서포트 결제 모듈 테스트 해보기</p>
+				    <button id="check_module" type="button">아임 서포트 결제 모듈 테스트 해보기</button>
+			</td>
+		</tr>
+		<tr>
+			<td><a id="continueShoopingBtn" class="goShopping logging" href=<%=request.getContextPath()%>>계속 쇼핑하기</a></td>
+		</tr>
+	</table>
+     
        <jsp:include page = "../common/footer.jsp"/>
+       
+          <script>
+	
+		$("#check_module").click(function () {
+			
+			var IMP = window.IMP; // 생략가능
+			
+			IMP.init('imp70634783');
+				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+				
+			IMP.request_pay({
+				
+					pg: 'inicis', // version 1.1.0부터 지원.
+						/*
+							'kakao':카카오페이,
+							html5_inicis':이니시스(웹표준결제)
+							'nice':나이스페이
+							'jtnet':제이티넷
+							'uplus':LG유플러스
+							'danal':다날
+							'payco':페이코
+							'syrup':시럽페이
+							'paypal':페이팔
+						*/
+					pay_method: 'card',
+						/*
+							'samsung':삼성페이,
+							'card':신용카드,
+							'trans':실시간계좌이체,
+							'vbank':가상계좌,
+							'phone':휴대폰소액결제
+						*/
+					merchant_uid: new Date().getTime(),
+						/*
+							merchant_uid에 경우
+							https://docs.iamport.kr/implementation/payment
+							위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+							참고하세요.
+							나중에 포스팅 해볼게요.
+						*/
+						
+					name: '주문명:결제테스트',
+					//결제창에서 보여질 이름
+					
+					amount: '1000',
+					//가격
+					
+					buyer_email: 'iamport@siot.do',
+					buyer_name: '구매자이름',
+					buyer_tel: '010-1234-5678',
+					buyer_addr: '서울특별시 강남구 삼성동',
+					buyer_postcode: '123-456',
+				
+				}, function (rsp) {
+					if(rsp.success){
+					$(function(){
+					
+						let date = list[0].dDat;
+						
+						$.ajax({
+							
+							url: "paymentResult.do", //결제성공페이지
+							
+							type: "post",
+							
+							data: {
+
+								date:date
+								
+							},
+							
+						success:function(){
+							
+							
+						}
+							
+							
+							
+							})<%--- ajax 종료지점 --%>
+						})<%--- 함수 종료지점 --%>
+					
+					
+				location.href= "<%=request.getContextPath()%>/paymentResult.do?rsp="+rsp.success;
+					}
+				
+			});
+		});
+</script>
 </body>
 </html>

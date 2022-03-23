@@ -58,4 +58,24 @@ public class CartService {
 		return m;
 	}
 
+	public int insertProduct(String writer, String amount, String pPrice, String pId) {
+		Connection conn = getConnection();
+		
+		int result = new CartDao().insertProduct(conn, writer, amount, pPrice, pId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public Cart selectProduct(String io) {
+		Connection conn = getConnection();
+		
+		Cart c = new CartDao().selectProduct(conn, io);
+		//System.out.println("Service list ============" + list);
+		close(conn);
+		
+		return c;
+	}
+
 }

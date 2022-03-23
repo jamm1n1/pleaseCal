@@ -12,19 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.uni.cart.model.service.CartService;
 import com.uni.cart.model.vo.Cart;
-import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class CartListDataServlet
+ * Servlet implementation class PaymentProductServlet
  */
-@WebServlet("/cartListData.do")
-public class CartListDataServlet extends HttpServlet {
+@WebServlet("/paymentProduct.do")
+public class PaymentProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListDataServlet() {
+    public PaymentProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,9 +32,13 @@ public class CartListDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-		//System.out.println("Servlet writer : " + writer);
-		ArrayList<Cart> list = new CartService().CartList(writer);
+	
+		ArrayList<Cart> list = new ArrayList<>();
+		String io = request.getParameter("io");
+		System.out.println(io);
+		
+		
+		list = new CartService().CartList(io);
 		
 		request.setAttribute("list", list);
 
@@ -43,7 +46,7 @@ public class CartListDataServlet extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8"); 
 	
 		new Gson().toJson(list, response.getWriter());
-		//System.out.println("list : " + list);
+		
 	}
 
 	/**

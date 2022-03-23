@@ -10,6 +10,7 @@ public class Member {
 	private String address;
 	private int mileage;
 	private String status;
+	private int cid;
 	
 	public Member(String userId, String userPwd, String userName, String phone, String address) {
 		super();
@@ -61,7 +62,7 @@ public class Member {
 		this.phone = phone;
 		this.address = address;
 		this.mileage = mileage;
-		this.coupon = coupon;
+		this.cid = cid;
 	}
 
 

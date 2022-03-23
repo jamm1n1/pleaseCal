@@ -375,7 +375,8 @@
 </head>
 <body>
 <jsp:include page = "../common/menu.jsp"/>
-
+<div style="margin:50px">
+</div>
 <section id="contents-cart" class="contents-cart async-content" style="visibility: visible;">    <!-- 전체 섹션 -->    
         <section class="cart-title">
         <i class="bi-cart-fill me-1"></i>   장바구니
@@ -396,12 +397,13 @@
    		   		type: "get",
    		   		
    		   		success:function(list){
-   		   	
+   		   			
    		   			let value = "";
    		   			console.log(list)
    		   			for(var i  in list){
 			 
    								value +=  
+   							
    									'<table class="cartTable">'+
    						   		   
    							     '<caption class="none"></caption>'+ <!-- 여백 생성  -->
@@ -410,9 +412,9 @@
    							     '<thead>'+
    							           '<tr class="head">'+
    							               
-   							               '<th scope="colgroup" id="th-product-box" colspan="2">상품정보</th>'+
-   							               '<th scope="col" id="th-unit-total-price">상품금액</th>'+
-   							               '<th scope="col" id="th-delivery-fee">배송비</th>'+
+   							               '<th scope="colgroup" id="th-product-box" colspan="2" style="text-align:center">상품정보</th>'+
+   							               '<th scope="col" id="th-unit-total-price" style="text-align:center">상품금액</th>'+
+   							               '<th scope="col" id="th-delivery-fee" style="text-align:center">배송비</th>'+
    							               
    							           '</tr>'+
    							     '</thead>'+
@@ -448,9 +450,9 @@
    						                           
    						                                '<div class="option-price-part" >'+
    						                               
-   						                               		'<span class="unit-cost"><span class="sr-only">제품가격</span>'+list[i].poPrice+'</span>'+
+   						                               		'<span class="unit-cost" id="original'+i+'">'+list[i].poPrice+'</span>'+
    						                                   
-   																'<select class="quantity-select" id="amountChange" name="amountChange'+i+'">'+
+   																'<select class="quantity-select" id="amountChange" name="amountChange'+i+'" onchange="change(this.value, this.name)" >'+
    																		
    																		'<option>'+list[i].pAmount+'</option>'+
    																		
@@ -475,10 +477,7 @@
    																		'<option value="10">10+</option>'+
    																		
    																'</select>'+
-   									
-   																'<span class="unit-price-area"><span class="unit-price" id="changePrice">'+list[i].pPrice+'</span></span>'+
-
-
+   																
    						                                   		'<a href="/memberCartItem/deleteItems?cartItemIds[]=18170189112&amp;itemStatus=CHECKED" data-url="/memberCartItem/deleteItems?cartItemIds[]=18170189112&amp;itemStatus=CHECKED" data-all="false" class="delete-option"><span class="sr-only">'+list[i].pName+' 상품삭제</span></a>'+
    						                                   
    						                                '</div>'+
@@ -489,7 +488,7 @@
    						                   
    						                   '<td class="unit-total-price">'+
    							                    
-   											   '<div class="unit-total-sale-price" name="ChangePrice">'+list[i].pPrice+'</div>'+
+   											   '<div class="unit-total-sale-price" name="twochangePrice'+i+'">'+list[i].pPrice+'</div>'+
    									
    										   '</td>'+
    						                   
@@ -509,7 +508,7 @@
    						               
    						                 '<span class="rocket-total-price-area">상품가격'+
    						                 
-   											 '<span class="total-product-price number"  name="ChangePrice" >'+list[i].pPrice+'</span>원 <span class="coupon-area">'+
+   											 '<span class="total-product-price number"  name="ChangePrice'+i+'" >'+list[i].pPrice+'</span>원 <span class="coupon-area">'+
    						                   
    							                     '<span class="symbol symbol-plus"><span class="sr-only">더하기</span></span>'+
    							                     
@@ -517,7 +516,7 @@
    												 
    												 '<span class="symbol symbol-equal"><span class="sr-only">결과는</span></span>'+
    												 
-   												 '주문금액 <span class="total-order-price number"  name="ChangePrice2">'+(list[i].pPrice +2500)+'</span>원'+
+   												 '주문금액 <span class="total-order-price number"  name="changetotal'+i+'">'+(list[i].pPrice +2500)+'</span>원'+
    						                 
    										     '</span>'+
    						           		  '</span>'+
@@ -526,17 +525,17 @@
    						   
    						   		'</tbody>'+
 
-   						     '</table>'
+   						     '</table>'+
    							                  
    						   	 '<form>'+
-   						       	 '<input type="hidden" id="title" value="'+list[i].pId+'">'+	
-   						       	 '<input type="hidden" id="price" value="'+list[i].poPrice+'">'+	
-   						       	 
+   						       	 '<input type="hidden" id="title'+i+'" name="title'+i+'" value="'+list[i].pId+'">'+	
+   						       	 '<input type="hidden" id="price'+i+'" value="'+list[i].poPrice+'">'+	
    						     '</form>' <%-- 본문 끝--%>
-   							//console.log($('[name="amountChange'i'"]').val());
+   								
    		   			} <%-- for문 끝--%>
    		   		
    		   		$('#list').html(value);
+   		   		
    		   		//console.log(list)
 
    	   		},
@@ -584,7 +583,7 @@
             
             <div class="order-buttons">
                 <a id="continueShoopingBtn" class="goShopping logging" href=<%=request.getContextPath()%>>계속 쇼핑하기</a>
-                <a href="<%=request.getContextPath() %>/orderList.do" class="goPayment" id="btnPay"><strong>구매하기</strong></a>
+                <button class="goPayment" id="btnPay"><strong>구매하기</strong></button>
                 <div class="item-disabled" style="display: none;"></div>
             </div>
         
@@ -599,56 +598,71 @@
     <jsp:include page = "../common/footer.jsp"/>
     
     <script type="text/javascript">
-    for(var i in list){
-    (function(i){
-    $('[name="amountChange'+i+'"]').change(function(){
+    
+    
+    function change(value, name){
     	
-		let q = $('[name="amountChange"]').val(); // 상품 본래 가격
-		let name = $('#title').val(); // 상품 이름
-		let p = $('[name="amountChange"]').val() * $('#price').val();
-		let result = $('[name="amountChange"]').val() * $('#price').val();
-		
-			console.log(result)
-			console.log($('[name="amountChange"]').val())
-			console.log($('#price').val())
-			console.log(q)
-			console.log(name)
-			console.log(price)
-	
-			$.ajax({
-				
-				url: "amountChange.do",
-				
-				type: "get",
-				
-				data:{
-					q:q,
-					name:name,
-					p:p
-		
-					},
-				
-				success:function(){
-					
-					$('#changePrice').html(result);
-					$('[name="ChangePrice"]').html(result);
-					$('[name="ChangePrice2"]').html(result+2500);
-					console.log(result)
-					
-				},
-				
-				error:function(){
-			   			console.log("ajax통신실패");
-			   			console.log(result)
-			   		}
+		let String = name; // 값이 바뀐 select 이름
 
+    	let count = value; // 바뀐 갯수
+    	let index = String.charAt(String.length-1); // 몇변째상품의 select인지 인덱스 찾기
+    	
+    	let original = $('#original'+index+'').html(); // 값이 바뀐 상품의 1개당 가격 칸
+    	let totprice2 = $('[name="twochangePrice'+index+'"]').html(); // 노란색칸 상품금액(origianl * count) 칸
+    	let pid = $('[name="title'+index+'"]').val(); // 갯수바뀐상품의 상품번호 칸
+    	let changetotal = $('[name="changetotal'+index+'"]').html(); // 노란색칸 주문금액(origianl * count + 2500)	칸
+    	
+    	let result = original * count
+    	console.log(result)
+    	// 바뀐갯수와 * 1개당 가격 => DB에 들어갈 총금액
+    	
+    	
+    	$.ajax({
 			
-				})
+			url: "amountChange.do",
+			
+			type: "get",
+			
+			data:{
+					q:count,
+					name:pid,
+					p:result
+	
+				},
+			
+			success:function(){
 				
+				console.log("성공")
+				$('[name="ChangePrice'+index+'"]').html(result);
+				$('[name="twochangePrice'+index+'"]').html(result);
+				$('[name="changetotal'+index+'"]').html(result+2500);
+				
+			},
+			
+			error:function(){
+		   			console.log("ajax통신실패");
+		   			
+		   		}
+		
 			})
-    })(i);
-    }
+			
+		
+	}
     </script>
+   
+   <script>
+   	$('#btnPay').click(function(){
+   		
+
+   		location.href="<%=request.getContextPath()%>/orderList.do";
+   		
+   		location.href="<%=request.getContextPath()%>/paymentMember.do";
+   		
+   		
+   	})
+   		
+   	 
+   </script>
     
 </body>
 </html>

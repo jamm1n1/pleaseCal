@@ -15,16 +15,16 @@ import com.uni.cart.model.vo.Cart;
 import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class CartListDataServlet
+ * Servlet implementation class ProductInCartServlet
  */
-@WebServlet("/cartListData.do")
-public class CartListDataServlet extends HttpServlet {
+@WebServlet("/productInCart.do")
+public class ProductInCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListDataServlet() {
+    public ProductInCartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,17 +33,16 @@ public class CartListDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-		//System.out.println("Servlet writer : " + writer);
-		ArrayList<Cart> list = new CartService().CartList(writer);
-		
-		request.setAttribute("list", list);
-
-		
-		response.setContentType("application/json; charset=utf-8"); 
 	
-		new Gson().toJson(list, response.getWriter());
-		//System.out.println("list : " + list);
+		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		String pId = String.valueOf(request.getParameter("pId"));
+		String pPrice = String.valueOf(request.getParameter("pPrice"));
+		String amount = String.valueOf(request.getParameter("amount"));
+
+		System.out.println(writer + pId + pPrice + amount);
+		int result = new CartService().insertProduct(writer, amount,  pPrice, pId);
+		
+		System.out.println("insert 결과 : " + result);
 	}
 
 	/**

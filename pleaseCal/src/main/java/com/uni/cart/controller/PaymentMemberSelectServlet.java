@@ -1,8 +1,6 @@
 package com.uni.cart.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.uni.cart.model.service.CartService;
-import com.uni.cart.model.vo.Cart;
 import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class CartListDataServlet
+ * Servlet implementation class PaymentMemberSelectServlet
  */
-@WebServlet("/cartListData.do")
-public class CartListDataServlet extends HttpServlet {
+@WebServlet("/paymentMember.do")
+public class PaymentMemberSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListDataServlet() {
+    public PaymentMemberSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +31,15 @@ public class CartListDataServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-		//System.out.println("Servlet writer : " + writer);
-		ArrayList<Cart> list = new CartService().CartList(writer);
+		Member m = new CartService().MemberInfo(writer);
 		
-		request.setAttribute("list", list);
-
+		request.setAttribute("m", m);
 		
-		response.setContentType("application/json; charset=utf-8"); 
-	
-		new Gson().toJson(list, response.getWriter());
-		//System.out.println("list : " + list);
+		//new Gson().toJson(m, response.getWriter());
+		//System.out.println("servlet m  : " + m);
+		request.getRequestDispatcher("views/cart/productPayment.jsp").forward(request, response);
+		//response.sendRedirect("orderProductList.do");
+		
 	}
 
 	/**
