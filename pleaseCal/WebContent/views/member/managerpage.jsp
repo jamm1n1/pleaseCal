@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.uni.member.model.vo.*"%>
+    pageEncoding="UTF-8"%>
+<%
+	String msg = (String)request.getAttribute("msg");
+	String tag = (String)request.getAttribute("tag");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,15 +48,43 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
     <h4>상품 관리</h4><small>쇼핑몰의 상풀을 입고및출고할 수 있어요<br>＼(╹◡╹＼Ξ／╹◡╹)／</small>
     </button>
     
+    <br><br><br>
+    
+    <div>
+	    <input id="membut" type="button" value="상품 등록" onClick="location.href='<%=request.getContextPath() %>/insertProductForm.do'">
+		<input id="membut" type="button" value="상품 삭제" style="margin-left: 400px;" onClick="deletrProduct()">
+    </div>
+    
    </div>
    <script>
-   function checkmem(){
-       location.href = "<%= request.getContextPath()%>/MemberCheck.do"; 
-              }    
-   function product_IO(){
-       location.href = "<%= request.getContextPath()%>/Product_IO.do"; 
-              }    
    
+	   function checkmem(){
+	       location.href = "<%= request.getContextPath()%>/MemberCheck.do"; 
+	              }    
+	   function product_IO(){
+	       location.href = "<%= request.getContextPath()%>/Product_IO.do"; 
+	              }    
+	   
+	   $(function(){
+	  		
+	  		let msg = "<%=msg%>";
+	  		let tag = "<%=tag%>";
+	
+	  		if(msg != "null") {
+	  			alert(msg);
+	  		} 
+	  		
+	  		if (tag == "Y"){
+	  			window.close();
+	  		}
+	  	})	
+	  		
+  	   function deletrProduct() {
+      
+      		window.open("<%= request.getContextPath()%>/views/product/deleteProductForm.jsp","상품삭제", "width=600, height=200, resizable = no, scrollbars = no");
+      
+  	   }
+  
    </script>
 </body>
 </html>
