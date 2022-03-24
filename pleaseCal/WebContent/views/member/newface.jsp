@@ -28,7 +28,7 @@ height:50px;
 		
 		<h2 align="center">계정만들기</h2>
 		
-		<form id="enrollForm" action="<%=request.getContextPath() %>/LoginPage.do" method="post" onsubmit="return joinValidate();">
+		<form id="enrollForm" action="<%=request.getContextPath() %>/insertMember.do" method="post" onsubmit="return joinValidate();">
 			<table align="center" width="750px">
 				<tr>	
 				<td>아이디</td>			
