@@ -77,16 +77,24 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
        
 	<div id="Members">
 	<table>
-	<tr>
-	<td><button id="membut" type="button" ><h4>주문목록</h4><small>고객님의소중한상품을담고있어요(≧∇≦)/</small></button> </td>
-	<td><button id="memup" style="margin-left: 200px;" onClick="memberupdate();"><h4>정보수정</h4><small>고객님의주소및비밀번호를변경할수있어요<br>ヾ(・ᆺ・✿)ﾉﾞ</small></button></td>
-	<form id="memdelete">	
-	<td><button id="memdel" style="margin-left: 200px;" onclick="deleteMember();"><h4>회원탈퇴</h4><small>정말로..탈퇴할건가요｡ﾟ( ﾟஇ‸இﾟ+)ﾟ｡</small></button>		</td>
-	</form>	
+		<tr>
+		<td><button id="membut" type="button" ><h4>주문목록</h4><small>고객님의소중한상품을담고있어요(≧∇≦)/</small></button> </td>
+		<td><button id="memup" style="margin-left: 200px;" onClick="memberupdate();"><h4>정보수정</h4><small>고객님의주소및비밀번호를변경할수있어요<br>ヾ(・ᆺ・✿)ﾉﾞ</small></button></td>
+		<form id="memdelete">	
+		<td><button id="memdel" style="margin-left: 200px;" onclick="deleteMember();"><h4>회원탈퇴</h4><small>정말로..탈퇴할건가요｡ﾟ( ﾟஇ‸இﾟ+)ﾟ｡</small></button>		</td>
+		</form>	
 		</tr>	
-		</table>
+	</table>
+	</div>
+	
+	<br><br>
+	
+	<div id="Members">
+		<input id="membut" type="button" value="나의 후기" onclick="location.href='<%=request.getContextPath() %>/myReviewForm.do'"></input> 
 		
 	</div>
+	
+	
 	<script>
 	 function memberupdate(){
          location.href = "<%= request.getContextPath()%>/memberupdate.do"; 
