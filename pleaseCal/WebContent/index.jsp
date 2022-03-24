@@ -140,13 +140,6 @@
 		   			        autoplayHoverPause:true  // 마우스오버시 멈출지 여부
 		   			    });    
 		   			    
-		   			    $('.customNextBtn').click(function() {
-		   			        owl.trigger('next.owl.carousel');
-		   			    })
-		   			    
-		   			    $('.customPrevBtn').click(function() {
-		   			        owl.trigger('prev.owl.carousel', [300]);
-		   			    })
 		   			}); 
 	   		    }
 
