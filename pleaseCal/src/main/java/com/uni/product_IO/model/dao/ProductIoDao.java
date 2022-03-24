@@ -129,6 +129,33 @@ public class ProductIoDao {
 		
 		return io;
 	}
+
+	public int insertPIo(Connection conn, Product_IO pIo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt= null;
+		
+		String sql = prop.getProperty("insertPIo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pIo.getpId());
+			pstmt.setString(2, pIo.getpName());
+			pstmt.setInt(3, pIo.getPnum());
+		
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }
 
 

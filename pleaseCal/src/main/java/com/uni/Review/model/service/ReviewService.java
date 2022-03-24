@@ -37,11 +37,11 @@ public class ReviewService {
 		return result;
 	}
 
-	public int deleteReview(int oId, int pId) {
+	public int deleteReview(Review r) {
 		
 		Connection conn = getConnection();
 		
-		int result = new ReviewDao().deleteReview(conn, oId, pId);
+		int result = new ReviewDao().deleteReview(conn, r);
 		
 		if(result > 0) {
 			commit(conn);
@@ -68,6 +68,17 @@ public class ReviewService {
 		Connection conn = getConnection();
 		
 		ArrayList<Review> list = new ReviewDao().topReviewList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Review> myReviewList(int userNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDao().myReviewList(conn, userNo);
 		
 		close(conn);
 		

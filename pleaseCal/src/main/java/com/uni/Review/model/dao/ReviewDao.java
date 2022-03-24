@@ -24,7 +24,7 @@ public class ReviewDao {
 		
 		String fileName = ProductDao.class.getResource("/sql/review/review-query.properties").getPath();
 		
-		//System.out.println("fileName   " + fileName);
+		System.out.println("fileName   " + fileName);
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -97,7 +97,7 @@ public class ReviewDao {
 		return result;
 	}
 
-	public int deleteReview(Connection conn, int oId, int pId) {
+	public int deleteReview(Connection conn, Review r) {
 		
 		int result = 0; 
 		
@@ -107,8 +107,9 @@ public class ReviewDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, oId);
-			pstmt.setInt(2, pId);
+			pstmt.setInt(1, r.getOrderNo());
+			pstmt.setInt(2, r.getpId());
+			pstmt.setInt(3, r.getUserNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -162,7 +163,7 @@ public class ReviewDao {
 
 	public ArrayList<Review> topReviewList(Connection conn) {
 		
-ArrayList<Review> list = new ArrayList<Review>();
+		ArrayList<Review> list = new ArrayList<Review>();
 		
 		PreparedStatement pstmt = null;
 		
@@ -183,8 +184,11 @@ ArrayList<Review> list = new ArrayList<Review>();
 				r.setrContent(rs.getString("R_CONTENT"));
 				r.setPiName(rs.getString("PI_NAME"));
 				r.setpId(rs.getInt("P_ID"));
+				r.setrUpdate(rs.getDate("R_UPDATE"));
 				list.add(r);
+				
 			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,6 +196,48 @@ ArrayList<Review> list = new ArrayList<Review>();
 			close(rs);
 			close(pstmt);
 		}
+		
+		return list;
+	}
+
+	public ArrayList<Review> myReviewList(Connection conn, int userNo) {
+		
+		ArrayList<Review> list = new ArrayList<Review>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("myReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			
+			rs = pstmt.executeQuery();
+			
+			Review r = null;
+			while (rs.next()) {
+				
+				r = new Review();
+				r.setOrderNo(rs.getInt("ORDER_NO"));
+				r.setrName(rs.getString("R_NAME"));
+				r.setrContent(rs.getString("R_CONTENT"));
+				r.setPiName(rs.getString("PI_NAME"));
+				r.setpName(rs.getString("P_NAME"));
+				r.setpId(rs.getInt("P_ID"));
+				list.add(r);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
 		return list;
 	}
 
