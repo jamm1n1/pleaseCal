@@ -119,7 +119,7 @@
 			
 			let url = "<%=request.getContextPath()%>/boardDeletePwdCheck.do?bno="+bno;
 			let name = "boardPwdCheckPopup";
-			let option = "width = 500, height = 300, top = 100, left = 200, location = no"
+			let option = "width = 500, height = 300, top = 50%, left = 50%, location = no"
 		
 			open(url, name, option);
 		}

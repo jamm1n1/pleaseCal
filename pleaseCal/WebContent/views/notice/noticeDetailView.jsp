@@ -86,6 +86,7 @@
 			var result = confirm("정말 삭제하시겠습니까?");
 			// true 면 (삭제하려고 하면)
 			if(result) {
+				// 삭제 서블릿 실행
 				location.href="<%=request.getContextPath()%>/noticeDelete.do?nno=${notice.noticeNo}";
 				alert("삭제가 완료되었습니다.");
 				return true;

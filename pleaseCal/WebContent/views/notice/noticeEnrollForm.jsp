@@ -9,7 +9,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <title>Insert title here</title>
+
+<script type="text/javascript" src="../../resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 <style>
 
@@ -35,6 +38,8 @@
 	}
 
 </style>
+
+
 
 </head>
 <body>
@@ -76,6 +81,22 @@
 	
 	<script>
 	
+	    let oEditors = []
+	
+	    smartEditor = function() {
+	      console.log("Naver SmartEditor")
+	      nhn.husky.EZCreator.createInIFrame({
+	        oAppRef: oEditors,
+	        elPlaceHolder: "content",
+	        sSkinURI: "../../resources/smarteditor/SmartEditor2Skin.html",
+	        fCreator: "createSEditor2"
+	      })
+	    }
+	
+	    $(document).ready(function() {
+	      smartEditor()
+	    })
+	
 		// 폼 제출 시 카테고리, 내용, 비밀번호 비어 있으면 알림창 띄우기
 		$("form").submit(function() {
 			// 내용, 비밀번호 값을 변수에 담아서
@@ -110,6 +131,7 @@
 				$(this).attr("action", "<%=request.getContextPath()%>/noticeInsert.do");
 			}	
 		})
+		
 		
 	</script>
 	

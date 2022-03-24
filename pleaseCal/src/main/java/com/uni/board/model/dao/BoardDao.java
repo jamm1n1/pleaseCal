@@ -101,14 +101,17 @@ public class BoardDao {
 			while(rset.next()) {
 				 // Board 객체 생성
 				Board b = new Board(rset.getInt("BOARD_NO"),
-										rset.getString("WRITER_ID"),
-										rset.getString("CATEGORY"),
-										rset.getInt("COUNT"),
-										rset.getDate("CREATE_DATE"));
+									rset.getString("WRITER_ID"),
+									rset.getString("CATEGORY"),
+									rset.getInt("COUNT"),
+									rset.getDate("CREATE_DATE"));
 
 				// 비회원이 작성한 게시글일 경우 설정
 				if(b.getBoardWriter() == null) {
 					b.setBoardWriter("비회원");
+				// 회원인 경우 아이디 일부만 노출하기 위해
+				} else {
+					b.setBoardWriter(b.getBoardWriter().substring(0,3) + "***");
 				}
 				
 				list.add(b); // list에 notice 객체 담기
@@ -467,6 +470,9 @@ public class BoardDao {
 		return result;
 	}
 
+
+		
+	
 /*	트리거 생성으로 필요 없어짐
 	public int deleteAttachment(Connection conn, int bno) {
 		

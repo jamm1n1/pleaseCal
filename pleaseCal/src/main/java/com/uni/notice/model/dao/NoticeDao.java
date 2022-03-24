@@ -98,13 +98,13 @@ public class NoticeDao {
 			// 전체 리스트 가져오기 때문에 while로
 			while(rset.next()) {
 				
-				Notice notice = new Notice(rset.getInt("NOTICE_NO"),
-										   rset.getString("NOTICE_TITLE"),
-										   rset.getString("NOTICE_CONTENT"),
-										   rset.getInt("COUNT"),
-										   rset.getDate("CREATE_DATE"));
+				Notice n = new Notice(rset.getInt("NOTICE_NO"),
+									  rset.getString("NOTICE_TITLE"),
+							  		  rset.getString("NOTICE_CONTENT"),
+							  		  rset.getInt("COUNT"),
+							  		  rset.getDate("CREATE_DATE"));
 				
-				list.add(notice); // list에 notice 객체 담기
+				list.add(n); // list에 notice 객체 담기
 				
 			}
 			
@@ -292,7 +292,9 @@ public class NoticeDao {
 		return result;	
 	}
 
-
+	
+	
+	// 상단바에서 상품과 함께 공지사항 게시글 검색 메소드
 	public ArrayList<Notice> searhNotice(Connection conn, String search) {
 		
 		// list 선언
@@ -323,7 +325,6 @@ public class NoticeDao {
 										   rset.getDate("CREATE_DATE"));
 				
 				list.add(notice); // list에 notice 객체 담기
-				
 			}
 			
 			/*
@@ -332,7 +333,108 @@ public class NoticeDao {
 				System.out.println(list.get(i));
 			}
 			*/
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 역순으로 닫아주기
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	
+	// 제목으로 검색
+	public ArrayList<Notice> searchTitle(Connection conn, PageInfo pi, String search) {
+		
+		// list 선언
+		ArrayList<Notice> list = new ArrayList<Notice>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// sql 구문 가져오기
+		String sql = prop.getProperty("searchTitle");
+		String title = '%'+search+'%';
+		
+		// 페이징 시작, 끝 페이지 로 해야 전체 조회 가능
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, title);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			// 전체 리스트 가져오기 때문에 while로
+			while(rset.next()) {
+				 // Board 객체 생성
+				Notice n = new Notice(rset.getInt("NOTICE_NO"),
+									  rset.getString("NOTICE_TITLE"),
+									  rset.getString("NOTICE_CONTENT"),
+									  rset.getInt("COUNT"),
+									  rset.getDate("CREATE_DATE"));
+
+				list.add(n); // list에 notice 객체 담기
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 역순으로 닫아주기
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	
+	// 내용 검색
+	public ArrayList<Notice> searchContent(Connection conn, PageInfo pi, String search) {
+		
+		// list 선언
+		ArrayList<Notice> list = new ArrayList<Notice>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// sql 구문 가져오기
+		String sql = prop.getProperty("searchContent");
+		String content = '%'+search+'%';
+		
+		// 페이징 시작, 끝 페이지 로 해야 전체 조회 가능
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, content);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			// 전체 리스트 가져오기 때문에 while로
+			while(rset.next()) {
+				 // Board 객체 생성
+				Notice n = new Notice(rset.getInt("NOTICE_NO"),
+									  rset.getString("NOTICE_TITLE"),
+									  rset.getString("NOTICE_CONTENT"),
+									  rset.getInt("COUNT"),
+									  rset.getDate("CREATE_DATE"));
+				
+				list.add(n); // list에 notice 객체 담기
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -345,8 +447,6 @@ public class NoticeDao {
 		
 		return list;
 	}
-
-
 	
 
 }

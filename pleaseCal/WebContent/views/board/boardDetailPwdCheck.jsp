@@ -40,18 +40,18 @@
 			let pwd = ${b.boardPwd};
 			
 			// 입력창 비워진 채로 확인 버튼 클릭 시
-			if(input === "") {
+			if(input == null) {
 				alert("비밀번호를 입력해주세요.");
 				$("#pwd").focus();
 				return false;
 			}
 			
 			// 둘이 일치하지 않으면
-			if(input != "" && input != pwd) {
+			if(input != null && input != pwd) {
 				// 알림 띄우기
 				alert("비밀번호가 일치하지 않습니다.");
-				// 팝업 닫기
-				close();
+				$("#pwd").focus();
+				return false;
 			
 			// 일치하는 경우
 			} else {

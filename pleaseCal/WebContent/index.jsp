@@ -14,14 +14,19 @@
 </style>
 </head>
 <body style=background:#f8f8f8>
-   <jsp:include page = "views/common/menu.jsp"/>
+   
+   	<!-- popup -->
+	<jsp:include page = "views/common/popup.jsp"/>
+	
+   	<!-- menu -->
+   	<jsp:include page = "views/common/menu.jsp"/>
+	
 	<!-- Header-->
 	<header class="bg-dark py-5">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="text-center text-white">
 				<h1 class="display-4 fw-bolder">칼로리를 부탁해</h1>
-				<p class="lead fw-normal text-white-50 mb-0">With this shop
-					hompeage template</p>
+				<p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
 			</div>
 		</div>
 	</header>
@@ -35,6 +40,8 @@
            </div>
        </div>
    </section>
+   
+   
    <script>
    		$(function(){
    			
@@ -70,20 +77,22 @@
    		   		}
    	   		})
    		})
-   		
-   </script>
+	</script>
    
-   <div class="container px-4 px-lg-6 mt-10" id="reviewdiv">
-   <div class="owl-carousel owl-theme owl-loaded">
-	 <div class="owl-stage-outer text-center" >
-	 	<h3>실제 구매한 고객님이 남긴</h3>
-		<h4>REVIEW</h4>
-		  <div class="owl-stage"  id="reviewList">
-			    <!-- 후기리스트 구역 -->  
-		  </div>
-	  </div>
+   	
+   	<div class="container px-4 px-lg-6 mt-10" id="reviewdiv">
+		<div class="owl-carousel owl-theme owl-loaded">
+			<div class="owl-stage-outer text-center" >
+		 		<h3>실제 구매한 고객님이 남긴</h3>
+				<h4>REVIEW</h4>
+			  	<div class="owl-stage"  id="reviewList">
+				    <!-- 후기리스트 구역 -->  
+			  	</div>
+		  	</div>
+		</div>
 	</div>
-	</div>
+	
+	
 	<script>
 	
 		$(function(){
@@ -145,14 +154,11 @@
 		
 		})
 		
-		
-	  
-		
-
-		
    </script>
    
    <br><br><br><br>
+   
+   
    <!-- Footer-->
    <jsp:include page = "views/common/footer.jsp"/>
 
