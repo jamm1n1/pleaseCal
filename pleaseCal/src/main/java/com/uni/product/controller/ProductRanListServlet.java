@@ -62,7 +62,6 @@ public class ProductRanListServlet extends HttpServlet {
 			}
 		}
 
-		request.setAttribute("ranList", ranList);
 		response.setContentType("application/json; charset=utf-8"); 
 		new Gson().toJson(ranList, response.getWriter());
 	}

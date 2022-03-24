@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.uni.member.model.vo.Kakao;
+
 import com.uni.member.model.vo.Member;
 import com.uni.product_IO.model.vo.Product_IO;
 
@@ -21,7 +21,7 @@ public class MemberDao {
 
 	public MemberDao() {
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
-		System.out.println("fileName   " + fileName);
+		//System.out.println("fileName   " + fileName);
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
@@ -67,7 +67,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(loginUser);
+		//System.out.println(loginUser);
 		return loginUser;
 	}
 	public int insertMember(Connection conn, Member mem) {

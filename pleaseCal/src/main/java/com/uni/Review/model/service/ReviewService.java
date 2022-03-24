@@ -63,4 +63,15 @@ public class ReviewService {
 		return list;
 	}
 
+	public ArrayList<Review> topReviewList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDao().topReviewList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }

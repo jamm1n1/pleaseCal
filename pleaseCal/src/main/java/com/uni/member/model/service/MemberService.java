@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.uni.member.model.dao.MemberDao;
-import com.uni.member.model.vo.Kakao;
 import com.uni.member.model.vo.Member;
 import com.uni.product_IO.model.dao.ProductIoDao;
 import com.uni.product_IO.model.vo.Product_IO;

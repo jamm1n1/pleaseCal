@@ -27,7 +27,7 @@
 	}
 </style>
 </head>
-<body>
+<body style=background:#f8f8f8>
  	<jsp:include page = "../common/menu.jsp"/>
     <!-- Product section-->
     <section class="py-5">
@@ -255,6 +255,7 @@
 			
         </div>
     </section>
+    
     <script>
     	
     	let pId = ${p.pId};
@@ -319,59 +320,7 @@
 			})
 
     	})
-    	
-    	
-    	 for(var i in list){
-    (function(i){
-    $('[name="amountChange'+i+'"]').change(function(){
-       
-      let q = $('[name="amountChange"]').val(); // 상품 본래 가격
-      let name = $('#title').val(); // 상품 이름
-      let p = $('[name="amountChange"]').val() * $('#price').val();
-      let result = $('[name="amountChange"]').val() * $('#price').val();
-      
-         console.log(result)
-         console.log($('[name="amountChange"]').val())
-         console.log($('#price').val())
-         console.log(q)
-         console.log(name)
-         console.log(price)
-   
-         $.ajax({
-            
-            url: "amountChange.do",
-            
-            type: "get",
-            
-            data:{
-               q:q,
-               name:name,
-               p:p
-      
-               },
-            
-            success:function(){
-               
-               $('#changePrice').html(result);
-               $('[name="ChangePrice"]').html(result);
-               $('[name="ChangePrice2"]').html(result+2500);
-               console.log(result)
-               
-            },
-            
-            error:function(){
-                     console.log("ajax통신실패");
-                     console.log(result)
-              }
 
-         
-            })
-            
-         })
-    })(i);
-    }
-    
-    
     </script> 
      
     <jsp:include page = "../common/footer.jsp"/>

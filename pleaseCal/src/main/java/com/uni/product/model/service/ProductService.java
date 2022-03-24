@@ -77,4 +77,26 @@ public class ProductService {
 		return list;
 	}
 
+	public ArrayList<Product> orderbyPriceDescProductList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().orderbyPriceDescProductList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Product> orderbyPriceAscProductList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().orderbyPriceAscProductList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }

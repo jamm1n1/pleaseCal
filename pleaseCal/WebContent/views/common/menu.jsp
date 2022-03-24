@@ -24,6 +24,7 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 <script src="./resources/js/owl.carousel.js"></script>
 <script src="./resources/js/owl.carousel.min.js"></script>
 <style>
+
  * {
  	font-family: 'Noto Sans KR', sans-serif;
  }

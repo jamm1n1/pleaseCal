@@ -117,4 +117,16 @@ public class NoticeService {
 		return result;
 	}
 
+	public ArrayList<Notice> searhNotice(String search) {
+		
+		Connection conn = getConnection(); // 커넥션 연결
+		
+		// 검색단어 같이 던지기
+		ArrayList<Notice> list = new NoticeDao().searhNotice(conn, search);
+		
+		close(conn); // 커넥션 닫기
+		
+		return list; // list 리턴
+	}
+
 }

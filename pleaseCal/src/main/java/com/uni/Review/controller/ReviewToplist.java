@@ -1,9 +1,8 @@
-package com.uni.product.controller;
+package com.uni.Review.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.uni.product.model.service.ProductService;
-import com.uni.product.model.vo.Product;
+import com.uni.Review.model.service.ReviewService;
+import com.uni.Review.model.vo.Review;
 
 /**
- * Servlet implementation class ProductSelectListServlet
+ * Servlet implementation class ReviewToplist
  */
-@WebServlet("/selectListProduct.do")
-public class ProductSelectListServlet extends HttpServlet {
+@WebServlet("/topReview.do")
+public class ReviewToplist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductSelectListServlet() {
+    public ReviewToplist() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +33,11 @@ public class ProductSelectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int category = Integer.parseInt(request.getParameter("no"));
+		ArrayList<Review> list = new ReviewService().topReviewList();
 		
-		ArrayList<Product> list = new ProductService().selectListProduct(category);
-		
+		request.setAttribute("list", list);
 		response.setContentType("application/json; charset=utf-8"); 
 		new Gson().toJson(list, response.getWriter());
-
 	}
 
 	/**

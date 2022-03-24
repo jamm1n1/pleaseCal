@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글 수정 폼</title>
 
 <style>
 	.outer{
@@ -142,7 +142,7 @@
 			// 잘 작성이 되어있으면
 			} else {
 				// 제거했던 액션 태그 다시 추가해서 잘 진행되도록
-				$(this).attr("action", "<%=request.getContextPath()%>/boardInsert.do");
+				$(this).attr("action", "<%=request.getContextPath()%>/boardUpdate.do");
 			}	
 		})
 		

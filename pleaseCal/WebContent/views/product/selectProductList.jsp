@@ -10,7 +10,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 </head>
-<body>
+<body style=background:#f8f8f8>
 	<jsp:include page = "../common/menu.jsp"/>
 
 	<section class="py-5">
@@ -25,7 +25,7 @@
                 	<div><br><br></div>
                 </c:when> 
                 <c:when test= "${no eq 2}">
-                	<h1 id="title" class="display-5 fw-bolder">단백질프로틴</h1>
+                	<h1 id="title" class="display-5 fw-bolder">단백질보충제</h1>
                  	<div class="content">
                 		단백질 보충제는 단백질을 보충하는 가장 대중적이고 간편한 방법이며, 
                 		운동 목표 달성을 위해서도 중요합니다. <br>
@@ -71,7 +71,7 @@
 						
   		   				value += '<div class="col mb-5">'+
   		   				
-									'<div class="card h-100">'+
+									'<div>'+
 										'<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/'+list[i].piName+'" alt="상품이미지" /></a>'+
 										
 										'<div class="card-body p-4">'+
