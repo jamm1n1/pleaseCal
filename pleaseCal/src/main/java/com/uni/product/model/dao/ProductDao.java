@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.uni.product.model.vo.PImg;
+import com.uni.product.model.vo.PInfo;
 import com.uni.product.model.vo.Product;
 
 public class ProductDao {
@@ -42,7 +44,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = prop.getProperty("selectList");
+		String sql = prop.getProperty("productList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -359,6 +361,144 @@ public class ProductDao {
 		}
 		
 		return list;
+	}
+
+	public int selectpId(Connection conn) {
+		
+		int pid = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("selectpId");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+	
+			rs = pstmt.executeQuery();
+		
+			if(rs.next()) {
+				pid = rs.getInt(1);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  finally {
+			close(rs);
+			close(pstmt);
+		}
+		return pid;
+	}
+
+	public int insertProduct(Connection conn, Product p) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt= null;
+		
+		String sql = prop.getProperty("insertProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, p.getpId());
+			pstmt.setString(2, p.getpName());
+			pstmt.setInt(3, p.getpPrice());
+			pstmt.setInt(4, p.getpQuantity());
+			pstmt.setInt(5, p.getCategory());
+		
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertPInfo(Connection conn, PInfo pInfo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt= null;
+		
+		String sql = prop.getProperty("insertPInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pInfo.getPid());
+			pstmt.setString(2, pInfo.getPKcal());
+			pstmt.setString(3, pInfo.getPCarbo());
+			pstmt.setString(4, pInfo.getPPro());
+			pstmt.setString(5, pInfo.getPFat());
+			pstmt.setString(6, pInfo.getPNat());
+		
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertPImg(Connection conn, PImg pImg) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt= null;
+		
+		String sql = prop.getProperty("insertPImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pImg.getFilePath());
+			pstmt.setInt(2, pImg.getPid());
+			pstmt.setString(3, pImg.getFName());
+
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteProduct(Connection conn, int pId) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteProduct");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pId);
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

@@ -36,28 +36,23 @@ public class ProductRanListServlet extends HttpServlet {
 		ArrayList<Product> list = new ProductService().productList();
 		System.out.println(list);
 		
-		// 추천상품으로 뿌릴 제품번호만 들어가있는 배열생성
-		int[] fix = {1,4,7,10,11,12,13,14};
 		int ran;
 		int ran2;
-		
 		// 두 개의 난수가 같지 않을때까지 반복하여 난수 2개 얻음
 		while(true) {
-			ran = (int)(Math.random() * 7 + 1) ;
-			ran2 = (int)(Math.random() * 7 + 1) ;
+			ran = (int)(Math.random() * list.size() + 1) ;
+			ran2 = (int)(Math.random() * list.size() + 1) ;
 			
 			if(ran != ran2) {
 				break;
 			}
 		}
 		
-		// 해당 난수의 번호 = 배열 인덱스
-		// 배열 인덱스에 해당하는 제품번호 얻음
 		// 추천상품리스트에 추가하여 반환
 		ArrayList<Product> ranList = new ArrayList<Product>();
 		for(int i = 0; i < list.size(); i++) {
 			
-			if(list.get(i).getpId() == fix[ran] || list.get(i).getpId() == fix[ran2]) {
+			if(i == ran || i == ran2) {
 				ranList.add(list.get(i));
 			}
 		}

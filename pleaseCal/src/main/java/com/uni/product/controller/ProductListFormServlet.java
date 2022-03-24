@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.uni.member.model.vo.Member;
 import com.uni.product.model.service.ProductService;
 import com.uni.product.model.vo.Product;
 

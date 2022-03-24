@@ -33,11 +33,39 @@ public class ProductTopList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 대표상품 리스트 각 카테고리별 1개만
-		ArrayList<Product> list = new ProductService().topProduct();
+		ArrayList<Product> list = new ProductService().productList();
 		
+		int ran;
+		int ran2;
+		int ran3;
+		int ran4;
+		
+		// 난수가 같지 않을때까지 반복하여 난수 4개 얻음
+		while(true) {
+			ran = (int)(Math.random() * list.size()-1 + 1) ;
+			ran2 = (int)(Math.random() * list.size()-1 + 1) ;
+			ran3 = (int)(Math.random() * list.size()-1 + 1) ;
+			ran4 = (int)(Math.random() * list.size()-1 + 1) ;
+			
+			if(ran != ran2 && ran2 != ran3 && ran3 != ran4 && ran != ran3 && ran != ran4 && ran2 != ran4) {
+				System.out.println(ran);
+				System.out.println(ran2);
+				System.out.println(ran3);
+				System.out.println(ran4);
+				break;
+			}
+		}
+
+		ArrayList<Product> ranList = new ArrayList<Product>();
+		for(int i = 0; i < list.size(); i++) {
+			
+			if(i == ran || i == ran2 || i == ran3 || i == ran4) {
+				ranList.add(list.get(i));
+			}
+		}
+
 		response.setContentType("application/json; charset=utf-8"); 
-		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(ranList, response.getWriter());
 
 	}
 

@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.uni.Review.model.service.ReviewService;
 import com.uni.Review.model.vo.Review;
+import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class ReviewSelectListServlet
+ * Servlet implementation class ReviewMyFormServlet
  */
-@WebServlet("/selcetReviewList.do")
-public class ReviewSelectListServlet extends HttpServlet {
+@WebServlet("/myReviewForm.do")
+public class ReviewMyFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewSelectListServlet() {
+    public ReviewMyFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,33 +33,13 @@ public class ReviewSelectListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int pId = Integer.parseInt(request.getParameter("pId"));
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		int userNo = m.getUserNo();
 		
-		int plusId;
-		int plusId2;
-		if(pId == 1) {
-			plusId = 2;
-			plusId2 = 3;
-		} else if (pId == 4) {
-			plusId = 5;
-			plusId2 = 6;
-		} else if (pId == 7) {
-			plusId = 8;
-			plusId2 = 9;
-		} else {
-			plusId = 0;
-			plusId2 = 0;
-		} 
+		ArrayList<Review> list = new ReviewService().myReviewList(userNo);
 		
-		ArrayList<Review> list = new ReviewService().selectReviewList(pId, plusId, plusId2);
-		System.out.println(list);
-
 		request.setAttribute("list", list);
-		response.setContentType("application/json; charset=utf-8"); 
-		new Gson().toJson(list, response.getWriter());
-
-
-		
+		request.getRequestDispatcher("views/review/myReviewList.jsp").forward(request, response);
 	}
 
 	/**

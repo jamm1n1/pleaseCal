@@ -1,5 +1,7 @@
 package com.uni.product.model.vo;
 
+import lombok.Data;
+
 public class Product {
 	
 	private int pId;
@@ -14,12 +16,20 @@ public class Product {
 	private String pNatrium;
 	private String piName;
 	private int pIoCount;
+	private int category;
 	
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public Product(int pId, String pName, int pPrice, int pQ, int category) {
+		this.pId = pId;
+		this.pName = pName;
+		this.pPrice = pPrice;
+		this.pQuantity = pQ;
+		this.category = category;
+	}
 	
 	public Product(int pId, String pName, int pPrice, int pQuantity, String pKacl, String pCarbo,
 			String pProtin, String pFat, String pNatrium, String piName) {
@@ -56,6 +66,7 @@ public class Product {
 		this(pId, pName, pPrice, pQuantity, cId, pKacl, pCarbo, pProtin, pFat, pNatrium);
 		this.piName = piName;
 	}
+
 
 	public int getpId() {
 		return pId;
@@ -153,6 +164,14 @@ public class Product {
 		this.pIoCount = pIoCount;
 	}
 	
+	public int getCategory() {
+		return category;
+	}
+
+	public void setCategory(int category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pQuantity=" + pQuantity + ", cId="
