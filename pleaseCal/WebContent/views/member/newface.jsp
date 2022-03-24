@@ -19,6 +19,14 @@ height:50px;
 width:70px;
 height:50px;
 }
+body{
+background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150404_201%2Fbbilla_1428082120293qFxQp_JPEG%2F%25C7%25CF%25B3%25AA%25BE%25B2%25B9%25D9%25C5%25C1%25C8%25AD%25B8%25E9_05_1920x1080_20150402-01.jpg&type=a340')
+}
+#joinBtn{
+width: 120px;
+background-color : #64FE2E;
+color : blue;
+}
 </style>
 
 <body>
@@ -57,20 +65,20 @@ height:50px;
 				
 				<tr>
 					<td>주소</td>	
-					<td><input type="text" name="address" id="address" placeholder="주소를 입력하세요"></td>
+					<td><input type="text" name="address" id="address" placeholder="주소를 입력하세요" required></td>
 					<td><input type="button" id="waddress" value ="주소입력!" ></input></td>
 		
 				</tr>
 				<tr>
 					<td>전화번호(-포함)</td>	
-					<td><input type="tel" maxlength="13" name="phone" placeholder="전화번호 입력해주세요(-입력)010-1234-5678" oninput="Hyphen(this)"></td>
+					<td><input type="tel" maxlength="13" name="phone" placeholder="전화번호 입력해주세요(-입력)010-1234-5678" oninput="Hyphen(this)" required></td>
 					<td></td>
 				</tr>	
 				
 			</table>
 			<br>
 			<div class="btns" align="center">				
-				<button type="submit" id="joinBtn" onclick="insert()" disabled >가입하기</button>
+				<button type="submit" id="joinBtn" onclick="insert()" hidden >가입하기</button>
 			
 				
 			</div>
@@ -93,8 +101,9 @@ height:50px;
 	
 		if($("#enrollForm input[name=userPwd]").val() != $("#enrollForm input[name=checkPwd]").val()){
 			$("#pwdResult").text("비밀번호가달라요").css("color", "red");
-			return false;			
+			return false;		
 		}
+		
 				
 		window.alert("회원가입 성공 환영해요(ノ・∀・)ノ");
 		 return true;
@@ -121,7 +130,7 @@ height:50px;
 				}else{
 					if(confirm("사용가능한 아이디입니다.")){
 						userId.attr("readonly","true");
-						$("#joinBtn").removeAttr("disabled");
+						$("#joinBtn").removeAttr("hidden");
 					}else{
 						userId.focus();
 					}
