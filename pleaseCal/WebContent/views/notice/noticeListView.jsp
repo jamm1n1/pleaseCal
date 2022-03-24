@@ -44,6 +44,7 @@
 </style>
 
 </head>
+
 <body>
 
 	<!-- menu -->
@@ -62,13 +63,13 @@
                   <table class="table">
                     
                     <thead class=" text-primary">
-                    
-                      <th>No</th>
-                      <th>Title</th>
-                      <th>Writer</th>
-                      <th>Count</th>
-                      <th>Date</th>
-                      
+                    	<tr>
+                    		<th>No</th>
+		                    <th>Title</th>
+		                    <th>Writer</th>
+		                    <th>Count</th>
+		                    <th>Date</th>
+                    	</tr>
                     </thead>
                     
                     <tbody>
@@ -106,6 +107,8 @@
         </div>
       </div>
     </div>
+    
+	<br>
 	
 	<!-- 페이징바 만들기 -->
 	<div class="pagingArea" align="center">
@@ -157,19 +160,19 @@
 	
 		<!-- 맨 끝으로 (>>) -->
 		<button onclick="location.href='<%=request.getContextPath()%>/noticeList.do?currentPage=${pi.maxPage}'"> &gt;&gt; </button>
-		</div> 
 	</div>
-	       	       	
-   	<form class="searchArea" align="center">
+	
+	<%-- 검색하기 버튼 클릭 시 검색 서블릿으로 넘어가도록 --%>
+   	<form class="searchArea" align="center" action="<%=request.getContextPath()%>/noticeSearch.do" method="get" >
         <select id="condition" name="condition">
            <option value="title">제목</option>
            <option value="content">내용</option>
         </select>
-        <input type="search" name="search">
+        <input type="search" id="search" name="search">
         <button type="submit">검색하기</button>
   	</form>
 	
-     <div id="insertBtn" align="center">
+    <div id="insertBtn" align="center">
         
 		<%-- 세션에서 가져온 로그인 유저가 비어있지 않고, 로그인 유저 아이디가 admin 이라면 --%>
      	<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
@@ -177,8 +180,7 @@
 	        <button onclick="location.href='<%=request.getContextPath()%>/noticeEnrollForm.do'">작성하기</button>     		
      	</c:if>
     </div>
-     
-	<br>
+	
 	
 	
 	<script>
@@ -196,11 +198,26 @@
 	   				location.href= "<%=request.getContextPath()%>/noticeDetail.do?nno="+nno;
 	   			})
 	   		})
-   		</c:if>	   		
+   		</c:if>
+			
+		/*
+		// 폼 제출 시
+		$("form").submit(function() {
+			
+			let input = $("#search").val();
+			
+			console.log(input);
+			// 검색창 비어 있으면 공지사항 리스트 페이지 다시 호출
+			if(input == "") {
+				//$(this).removeAttr("action");
+			} else {
+					
+			}
+			
+		})*/
 	</script>
 	
-	
-	
+
 	
 	<!-- footer-->
    	<jsp:include page = "../common/footer.jsp"/>
