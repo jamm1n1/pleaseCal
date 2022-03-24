@@ -13,16 +13,19 @@
 <title>Insert title here</title>
 
 <style>
+ body{
+background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150404_201%2Fbbilla_1428082120293qFxQp_JPEG%2F%25C7%25CF%25B3%25AA%25BE%25B2%25B9%25D9%25C5%25C1%25C8%25AD%25B8%25E9_05_1920x1080_20150402-01.jpg&type=a340')
+}
 	.outer{
 		width:1200px;
 		height:800px;
-		background:black;
-		color:white;
+		
+		color:black;
 		margin:auto;
 		margin-top:50px;
 	}
 	.listArea{
-		border:1px solid white;
+		border:1px solid black;
 		text-align:center;
 	}
 

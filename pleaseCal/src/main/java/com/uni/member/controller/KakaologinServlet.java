@@ -1,8 +1,6 @@
 package com.uni.member.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,44 +12,34 @@ import com.uni.member.model.service.MemberService;
 import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class KakaologinServlet
  */
-@WebServlet("/loginMember.do")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/main.do")
+public class KakaologinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
-     
-  
+    public KakaologinServlet() {
+        super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		//System.out.println(userId);
-		String userPwd = request.getParameter("userPwd");
-		//System.out.println(userPwd);
-		String originPwd = (String)request.getAttribute("originPwd");
-		
-		Member loginUser = new MemberService().loginMember(userId,userPwd); 
-		//System.out.println("loginUser"+loginUser);
-		
-		
-		if(loginUser != null) {
+		String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String[] names = name.split("\"");
+        
+        Member loginUser = new MemberService().kakaoMember(id);
+              if(loginUser != null) {
 			
 			HttpSession session =request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			session.setAttribute("originPwd", originPwd);
-			
-			response.sendRedirect(request.getContextPath());
-			
-		}
-			
+              }
 	}
 
 	/**

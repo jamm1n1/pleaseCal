@@ -28,7 +28,7 @@ height:50px;
 		
 		<h2 align="center">계정만들기</h2>
 		
-		<form id="newFace" action="<%=request.getContextPath() %>/insertMember.do" method="post" onsubmit="return insert();">
+		<form id="enrollForm" action="<%=request.getContextPath() %>/LoginPage.do" method="post" onsubmit="return joinValidate();">
 			<table align="center" width="750px">
 				<tr>	
 				<td>아이디</td>			
@@ -63,7 +63,7 @@ height:50px;
 				</tr>
 				<tr>
 					<td>전화번호(-포함)</td>	
-					<td><input type="tel" maxlength="13" name="phone" placeholder="전화번호 입력해주세요(-입력)010-1234-5678"></td>
+					<td><input type="tel" maxlength="13" name="phone" placeholder="전화번호 입력해주세요(-입력)010-1234-5678" oninput="Hyphen(this)"></td>
 					<td></td>
 				</tr>	
 				
@@ -88,23 +88,15 @@ height:50px;
 });
 }
 	
-	function insert(){
-		
-		if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#newFace input[name=userId]").val()))){
-			$("#newFace input[name=userId]").focus();
-	        return false;
-		}
-		
-		if($("#newFace input[name=userPwd]").val() != $("#newFace input[name=checkPwd]").val()){
-			$("#pwdResult").text("비밀번호 불일치").css("color", "red");
+	   function joinValidate(){
+			
+	
+		if($("#enrollForm input[name=userPwd]").val() != $("#enrollForm input[name=checkPwd]").val()){
+			$("#pwdResult").text("비밀번호가달라요").css("color", "red");
 			return false;			
 		}
-		
-		 if(!(/^[가-힣]{2,}$/.test($("#newFace input[name=userName]").val()))){
-			 $("#newFace input[name=userName]").focus();
-	        return false;
-		 }
-		 
+				
+		window.alert("회원가입 성공 환영해요(ノ・∀・)ノ");
 		 return true;
 		
 		
@@ -142,11 +134,15 @@ height:50px;
 		
 	}
 
+	
+	const Hyphen = (target) => {
+		 target.value = target.value
+		   .replace(/[^0-9]/g, '') //전체에서  0~9사이에 아무 숫자 '하나'  찾음 
+		  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+		}
 	</script>
 <script>
-function insert(){
-	window.alert("회원가입 성공");
-}
+
 
 </script>
 

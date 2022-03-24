@@ -47,8 +47,7 @@ public class UpdatePwdServlet extends HttpServlet {
 			request.setAttribute("loginUser", member);			
 			request.getSession().setAttribute("loginUser", updateMem);
 			request.getSession().setAttribute("loginPwd", orginPwd);
-		}else {
-			request.setAttribute("msg", "비밀번호 변경에 실패 했습니다.");
+		
 		}
 		
 		view.forward(request, response);

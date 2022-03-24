@@ -9,8 +9,17 @@ public class Member {
 	private String phone;
 	private String address;
 	private int mileage;
+	private int cid;
 	private String status;
 	
+	
+	
+	
+	
+	public Member() {
+		super();
+	}
+
 	public Member(String userId, String userPwd, String userName, String phone, String address) {
 		super();
 		this.userId = userId;
@@ -61,9 +70,16 @@ public class Member {
 		this.phone = phone;
 		this.address = address;
 		this.mileage = mileage;
-		this.coupon = coupon;
+		
 	}
 
+
+	
+
+	public Member(String userId) {
+		super();
+		this.userId = userId;
+	}
 
 	public int getUserNo() {
 		return userNo;
@@ -113,6 +129,13 @@ public class Member {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getCid() {
+		return cid;
+	}
+
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
 
 
