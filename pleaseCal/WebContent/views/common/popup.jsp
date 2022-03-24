@@ -126,7 +126,9 @@
         	<h4 class="title">공지사항</h4>
         	<div class="cont">
             	<p>
-					<img src="../../resources/image/popup.jpg" width=350 height=500 usemap="#popup" alt="event page">
+            		<%-- index에서 include하기 때문에 index에서의 경로를 가져와야 함 --%>
+            		<%-- 홈에서부터 시작하는 경로 넣기 --%>
+					<img src="<%=request.getContextPath()%>/resources/image/popup.jpg" width=350 height=500 usemap="#popup" alt="event page">
             	</p>
         	</div>
           	<form name="pop_form">
@@ -134,6 +136,7 @@
 	        		<input type="checkbox" name="chkbox" value="checkbox" id='chkbox' >
 	        		<label for="chkbox">오늘 하루동안 보지 않기</label>
 	       		</div>
+	       		<%-- 닫기 클릭 시 closePop() 함수 실행 --%>
 				<div id="close" ><a href="javascript:closePop();">닫기</a></div>    
 			</form>
 		</div>
