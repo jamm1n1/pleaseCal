@@ -43,10 +43,10 @@ margin-top : 10%
 <table>
 <tr>
  <input id ="checkid"  type="button" value="아이디 찾기" onClick="location.href='<%=request.getContextPath() %>/findid'"></input>
- <input id ="checkpwd"  type="button" value="비밀번호 찾기" style="background-color: aqua;"></input>
+ <input id ="checkpwd"  type="button" value="비밀번호 찾기" style="background-color: aqua;" ></input>
  </tr>
  </table>
- <form id="checkedpwd" action="<%= request.getContextPath() %>/checkedpwd.do" method="post">
+ <form id="checkedpwd" action="<%= request.getContextPath() %>/checkedpwd.do" method="post" >
 		<table id="go">
 			<tr>
 				<td><label>아이디</label>
@@ -55,7 +55,7 @@ margin-top : 10%
 						
 			<tr>
 				<td width="50px"><label>전화 번호</label></td>
-				<th><input type="tel" name="tel" oninput="Hyphen(this)"></th>
+				<th><input id="tel" type="tel" name="tel" oninput="Hyphen(this)"></th>
 			</tr>
 			
 		</table>
@@ -64,7 +64,7 @@ margin-top : 10%
 		<br>
 		
 		<div class="btns" align="center">
-			<button  type="submit" >찾기</button>
+			<button  type="submit" onclick="check()">찾기</button>
 		</div>
 	</form>
 
@@ -76,6 +76,14 @@ const Hyphen = (target) => {
 		   .replace(/[^0-9]/g, '') //전체에서  0~9사이에 아무 숫자 '하나'  찾음 
 		  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
 		}
+		
+		
+function check(){
+	if($("#userid").val() == null || $("#tel").val() == null){
+		window.alert("다 작성해야해요");
+	}
+	
+}
 	</script>
 
 </body>

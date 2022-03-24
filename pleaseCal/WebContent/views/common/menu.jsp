@@ -3,6 +3,7 @@
 <%@ page import="com.uni.member.model.vo.Member"%>
 <%
 Member loginUser = (Member) session.getAttribute("loginUser");
+
 %>
 
 <!DOCTYPE html>
