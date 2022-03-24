@@ -12,6 +12,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+   
+    
     <link rel="stylesheet" href="../resource/css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -39,7 +44,9 @@
         letter-spacing: 0.05rem;
         padding: 0.3rem 0.5rem;
       }
-    
+  ul{
+   list-style:none;
+   }
     </style>
 </head>
 <body>
@@ -74,19 +81,94 @@
       
                       <div class="d-grid">
                         <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" width="40%">Sign in</button>
+                    </div>
                         </form>
                         
+                       
                         <div class="text-center">
+                        <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-2" type="submit" width="40%" onclick="findid();">아이디 찾기</button>
+                        <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-2" type="submit" width="40%" onclick="findpwd();">비밀번호 찾기</button>
                           <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-1" id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button>
                           <script>
                            function enrollPage(){
     	                    location.href = "<%= request.getContextPath()%>/newfacego.do"; 
-                                   } 
+                                   }                      
+                           function findid(){
+                               location.href = "<%= request.getContextPath()%>/findid"; 
+                                      }
+                           function findpwd(){
+                               location.href = "<%= request.getContextPath()%>/findpwd"; 
+                                      }
+                           
                           </script>
                         </div>
-                       
+                     
                       </div>
-      
+        
+   <ul>
+ 
+	<li onclick="kakaoLogin();">
+      <a href="javascript:void(0)">
+         <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height:60px;,width:60px;">
+      </a>
+	</li>
+ 
+
+	<li onclick="kakaoLogout();">
+      <a href="javascript:void(0)">
+          <span>.</span>
+      </a>
+	</li>
+</ul>
+<script>
+function login(){
+	 location.href = "<%= request.getContextPath()%>/LoginPage.do"; 
+}
+
+Kakao.init('41b691f572c4e925ecf7ab3d3c7a8b8f');
+function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (res) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (res) {       	  
+        	  $.ajax({
+                  url:"<%=request.getContextPath()%>/main.do",
+                  data:{"id":res.id, "name":JSON.stringify(res.properties.nickname)}, //JSON.stringify문자열로 반환
+                  Type:"post",
+                  success:function(data){
+                      //성공적으로 하고나면 이동할 url
+                      location.href="<%=request.getContextPath()%>";
+                  }
+                  
+               });			 
+        		
+        	 
+          },
+        
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  }
+//카카오로그아웃  
+function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: '/v1/user/unlink',
+        success: function (response) {
+        	console.log(response)
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+      Kakao.Auth.setAccessToken(undefined)
+    }
+  }  
+</script>
                     
                   </div>
                 </div>

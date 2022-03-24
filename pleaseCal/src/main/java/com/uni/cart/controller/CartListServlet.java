@@ -20,7 +20,7 @@ import com.uni.product.model.vo.Product;
 /**
  * Servlet implementation class CartListServlet
  */
-@WebServlet("/cartList.do")
+@WebServlet("/cartList.")
 public class CartListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
