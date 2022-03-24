@@ -35,6 +35,10 @@ public class Member {
 		this.userPwd = userPwd;
 	}
 	
+	
+	
+
+
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String address, int milege,
 			String status) {
 		super();

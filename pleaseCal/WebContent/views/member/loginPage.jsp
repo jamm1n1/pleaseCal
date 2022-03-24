@@ -47,6 +47,9 @@
   ul{
    list-style:none;
    }
+   #kakao{
+   margin-left: 28%;
+   }
     </style>
 </head>
 <body>
@@ -86,8 +89,7 @@
                         
                        
                         <div class="text-center">
-                        <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-2" type="submit" width="40%" onclick="findid();">아이디 찾기</button>
-                        <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-2" type="submit" width="40%" onclick="findpwd();">비밀번호 찾기</button>
+                        <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-1" type="submit" width="40%" onclick="findid();">아이디및비밀번호 찾기</button>                   
                           <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-1" id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button>
                           <script>
                            function enrollPage(){
@@ -96,15 +98,13 @@
                            function findid(){
                                location.href = "<%= request.getContextPath()%>/findid"; 
                                       }
-                           function findpwd(){
-                               location.href = "<%= request.getContextPath()%>/findpwd"; 
-                                      }
+                         
                            
                           </script>
                         </div>
                      
                       </div>
-        
+  <div id="kakao">      
    <ul>
  
 	<li onclick="kakaoLogin();">
@@ -120,6 +120,7 @@
       </a>
 	</li>
 </ul>
+</div>
 <script>
 function login(){
 	 location.href = "<%= request.getContextPath()%>/LoginPage.do"; 
