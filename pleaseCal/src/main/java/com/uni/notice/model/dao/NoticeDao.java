@@ -447,6 +447,80 @@ public class NoticeDao {
 		
 		return list;
 	}
+
+
+	// 제목으로 검색 결과 총 게시글 개수 카운트하는 메소드
+	public int SearchTitleLCount(Connection conn, String search) {
+		
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// sql 구문 가져오기
+		String sql = prop.getProperty("SearchTitleLCount");
+		String title = '%'+search+'%';
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, title);
+			
+			rset = pstmt.executeQuery();
+			
+			// 조회 결과 총 개수 하나이기 때문에 if
+			if(rset.next()) {
+				listCount = rset.getInt(1); // 결과 listCount에 담기
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 역순으로 닫아주기
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+
+	// 내용으로 검색 결과 총 게시글 개수 카운트하는 메소드
+	public int SearchContentLCount(Connection conn, String search) {
+		
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// sql 구문 가져오기
+		String sql = prop.getProperty("SearchContentLCount");
+		String content = '%'+search+'%';
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, content);
+			
+			rset = pstmt.executeQuery();
+			
+			// 조회 결과 총 개수 하나이기 때문에 if
+			if(rset.next()) {
+				listCount = rset.getInt(1); // 결과 listCount에 담기
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 역순으로 닫아주기
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
 	
 
 }

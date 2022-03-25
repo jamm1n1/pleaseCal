@@ -37,7 +37,7 @@
 	
 	.replyArea{
 		width:800px;
-		color:white;
+		color:black;
 		margin:auto;
 		margin-bottom:50px;
 	}
@@ -196,14 +196,14 @@
 					},
 					
 					success: function(status){
-						if(status =="success"){ // 성공적으로 입력되면 (넘겨 받은 문자가 success 이면)
+						if(status == "success"){ // 성공적으로 입력되면 (넘겨 받은 문자가 success 이면)
 							selectReplyList(); // 리스트 조회해서 실시간으로 바뀌도록
 							$("#replyContent").val(""); // 입력했으니 댓글 입력창 비워주기
 						}
 					},
 					
 					error: function(){
-						console.log("ajax 통신 실패 - 댓글등록");
+						console.log("ajax 통신 실패 - 댓글 등록");
 					}
 				})
 				
@@ -230,24 +230,58 @@
 					
 					var value="";
 					
+					<%-- a 태그에서의 함수 호출 : 함수에 리턴값이 있던 없던 클릭해도 페이지의 최상위로 이동하지 않음 --%>
 					for(var i in list){
 						
 						value += '<tr>'+
-									'<td width="330px">'+ list[i].replyContent+'</td>'+ 
-									'<td width="150px">'+ list[i].createDate+'</td>'+ 
-								'</tr>';
+									'<td width="330px">'+ list[i].replyContent+'</td>' +
+									'<td width="150px">'+ list[i].createDate+'</td>' +
+									'<td><a href="javascript:void(0);" onClick="deleteConfirm(' + list[i].replyNo + ');">삭제</a></td>' +
+								 '</tr>';
 					}
 					
 					$("#replyList").html(value);
 				},
 				
 				error: function(){
-					console.log("ajax 통신실패 - 댓글조회");
+					console.log("ajax 통신실패 - 댓글 조회");
 				}
 				
 			})
 		}
 		
+		
+		// 댓글 삭제 a태그 클릭 시
+		function deleteConfirm(rno) {
+			
+			let result = confirm("댓글을 삭제하시겠습니까?");
+			
+			if(result) {
+				
+				$.ajax({
+					
+					url: "replyDelete.do",
+					
+					type: "post",
+					
+					data: {rno : rno},
+					
+					success: function(status) {
+								if(status == "success"){ // 성공적으로 입력되면 (넘겨 받은 문자가 success 이면)
+									selectReplyList(); // 리스트 조회해서 실시간으로 바뀌도록
+								}
+					},
+					
+					error: function(){
+						console.log("ajax 통신 실패 - 댓글 삭제");
+					}
+
+				})
+
+			} else {
+				return false;
+			}
+		}
 		
 
 	</script>

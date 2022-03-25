@@ -43,6 +43,11 @@
 		background:darkgrey;
 		cursor:pointer
 	}
+	
+	#insertBtn {
+		margin:auto;
+		margin-bottom:20px;
+	}
 
 
 </style>
@@ -116,7 +121,7 @@
 	<!-- 페이징바 만들기 -->
 	<div class="pagingArea" align="center">
 		<!-- 맨 처음으로 (<<) -->
-		<button onclick="location.href='<%=request.getContextPath()%>/noticeSearch.do?currentPage=1'"> &lt;&lt; </button>
+		<button onclick="location.href='<%=request.getContextPath()%>/noticeSearch.do?currentPage=1&condition=${condition}&search=${search}'"> &lt;&lt; </button>
 		
 		<!-- 이전페이지로(<) -->
 		<c:choose>
@@ -128,7 +133,7 @@
 			<%-- 그 외에는 --%>
 			<c:otherwise>
 				<%-- 현재 페이지에서 하나 뺀 페이지로 이동하도록 --%>
-				<button onclick="location.href='<%= request.getContextPath() %>/noticeSearch.do?currentPage=${pi.currentPage - 1}'"> &lt; </button>
+				<button onclick="location.href='<%= request.getContextPath() %>/noticeSearch.do?currentPage=${pi.currentPage - 1}&condition=${condition}&search=${search}'"> &lt; </button>
 			</c:otherwise>
 		</c:choose>
 		 
@@ -142,7 +147,7 @@
 				</c:when>
 				<%-- 그 외에는 클릭하면 해당 페이지로 넘어가도록 --%>
 				<c:otherwise>
-					<button onclick="location.href='<%=request.getContextPath() %>/noticeSearch.do?currentPage=${p}'"> ${p} </button>
+					<button onclick="location.href='<%=request.getContextPath() %>/noticeSearch.do?currentPage=${p}&condition=${condition}&search=${search}'"> ${p} </button>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -157,23 +162,35 @@
 			<%-- 그 외에는 --%>
 			<c:otherwise>
 				<%-- 현재 페이지에서 하나 더한 페이지로 이동하도록 --%>
-				<button onclick="location.href='<%= request.getContextPath() %>/noticeSearch.do?currentPage=${pi.currentPage + 1}'"> &gt; </button>
+				<button onclick="location.href='<%= request.getContextPath() %>/noticeSearch.do?currentPage=${pi.currentPage + 1}&condition=${condition}&search=${search}'"> &gt; </button>
 			</c:otherwise>
 		</c:choose>
 		
 		<!-- 맨 끝으로 (>>) -->
-		<button onclick="location.href='<%=request.getContextPath()%>/noticeSearch.do?currentPage=${pi.maxPage}'"> &gt;&gt; </button>
+		<button onclick="location.href='<%=request.getContextPath()%>/noticeSearch.do?currentPage=${pi.maxPage}&condition=${condition}&search=${search}'"> &gt;&gt; </button>
 	</div>
 	
 	<%-- 검색하기 버튼 클릭 시 검색 서블릿으로 넘어가도록 --%>
    	<form class="searchArea" align="center" action="<%=request.getContextPath()%>/noticeSearch.do" method="get" >
-        <select id="condition" name="condition">
-           <option value="title">제목</option>
-           <option value="content">내용</option>
+		
+		<select id="condition" name="condition">
+        	<%--<c:if test="${ condition == 'title' }">
+        		<option value="title" selected>제목</option>
+           		<option value="content">내용</option>
+        	</c:if>
+        	<c:if test="${ condition == 'content' }">
+        		<option value="title">제목</option>
+           		<option value="content" selected>내용</option>
+        	</c:if> --%>
+        	
+        	<%-- 삼항 연산자로 간단하게 --%>
+        	<option value="title" ${ (condition == 'title') ? "selected" : "" }>제목</option>
+       		<option value="content" ${ (condition == 'content') ? "selected" : "" }>내용</option>
         </select>
         <%-- 넘겨 받은 검색어 value로 기본값 설정 --%>
-        <input type="search" id="search" name="search" value="${search}">
+        <input type="search" id="search" name="search" value="${search}"/>
         <button type="submit">검색하기</button>
+        
   	</form>
 	
     <div id="insertBtn" align="center">
@@ -202,7 +219,12 @@
 	   				location.href= "<%=request.getContextPath()%>/noticeDetail.do?nno="+nno;
 	   			})
 	   		})
-   		</c:if>	   		
+   		</c:if>
+		
+		
+		// condition hidden 으로 넘긴 input 찍어보기
+		let input = $("#con").val();
+		console.log(input);
 	</script>
 	
 	

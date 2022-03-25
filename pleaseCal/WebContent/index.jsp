@@ -8,11 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+
 <style>
-#a{text-decoration:none !important;}
-#d{color:black;}
+	#a{text-decoration:none !important;}
+	#d{color:black;}
 </style>
+
 </head>
+
 <body style=background:#f8f8f8>
    
    	<!-- popup -->
@@ -32,17 +35,17 @@
 	</header>
 
 
-   <section class="py-5">
-       <div class="container px-4 px-lg-5 mt-5">
-           <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="list">
+   	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5">
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="list">
            	
            		<!-- 대표상품 삽입 장소 -->
            </div>
        </div>
-   </section>
+   	</section>
    
    
-   <script>
+   	<script>
    		$(function(){
    			
    			$.ajax({
@@ -156,5 +159,5 @@
    <jsp:include page = "views/common/footer.jsp"/>
 
    
- </body>
+</body>
 </html>
