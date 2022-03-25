@@ -53,7 +53,7 @@
 h5 {
 	display: inline;
 }
-#ddv{
+#名前{
 margin-top: 5%;
 }
 body{
@@ -62,7 +62,7 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 </style>
 
 <jsp:include page = "../common/menu.jsp"/>
-<div id="ddv">
+<div id="名前">
 	<strong><h3 style="display:inline">
 			<%=username%>님의MyPage
 			</h3></strong>
