@@ -471,6 +471,55 @@ public class BoardDao {
 	}
 
 
+	public ArrayList<Board> boardSelectList(Connection conn, PageInfo pi, String userId) {
+		
+		// list 선언
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// sql 구문 가져오기
+		String sql = prop.getProperty("boardSelectList");
+		
+		// 페이징 시작, 끝 페이지 로 해야 전체 조회 가능
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			// 전체 리스트 가져오기 때문에 while로
+			while(rset.next()) {
+				 // Board 객체 생성
+				Board b = new Board(rset.getInt("BOARD_NO"),
+									rset.getString("WRITER_ID"),
+									rset.getString("CATEGORY"),
+									rset.getInt("COUNT"),
+									rset.getDate("CREATE_DATE"));
+				
+				list.add(b); // list에 notice 객체 담기
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 역순으로 닫아주기
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
 		
 	
 /*	트리거 생성으로 필요 없어짐

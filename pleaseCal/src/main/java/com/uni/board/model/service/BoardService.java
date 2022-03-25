@@ -218,6 +218,19 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	
+	// 회원 본인이 작성한 게시글 조회
+	public ArrayList<Board> boardSelectList(PageInfo pi, String userId) {
+		
+		Connection conn = getConnection(); // 커넥션 연결
+		
+		ArrayList<Board> list = new BoardDao().boardSelectList(conn, pi, userId);
+		
+		close(conn);
+		
+		return list;
+	}
 
 	
 	
