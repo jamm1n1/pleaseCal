@@ -40,19 +40,19 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
    <strong><h4>managerPage</h4></strong>
    </div>
    <div id="Members">
-   <button id="membut" type="button"   onClick="checkmem();">
+   <button id="membut" onClick="checkmem();">
     <h4>회원 목록</h4><small>쇼핑몰을 이용하는 고객들의정보가있어요<br>୧(๑•̀ᗝ•́)૭</small>
    </button>
      
-    <button id="membut" type="button"  style="margin-left: 400px;" onClick="product_IO();">
+    <button id="membut" style="margin-left: 400px;" onClick="product_IO();">
     <h4>상품 관리</h4><small>쇼핑몰의 상풀을 입고및출고할 수 있어요<br>＼(╹◡╹＼Ξ／╹◡╹)／</small>
     </button>
     
     <br><br><br>
     
     <div>
-	    <input id="membut" type="button" value="상품 등록" onClick="location.href='<%=request.getContextPath() %>/insertProductForm.do'">
-		<input id="membut" type="button" value="상품 삭제" style="margin-left: 400px;" onClick="deletrProduct()">
+	    <button id="membut" onClick="product_plus()"><h4>상품 등록</h4>새상품을 등록 할 수 있어요. ʕ◍·̀Ⱉ·́◍ʔ</button>
+		<button id="membut" style="margin-left: 400px;" onClick="deletrProduct()"><h4>상품 삭제</h4>상품삭제를 할 수있어요.( >д<)</button>
     </div>
     
    </div>
@@ -63,8 +63,10 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 	              }    
 	   function product_IO(){
 	       location.href = "<%= request.getContextPath()%>/Product_IO.do"; 
-	              }    
-	   
+	              }   
+	   function product_plus(){
+		   location.href = "<%= request.getContextPath()%>/insertProductForm.do"; 
+	   }
 	   $(function(){
 	  		
 	  		let msg = "<%=msg%>";

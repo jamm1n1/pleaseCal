@@ -57,7 +57,7 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 					<th width="150">전화번호</th>	
 					<th width="250">회원주소</th>										
 					<th width="100">마일리지</th>																								
-					<th width="100">탈퇴유무</th>										
+					<th width="100">회원유무</th>										
 				</tr>
 			<thead>
 			<tbody>
