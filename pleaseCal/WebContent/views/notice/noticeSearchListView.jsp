@@ -18,6 +18,11 @@
 
 <style>
 
+	.content {
+		margin:auto;
+		margin-top:100px;
+	}
+
 	.table{
 		border:1px solid white;
 		text-align:center;
@@ -166,7 +171,8 @@
            <option value="title">제목</option>
            <option value="content">내용</option>
         </select>
-        <input type="search" id="search" name="search">
+        <%-- 넘겨 받은 검색어 value로 기본값 설정 --%>
+        <input type="search" id="search" name="search" value="${search}">
         <button type="submit">검색하기</button>
   	</form>
 	

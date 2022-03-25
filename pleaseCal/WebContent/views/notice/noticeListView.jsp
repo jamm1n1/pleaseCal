@@ -19,12 +19,17 @@
 
 <style>
 
-	.table{
+	.content {
+		margin:auto;
+		margin-top:100px;
+	}
+	
+	.table {
 		border:1px solid white;
 		text-align:center;
 	}
 	
-	.searchArea{
+	.searchArea {
 		margin:auto;
 		margin-top:30px;
 		margin-bottom:30px;
@@ -35,11 +40,15 @@
 		margin-top:50px;
 	}
 	
-	.table>tbody>tr:hover{
+	.table>tbody>tr:hover {
 		background:darkgrey;
 		cursor:pointer
 	}
-
+	
+	#insertBtn {
+		margin:auto;
+		margin-bottom:20px;
+	}
 
 </style>
 

@@ -18,6 +18,11 @@
 
 <style>
 
+	.content {
+		margin:auto;
+		margin-top:100px;
+	}
+
 	.table{
 		border:1px solid white;
 		text-align:center;
@@ -159,8 +164,8 @@
 	
 		<!-- 맨 끝으로 (>>) -->
 		<button onclick="location.href='<%=request.getContextPath()%>/boardList.do?currentPage=${pi.maxPage}'"> &gt;&gt; </button>
-		</div> 
-	</div>
+	</div> 
+	
 	
 	
    	<form class="searchArea" align="center">
