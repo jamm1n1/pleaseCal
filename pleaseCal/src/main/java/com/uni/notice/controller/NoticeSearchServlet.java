@@ -45,8 +45,19 @@ public class NoticeSearchServlet extends HttpServlet {
 		int pageLimit; // 한 페이지 하단에 보여질 패이지의 최대 개수
 		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수
 		
+		
+		// =====================================================
+		// condition, search 가져오기
+		String condition = request.getParameter("condition");
+		String search = request.getParameter("search");
+		
+		System.out.println("condition == servlet == " + condition);
+		System.out.println("search == servlet == " + search);
+		// =====================================================
+		
+		
 		// 총 개시글 개수 가져와서 담기
-		listCount = new NoticeService().getListCount();
+		listCount = new NoticeService().SearchListCount(condition, search);
 		
 		// 현재 페이지
 		currentPage = 1;
@@ -85,12 +96,6 @@ public class NoticeSearchServlet extends HttpServlet {
 		
 		// ============================
 		
-		
-		// condition, search 가져오기
-		String condition = request.getParameter("condition");
-		String search = request.getParameter("search");
-		
-		System.out.println("condition == servlet == " + condition);
 		
 		/*if(condition == null) {
 			

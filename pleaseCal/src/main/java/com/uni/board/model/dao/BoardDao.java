@@ -519,6 +519,74 @@ public class BoardDao {
 		return list;
 	}
 
+	
+	// 회원 본인이 작성한 게시글 개수 조회
+	public int selectListCount(Connection conn, String userId) {
+		
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// sql 구문 가져오기
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			// 조회 결과 총 개수 하나이기 때문에 if
+			if(rset.next()) {
+				listCount = rset.getInt(1); // 결과 listCount에 담기
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 역순으로 닫아주기
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}
+
+
+	
+	// 댓글 삭제하는 메소드 (상태값 N으로 업데이트)
+	public int deleteReply(Connection conn, int rno) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("deleteReply");
+		
+		// 삭제니까 ResultSet 필요 없음
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, rno);
+			
+			// executequery 아니고 update
+			// UPDATE QUESTION_BOARD SET STATUS='N' WHERE BOARD_NO=? -> 상태변화
+			result = pstmt.executeUpdate(); // result에 결과 담기
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 		
 	

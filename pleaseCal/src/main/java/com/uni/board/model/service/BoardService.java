@@ -231,6 +231,34 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	
+	// 회원 본인이 작성한 게시글 개수 조회
+	public int selectListCount(String userId) {
+		
+		Connection conn = getConnection(); // 커넥션 연결
+		
+		// 총 게시글 개수 반환하기 위해
+		int listCount = new BoardDao().selectListCount(conn, userId);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	
+	// 댓글 삭제하는 메소드 (상태값 N으로 업데이트)
+	public int deleteReply(int rno) {
+		
+		Connection conn = getConnection(); // 커넥션 연결
+		
+		int result = new BoardDao().deleteReply(conn, rno);
+		
+		
+		close(conn);
+		
+		return result;
+	}
 
 	
 	

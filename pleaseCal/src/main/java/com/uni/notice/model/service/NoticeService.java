@@ -139,7 +139,7 @@ public class NoticeService {
 		
 		ArrayList<Notice> list = null;
 		
-		System.out.println("condition == service == " + condition);
+		//System.out.println("condition == service == " + condition);
 		
 		// 제목으로 검색
 		if(condition.equals("title")) {
@@ -153,6 +153,29 @@ public class NoticeService {
 		close(conn); // 커넥션 닫기
 		
 		return list; // list 반환
+	}
+	
+	
+	// 총 게시글 개수 카운트하는 메소드
+	public int SearchListCount(String condition, String search) {
+		
+		Connection conn = getConnection(); // 커넥션 연결
+		
+		// 총 게시글 개수 반환하기 위해
+		int listCount = 0;
+		
+		// 제목으로 검색
+		if(condition.equals("title")) {
+			listCount = new NoticeDao().SearchTitleLCount(conn, search);
+		
+		// 내용으로 검색
+		} else if(condition.equals("content")){
+			listCount = new NoticeDao().SearchContentLCount(conn, search);
+		}
+		
+		close(conn);
+		
+		return listCount;
 	}
 
 }

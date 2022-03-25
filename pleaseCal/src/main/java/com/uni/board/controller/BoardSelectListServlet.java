@@ -47,8 +47,13 @@ public class BoardSelectListServlet extends HttpServlet {
 		int pageLimit; // 한 페이지 하단에 보여질 패이지의 최대 개수
 		int boardLimit; // 한 페이지에 보여질 게시글의 최대 개수
 		
+		
+		// 로그인 유저 아이디
+		String userId = (String)((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		
+		
 		// 총 개시글 개수 가져와서 담기
-		listCount = new BoardService().getListCount();
+		listCount = new BoardService().selectListCount(userId);
 		
 		// 현재 페이지
 		currentPage = 1;
@@ -87,9 +92,6 @@ public class BoardSelectListServlet extends HttpServlet {
 		
 		// ============================
 		
-		
-		// 로그인 유저 아이디
-		String userId = (String)((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
 		// 해당 회원의 모든 게시글을 가져오기 위해 list
 		ArrayList<Board> list = new BoardService().boardSelectList(pi, userId);
