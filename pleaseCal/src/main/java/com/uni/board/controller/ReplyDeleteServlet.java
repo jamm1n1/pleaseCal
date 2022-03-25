@@ -34,7 +34,7 @@ public class ReplyDeleteServlet extends HttpServlet {
 		// 해당 댓글 번호 가져오기
 		int rno = Integer.parseInt(request.getParameter("rno"));
 		
-		System.out.println("rNo === servlet === " + rno);
+		//System.out.println("rNo === servlet === " + rno);
 		
 		int result = new BoardService().deleteReply(rno);
 		
