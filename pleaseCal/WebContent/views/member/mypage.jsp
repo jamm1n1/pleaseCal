@@ -39,6 +39,11 @@
  width: 300px;
  background-color:white;
 }
+#review{
+ height: 200px;
+ width: 300px;
+ background-color:white;
+}
 
 #mil {
 	margin-top: 5%;
@@ -90,7 +95,9 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 	<br><br>
 	
 	<div id="Members">
-		<input id="membut" type="button" value="나의 후기" onclick="location.href='<%=request.getContextPath() %>/myReviewForm.do'"></input> 
+		<button id="review"  onclick="myreview();">
+		<h4>나의 후기</h4><small>고객님이 작성하신 후기를 확인 할 수 있어요. <br>〜(^∇^〜）</small>
+		</button> 
 		
 	</div>
 	
@@ -99,7 +106,9 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 	 function memberupdate(){
          location.href = "<%= request.getContextPath()%>/memberupdate.do"; 
                 }     
-	
+	 function myreview(){
+		 location.href = "<%= request.getContextPath()%>/myReviewForm.do";
+	 }
 	
 	     function deleteMember(){
 	    	  var  pwd = prompt("현재 비밀번호를 입력해주세요")

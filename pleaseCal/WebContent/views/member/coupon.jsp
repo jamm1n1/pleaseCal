@@ -51,7 +51,7 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 				<tr>
 				    
 					<th width="250"><h3>쿠폰이름</h3></th>
-					<th width="200"><h3>쿠폰할인율</h3></th>				
+					<th width="200"><h3>쿠폰할인</h3></th>				
 				</tr>
 			
 			

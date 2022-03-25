@@ -32,7 +32,7 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 
 <div id="check" align="center">
 
-<h4 id="user">"<%=loginUser.getUserName()%>" 회원님의 비밀번호는 "<%=loginUser.getUserPwd() %>" 입니다. d(*ゝωб*)</h4>
+<h4 id="user">"<%=loginUser.getUserName()%>" 회원님의 비밀번호는 "<%=loginUser.getUserPwd() %>" 입니다. </h4><h4> d(*ゝωб*)</h4>
 
 <button onClick="home();">돌아가기</button>
 		</div>
