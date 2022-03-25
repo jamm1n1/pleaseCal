@@ -58,11 +58,6 @@
 	body{
 		background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150404_201%2Fbbilla_1428082120293qFxQp_JPEG%2F%25C7%25CF%25B3%25AA%25BE%25B2%25B9%25D9%25C5%25C1%25C8%25AD%25B8%25E9_05_1920x1080_20150402-01.jpg&type=a340')
 	}
-	#review{
-	 height: 200px;
-	 width: 300px;
-	 background-color:white;
-	}
 </style>
 
 </head>
@@ -103,12 +98,8 @@
 	<div id="Members">
 		<table>
 			<tr>
-			<td>	<button id="review"  onclick="myreview();">
-		<h4>나의 후기</h4><small>고객님이 작성하신 후기를 확인 할 수 있어요. <br>〜(^∇^〜）</small>
-		</button> </td>
-				<td><button id="myBoard" onclick="location.href='<%= request.getContextPath() %>/boardSelectList.do'" style="margin-left: 200px;" ><h4>내가 작성한 게시글</h4>
-				<small>고객님이 작성한 게시글을 확인 할 수 있어요</small>
-				</button></td>
+				<td><button id="membut" onclick="location.href='<%= request.getContextPath() %>/myReviewForm.do'"><h4>나의 후기</h4></button></td>
+				<td><button id="myBoard" onclick="location.href='<%= request.getContextPath() %>/boardSelectList.do'" style="margin-left: 200px;" ><h4>내가 작성한 게시글</h4></button></td>
 			</tr>
 		</table>
 	</div>
@@ -117,10 +108,7 @@
 	<script>
 		 function memberupdate() {
 	         location.href = "<%= request.getContextPath()%>/memberupdate.do"; 
-         }    
-		 function myreview(){
-			 location.href = "<%= request.getContextPath()%>/myReviewForm.do";
-		 }
+         }     
 		
 		
 		 function deleteMember(){
