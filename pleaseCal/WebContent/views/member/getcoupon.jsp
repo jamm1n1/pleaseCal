@@ -56,7 +56,7 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 		</tr>
 		<tr>
 		<form action="<%=request.getContextPath()%>/get.do" method="post">
-		<td><input type="number" value="0" id="cid" name="cid"></input></td>
+		<td><input type="number" id="cid" name="cid"></input></td>
 					
 					<td><button onclick="get()">내려받기</button></td>
 					

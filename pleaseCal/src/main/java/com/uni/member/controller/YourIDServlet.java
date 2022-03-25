@@ -1,29 +1,30 @@
-package com.uni.Review.controller;
+package com.uni.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-import com.uni.Review.model.service.ReviewService;
-import com.uni.Review.model.vo.Review;
+import com.uni.member.model.service.MemberService;
+import com.uni.member.model.vo.Member;
+
 
 /**
- * Servlet implementation class ReviewSelectListServlet
+ * Servlet implementation class YourIDServlet
  */
-@WebServlet("/selcetReviewList.do")
-public class ReviewSelectListServlet extends HttpServlet {
+@WebServlet("/findcheckid.do")
+public class YourIDServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewSelectListServlet() {
+    public YourIDServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,34 +33,18 @@ public class ReviewSelectListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("name");
+		String usertel = request.getParameter("tel");
 		
-		int pId = Integer.parseInt(request.getParameter("pId"));
-		
-		int plusId;
-		int plusId2;
-		if(pId == 1) {
-			plusId = 2;
-			plusId2 = 3;
-		} else if (pId == 4) {
-			plusId = 5;
-			plusId2 = 6;
-		} else if (pId == 7) {
-			plusId = 8;
-			plusId2 = 9;
-		} else {
-			plusId = 0;
-			plusId2 = 0;
-		} 
-		
-		ArrayList<Review> list = new ReviewService().selectReviewList(pId, plusId, plusId2);
-		System.out.println(list);
-
-		request.setAttribute("list", list);
-		response.setContentType("application/json; charset=utf-8"); 
-		new Gson().toJson(list, response.getWriter());
-
-
-		
+		Member loginUser = new MemberService().findid(username,usertel); 
+       System.out.println(loginUser+"서블렛");
+			
+			HttpSession session =request.getSession();
+			request.setAttribute("loginUser", loginUser);
+			RequestDispatcher view = request.getRequestDispatcher("views/member/yourid.jsp");
+			view.forward(request, response);
+      
+       
 	}
 
 	/**

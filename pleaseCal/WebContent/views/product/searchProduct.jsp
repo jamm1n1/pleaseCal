@@ -126,7 +126,7 @@
 				<a href="<%=request.getContextPath() %>/detailProduct.do?no=${item.pId}"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/${item.piName}" alt="상품이미지" /></a>
 				<div class="card-body p-4">
 					<div class="text-center">
-						<h5 class="fw-bolder">${item.pName}</h5>${item.pPrice}
+						<h5 class="fw-bolder">${item.pName}</h5>${item.pPrice} 원
 					</div>
 				</div>
 				<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">

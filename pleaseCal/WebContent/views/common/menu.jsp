@@ -3,6 +3,7 @@
 <%@ page import="com.uni.member.model.vo.Member"%>
 <%
 Member loginUser = (Member) session.getAttribute("loginUser");
+
 %>
 
 <!DOCTYPE html>
@@ -23,16 +24,15 @@ Member loginUser = (Member) session.getAttribute("loginUser");
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="./resources/js/owl.carousel.js"></script>
 <script src="./resources/js/owl.carousel.min.js"></script>
-<style>
+
+ <style>
 
  * {
  	font-family: 'Noto Sans KR', sans-serif;
  }
  </style>
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="././resources/css/styles.css" rel="stylesheet" />
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body>
 <!-- Navigation-->
@@ -56,61 +56,61 @@ Member loginUser = (Member) session.getAttribute("loginUser");
                           </ul>
                       </li>
                             <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/noticeList.do">공지사항</a>
-                         <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/boardList.do">Q&A</a>
+                         	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/boardList.do">Q&A</a>
                       </li>
-		      <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/healthInfo.do">건강계산기</a>
+                      <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath() %>/healthInfo.do">건강계산기</a>
 
                </ul>
                <form class="searching" action="<%=request.getContextPath() %>/searchProduct.do">
-             	  <input class="form-control" type="text" placeholder="전체검색" name="search">
-               </form>  &nbsp; &nbsp;
+            	 <input class="form-control" type="text" placeholder="전체검색" name="search">
+           	   </form>  &nbsp; &nbsp;
              
              <div>
-               <form class="d-flex">
+              
                <button class="btn btn-outline-dark" type="button" onClick="location.href='<%=request.getContextPath()%>/cartList.do'">
                   <i class="bi-cart-fill me-1"></i> Cart <span
                      class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-               </button>&nbsp; &nbsp;
+               </button>&nbsp;
 
                   </div>
             <% if (loginUser == null) { %>
 
                   <i class="fa-thin fa-people-roof"></i>
                   <input class="btn btn-outline-dark" id="manager" type="button" value="로그인" onClick="location.href='<%=request.getContextPath() %>/LoginPage.do'"><span
-                  class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                     class="badge bg-dark text-white ms-1 rounded-pill"></span>
                            
-            <% } else { %>
+               <% } else { %>
    
                <% if (loginUser != null && loginUser.getUserId().equals("admin")) { %>
    
 
                     <i class="fa-thin fa-people-roof"></i>
-                    <input class="btn btn-outline-dark" id="manager" type="button" value="관리자페이지" onClick="location.href='<%=request.getContextPath() %>/managerPage.do'"><span
-                     class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                  	<input class="btn btn-outline-dark" id="manager" type="button" value="관리자페이지" onClick="location.href='<%=request.getContextPath() %>/managerPage.do'"><span
+                     class="badge bg-dark text-white ms-1 rounded-pill"></span>&nbsp;
 
                   
                    <i class="fa-thin fa-people-roof"></i>
                    <input class="btn btn-outline-dark" id="manager" type="button" value="로그아웃" onClick="location.href='<%=request.getContextPath() %>/logoutMember.do'"><span
-                    class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                     class="badge bg-dark text-white ms-1 rounded-pill"></span>
 
                <% } else { %>
    
                   
- 		 <div id="userInfo">
-		   <i class="fa-thin fa-people-roof"></i>
-                   <input class="btn btn-outline-dark" id="manager" type="button" value="마이페이지" onClick="location.href='<%=request.getContextPath() %>/mypageMember.do'"><span
-                   class="badge bg-dark text-white ms-1 rounded-pill"></span>
+ 				<div id="userInfo">
+					<i class="fa-thin fa-people-roof"></i>
+                    <input class="btn btn-outline-dark" id="manager" type="button" value="마이페이지" onClick="location.href='<%=request.getContextPath() %>/mypageMember.do'"><span
+                     class="badge bg-dark text-white ms-1 rounded-pill"></span>
                      
-                  <i class="fa-thin fa-people-roof"></i>
-                  <input class="btn btn-outline-dark" id="manager" type="button" value="로그아웃" onClick="location.href='<%=request.getContextPath() %>/logoutMember.do'"><span
-                  class="badge bg-dark text-white ms-1 rounded-pill"></span>
-                  <b style="color: blue;"><%=loginUser.getUserName()%> 님 </b> 어서오세요.
-		  </div>
+                    <i class="fa-thin fa-people-roof"></i>
+                   <input class="btn btn-outline-dark" id="manager" type="button" value="로그아웃" onClick="location.href='<%=request.getContextPath() %>/logoutMember.do'"><span
+                     class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                     <b style="color: blue;"><%=loginUser.getUserName()%> 님 </b> 어서오세요.
+				</div>
                   
-                <%}%>
-             <%}%>
+                  <%}%>
+               <%}%>
                
-            </form>
+            
          </div>
       </div>
       

@@ -45,7 +45,7 @@ p{font-size:13px;}
        
    </section>
    <script>
-   
+
    		$(function(){
    			
    			$.ajax({
@@ -54,13 +54,13 @@ p{font-size:13px;}
    		   		type: "get",
    		   		
    		   		success:function(list){
-   		   			
+	   		   	
    		   			let value = "";
    		   			
    		   			for(var i in list){
 
 						value += '<div class="col mb-5">'+
-						
+									
 									'<div>'+
 									'<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/'+list[i].piName+'" alt="상품이미지" /></a>'+
 										'<div class="card-body p-4">'+
@@ -74,13 +74,16 @@ p{font-size:13px;}
 											'<div class="text-center">'+
 											'<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'">상세정보</a>'+
 											'</div>'+
+											
 										'</div>'+
 									'</div>'+
+									'</form>'+
 								'</div>';
 		                  
 					}
 					$("#list").html(value);
-					console.log(list)
+					
+					
    		   		},
    		   		
    		   		error:function(){
@@ -89,6 +92,7 @@ p{font-size:13px;}
    	   		})
    		})
    		
+   
    		function orderby(id){
    			console.log(id)
    			
@@ -103,7 +107,7 @@ p{font-size:13px;}
    		   		},
    		   		
    		   		success:function(list){
-   					
+   		   		
    		   		let value = "";
 		   			
 		   			for(var i in list){

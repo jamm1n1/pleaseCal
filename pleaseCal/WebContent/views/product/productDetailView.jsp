@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.sql.Date.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,7 +12,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <link href="././resources/css/styles2.css" rel="stylesheet"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
 <style>
 	.date {
   	text-align: right;
@@ -157,7 +159,7 @@
 				},
 				
 				success:function(object){
-					
+					console.log(object)
 					// 상품이 변할때마다 가격, 재고량, 주문량 변경
 					$('#price').text(object.price);
 					$('#changePrice').val(object.price);
@@ -289,13 +291,16 @@
 					// 후기 있을때		
    		   			for(var i in list){
    		   				
-   		   				$("#list").html("");
-   		   				// 날짜 포맷 moment 라이브러리
+   		   				let month = list[i].rUpdate.substring(0,2);
+   		   				let day = list[i].rUpdate.substring(3,5);
+   		   				let year = list[i].rUpdate.slice(-4,11);
+   		   				let update = year+"년 "+month+" "+day+"일";
+   		   				
 						value += '<table class="table table-striped">'+
 						 			'<thead>'+
 									 	'<tr>'+
 									 		'<th>'+list[i].rName+'</th>'+
-									 		'<th class="date">'+moment(list[i].update).format("YYYY년MM월DD일")+'</th>'+
+									 		'<th class="date">'+update+'</th>'+
 									 	'</tr>'+
 									 '</thead>'+
 									 '<tbody>'+

@@ -63,7 +63,7 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 					<% for(Coupon p : list){ %>
 					<tr>				    
 						<th><h4><%= p.getCname() %></h4></th>
-						<th><h4><%= p.getCsale() %>%</h4></th>	
+						<th><h4><%= p.getCsale() %></h4></th>	
 															
 					</tr>
 					

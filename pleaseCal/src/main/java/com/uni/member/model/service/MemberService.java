@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.uni.member.model.dao.MemberDao;
 import com.uni.member.model.vo.Member;
+
 import com.uni.product_IO.model.dao.ProductIoDao;
 import com.uni.product_IO.model.vo.Product_IO;
 
@@ -108,6 +109,28 @@ public class MemberService {
         Connection conn = getConnection();
 		
 		Member loginUser = new MemberDao().kakaoMember(conn,id);
+		
+		close(conn);
+		
+		
+		return loginUser;
+	}
+
+	public Member findid(String username, String usertel) {
+        Connection conn = getConnection();
+		
+		Member loginUser = new MemberDao().findid(conn,username,usertel);
+		
+		close(conn);
+		
+		
+		return loginUser;
+	}
+
+	public Member findpwd(String id, String usertel) {
+        Connection conn = getConnection();
+		
+		Member loginUser = new MemberDao().findpwd(conn,id,usertel);
 		
 		close(conn);
 		
