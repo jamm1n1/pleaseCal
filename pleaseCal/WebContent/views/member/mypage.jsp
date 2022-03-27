@@ -98,8 +98,10 @@
 	<div id="Members">
 		<table>
 			<tr>
-				<td><button id="membut" onclick="location.href='<%= request.getContextPath() %>/myReviewForm.do'"><h4>나의 후기</h4></button></td>
-				<td><button id="myBoard" onclick="location.href='<%= request.getContextPath() %>/boardSelectList.do'" style="margin-left: 200px;" ><h4>내가 작성한 게시글</h4></button></td>
+				<td><button id="membut" onclick="location.href='<%= request.getContextPath() %>/myReviewForm.do'"><h4>나의 후기</h4><small>내가 작성한 후기를 확인 할 수 있어요<br> 〜(^∇^〜）</small></button></td>
+				<td><button id="myBoard" onclick="location.href='<%= request.getContextPath() %>/boardSelectList.do'" style="margin-left: 200px;" ><h4>내가 작성한 게시글</h4>
+				<small>내가 작성한 게시글을 확인 할 수 있어요.<br> ✦‿✦</small>
+				</button></td>
 			</tr>
 		</table>
 	</div>
