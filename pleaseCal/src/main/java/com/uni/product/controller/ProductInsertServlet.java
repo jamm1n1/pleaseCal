@@ -51,7 +51,7 @@ public class ProductInsertServlet extends HttpServlet {
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8");
 			
 			int pId = Integer.parseInt(multiRequest.getParameter("pId"));
-			System.out.println("pId: "+pId);
+			//System.out.println("pId: "+pId);
 			String pName = multiRequest.getParameter("pName");
 			int pPrice = Integer.parseInt(multiRequest.getParameter("pPrice"));
 			int pQ = Integer.parseInt(multiRequest.getParameter("pQ"));
