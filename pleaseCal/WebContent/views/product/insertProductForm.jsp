@@ -116,19 +116,19 @@
     		
     	})
     	
-        function setThum(event) { 
+        function setThum(event) { //파일이 첨부되면
 
-            let reader = new FileReader(); 
+            let reader = new FileReader(); // File API 비동기적 파일의 내용을 읽어옴
 
-            reader.onload = function(event) { 
+            reader.onload = function(event) {  // 파일 읽기 완료시
                 let img = document.createElement("img"); 
-                img.setAttribute("src", event.target.result); 
+                img.setAttribute("src", event.target.result); // 파일경로를 src 속성에 추가
                 img.style.width = "600px";
                 img.style.height = "600px";
-                document.querySelector("div#imgThum").appendChild(img); 
+                $("#imgThum").append(img); 
             }; 
             
-            reader.readAsDataURL(event.target.files[0]); 
+            reader.readAsDataURL(event.target.files[0]); // 바이너리 파일을 Base64 Encode 문자열로 반환
         }
     </script>
     
