@@ -37,10 +37,10 @@
 	    <div class="col">
 	      <p class="m-0 text-center text-black"><b>서제민</b></p>
 	      <ul class="nav flex-column">
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">Features</p></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">Pricing</p></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">FAQs</p></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">About</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">회원가입기능</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">로그인기능</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">마이페이지</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">관리자페이지</p></li>
 	      </ul>
 	    </div>
 	
