@@ -150,4 +150,15 @@ public class ProductService {
 		return result;
 	}
 
+	public ArrayList<Product> orderbyBestProductList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().orderbyBestProductList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }
