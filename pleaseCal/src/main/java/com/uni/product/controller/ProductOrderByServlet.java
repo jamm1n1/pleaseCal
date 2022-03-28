@@ -42,7 +42,7 @@ public class ProductOrderByServlet extends HttpServlet {
 		} else if(orderby == 3) { // 가격오름차순
 			list = new ProductService().orderbyPriceAscProductList();
 		} else { // 인기순
-			
+			list = new ProductService().orderbyBestProductList();
 		}
 		
 		response.setContentType("application/json; charset=utf-8"); 
