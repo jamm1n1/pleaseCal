@@ -34,7 +34,6 @@ public class ProductOrderByServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int orderby = Integer.parseInt(request.getParameter("orderby"));
-		System.out.println("이거:"+orderby);
 		
 		ArrayList<Product> list = null;
 		if(orderby == 2) { // 가격내림차순
@@ -42,7 +41,7 @@ public class ProductOrderByServlet extends HttpServlet {
 		} else if(orderby == 3) { // 가격오름차순
 			list = new ProductService().orderbyPriceAscProductList();
 		} else { // 인기순
-			
+			list = new ProductService().orderbyBestProductList();
 		}
 		
 		response.setContentType("application/json; charset=utf-8"); 

@@ -501,4 +501,44 @@ public class ProductDao {
 		return result;
 	}
 
+	public ArrayList<Product> orderbyBestProductList(Connection conn) {
+		
+		ArrayList<Product> list = new ArrayList<Product>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("orderbyBestProductList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+		
+			while(rs.next()) {
+				Product p = new Product(rs.getInt("P_ID"),
+										rs.getString("P_NAME"),
+										rs.getInt("P_PRICE"),
+										rs.getInt("P_QUANTITY"),
+										rs.getInt("C_ID"),
+										rs.getString("P_KCAL"),
+										rs.getString("P_CARBO"),
+										rs.getString("P_PROTEIN"),
+										rs.getString("P_FAT"),
+										rs.getString("P_NATRIUM"),
+										rs.getString("PI_NAME")
+						);
+				
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }
