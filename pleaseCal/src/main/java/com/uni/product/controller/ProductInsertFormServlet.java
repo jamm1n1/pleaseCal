@@ -29,9 +29,8 @@ public class ProductInsertFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		int pId = new ProductService().selectpId();
-		System.out.println(pId);
+		//System.out.println(pId);
 		request.setAttribute("pId", pId);
 		request.getRequestDispatcher("views/product/insertProductForm.jsp").forward(request, response);
 		
