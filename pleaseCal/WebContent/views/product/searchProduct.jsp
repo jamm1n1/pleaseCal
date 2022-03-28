@@ -82,21 +82,17 @@
         </div>
     </div><br><br>
     <script>
-		<%-- list 가 비어있지 않으면 --%>
-		<c:if test="${!empty list}">
-	
-			$(function() {
-	   			// 게시글 클릭했을 때
-	   			$(".table>tbody>tr").click(function() {
-	   				
-	   				let nno = $(this).children().eq(0).text(); // n.getNoticeNo()
-	   				
-	   				// 해당 공지사항 상세 페이지로 넘어가기
-	   				// 쿼리스트링으로 작성
-	   				location.href= "<%=request.getContextPath()%>/noticeDetail.do?nno="+nno;
-	   			})
-	   		})
-   		</c:if>	   		
+	       $(function() {
+   			// 게시글 클릭했을 때
+   			$(".table>tbody>tr").click(function() {
+
+   				let nno = $(this).children().eq(0).text(); // n.getNoticeNo()
+   				
+   				// 해당 공지사항 상세 페이지로 넘어가기
+   				// 쿼리스트링으로 작성
+   				location.href= "<%=request.getContextPath()%>/noticeDetail.do?nno="+nno;
+   			})
+   		})
 	</script>
 	
 	<div class="container px-4 px-lg-5">
