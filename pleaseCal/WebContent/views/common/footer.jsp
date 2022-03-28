@@ -48,6 +48,7 @@
 	    <div class="col">
 	      <p class="m-0 text-center text-black"><b>임찬희</b></p>
 	      <ul class="nav flex-column">
+		<li class="nav-item mb-2"></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">Features</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">Pricing</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">FAQs</p></li>
@@ -58,6 +59,7 @@
 	    <div class="col">
 	      <p class="m-0 text-center text-black"><b>현주아</b></p>
 	      <ul class="nav flex-column">
+		<li class="nav-item mb-2"></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">상품</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">건강계산기</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">후기게시판</p></li>
