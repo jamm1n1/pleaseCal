@@ -33,7 +33,6 @@ public class HealthResultServlet extends HttpServlet {
 		
 
 		int userNo = Integer.parseInt(request.getParameter("no"));  
-		System.out.println("회원번호: "+userNo);
 		
 		int age = Integer.parseInt(request.getParameter("age"));
 		char gen = request.getParameter("gen").charAt(0);
