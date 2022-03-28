@@ -103,7 +103,7 @@
 			$.ajax({
    		   		url: "topReview.do",
    		   		
-   		   		type: "get",
+   		   		type: "post",
    		   		
    		   		success:function(list){
    		   			
@@ -134,8 +134,8 @@
 		   		   		
 		   			    let owl = $('.owl-carousel');
 		   			    
-		   			    owl.owlCarousel({
-		   			        items:5,                 // 한번에 보여줄 아이템 수
+		   			    owl.owlCarousel({            // OWL Carousel API 호출, 사용할 옵션
+		   			        items:5,                 // 윈도우 너비에 한번에 보여줄 최대 아이템 수
 		   			        loop:true,               // 반복여부
 		   			        margin:15,               // 오른쪽 간격
 		   			        autoplay:true,           // 자동재생 여부
