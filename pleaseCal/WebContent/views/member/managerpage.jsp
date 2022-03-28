@@ -82,8 +82,14 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
 	  	})	
 	  		
   	   function deletrProduct() {
+		   
+		let width = '500';
+		let height = '200';
+		// 팝업을 가운데 위치시키기 위한 값
+		let left = Math.ceil(( window.screen.width - width )/2);
+		let top = Math.ceil(( window.screen.height - height )/2);   
       
-      		window.open("<%= request.getContextPath()%>/views/product/deleteProductForm.jsp","상품삭제", "width=600, height=200, resizable = no, scrollbars = no");
+      		window.open("<%= request.getContextPath()%>/views/product/deleteProductForm.jsp","상품삭제", "width="+ width +", height="+ height +", left=" + left + ", top="+ top);
       
   	   }
   
