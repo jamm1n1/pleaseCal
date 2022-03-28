@@ -52,7 +52,6 @@ public class ReviewSelectListServlet extends HttpServlet {
 		} 
 		
 		ArrayList<Review> list = new ReviewService().selectReviewList(pId, plusId, plusId2);
-		System.out.println(list);
 
 		request.setAttribute("list", list);
 		response.setContentType("application/json; charset=utf-8"); 
