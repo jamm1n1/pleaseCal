@@ -42,10 +42,10 @@ public class ProductTopList extends HttpServlet {
 		
 		// 난수가 같지 않을때까지 반복하여 난수 4개 얻음
 		while(true) {
-			ran = (int)(Math.random() * list.size()-1 + 1) ;
-			ran2 = (int)(Math.random() * list.size()-1 + 1) ;
-			ran3 = (int)(Math.random() * list.size()-1 + 1) ;
-			ran4 = (int)(Math.random() * list.size()-1 + 1) ;
+			ran = (int)(Math.random() * list.size()) ;
+			ran2 = (int)(Math.random() * list.size()) ;
+			ran3 = (int)(Math.random() * list.size()) ;
+			ran4 = (int)(Math.random() * list.size()) ;
 			
 			if(ran != ran2 && ran2 != ran3 && ran3 != ran4 && ran != ran3 && ran != ran4 && ran2 != ran4) {
 				System.out.println(ran);
