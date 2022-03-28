@@ -303,7 +303,7 @@ div {
 			let pneed; // 단백질
 			let bmr; // 비만도
 			
-			// 나이, 키(cm), 몸부계
+			// 나이, 키(cm), 몸
 			let age = parseInt($("#age").val());
 			let cm = $("#cen").val();
 			let weight= $("#weight").val();
