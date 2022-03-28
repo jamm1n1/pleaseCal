@@ -24,8 +24,6 @@ public class ReviewDao {
 		
 		String fileName = ProductDao.class.getResource("/sql/review/review-query.properties").getPath();
 		
-		System.out.println("fileName   " + fileName);
-		
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
