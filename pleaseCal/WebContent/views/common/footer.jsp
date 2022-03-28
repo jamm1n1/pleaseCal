@@ -37,6 +37,7 @@
 	    <div class="col">
 	      <p class="m-0 text-center text-black"><b>서제민</b></p>
 	      <ul class="nav flex-column">
+		<li class="nav-item mb-2"></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">회원가입기능</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">로그인기능</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">마이페이지</p></li>
@@ -57,10 +58,10 @@
 	    <div class="col">
 	      <p class="m-0 text-center text-black"><b>현주아</b></p>
 	      <ul class="nav flex-column">
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">Features</p></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">Pricing</p></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">FAQs</p></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">About</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">상품</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">건강계산기</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">후기게시판</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">전체검색</p></li>
 	      </ul>
 	    </div>
 
