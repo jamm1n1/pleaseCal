@@ -574,7 +574,7 @@ public class BoardDao {
 			pstmt.setInt(1, rno);
 			
 			// executequery 아니고 update
-			// UPDATE QUESTION_BOARD SET STATUS='N' WHERE BOARD_NO=? -> 상태변화
+			// UPDATE ANSWER_REPLY SET STATUS='N' WHERE REPLY_NO=? -> 상태변화
 			result = pstmt.executeUpdate(); // result에 결과 담기
 			
 		} catch (SQLException e) {

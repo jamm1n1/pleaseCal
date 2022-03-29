@@ -254,6 +254,12 @@ public class BoardService {
 		
 		int result = new BoardDao().deleteReply(conn, rno);
 		
+		// 삭제할 게 있고 성공적으로 되었으면
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		
 		close(conn);
 		
