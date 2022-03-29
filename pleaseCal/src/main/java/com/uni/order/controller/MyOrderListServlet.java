@@ -38,8 +38,7 @@ public class MyOrderListServlet extends HttpServlet {
 		int uNo = user.getUserNo();
 		
 		list = new OrdertService().selectOrderList(uNo);
-		
-		//System.out.println("list =========================" + list);
+
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/order/myOrderList.jsp").forward(request, response);
 		
