@@ -1,7 +1,6 @@
 package com.uni.cart.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -10,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.uni.cart.model.service.CartService;
-import com.uni.cart.model.vo.Cart;
-import com.uni.member.model.vo.Member;
+import com.uni.order.model.service.OrdertService;
+import com.uni.order.model.vo.Order;
 
 /**
- * Servlet implementation class CartListDataServlet
+ * Servlet implementation class ProductInOrderServlet
  */
-@WebServlet("/cartListData.do")
-public class CartListDataServlet extends HttpServlet {
+@WebServlet("/productInOrder.do")
+public class ProductInOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListDataServlet() {
+    public ProductInOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,23 +32,28 @@ public class CartListDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member user = ((Member)request.getSession().getAttribute("loginUser"));
-		//System.out.println(user);
-		//if(!user.equals("null")) {
+
+		String rsp = String.valueOf(request.getAttribute("rsp"));
+		Order o = (Order)(request.getAttribute("o"));
 		
-			//System.out.println("여기가 찍히나?");
-			String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-			//System.out.println(writer);
-			//System.out.println("Servlet writer : " + writer);
-			ArrayList<Cart> list = new CartService().CartList(writer);
-			
-			request.setAttribute("list", list);
-			
-			
-			response.setContentType("application/json; charset=utf-8"); 
+		Date d = new Date();
 		
-			new Gson().toJson(list, response.getWriter());
-			//System.out.println("list : " + list);
+		String dDate = String.valueOf(d);
+		
+
+		if(rsp.equals("true")) {
+			
+		//int result = new CartService().updateCart(writer);
+		int result2 = new OrdertService().insertOrder(o);
+		
+		String msg = "결제가 성공적으로 완료되었습니다. <br> 도착 예정시간은 약 " + dDate + "일 입니다.";
+		request.setAttribute("msg", msg);
+		request.getRequestDispatcher("views/cart/paymentResult.jsp").forward(request, response);
+			
+		}else {
+		
+		response.sendRedirect("productlistForm.do");
+		}
 	}
 
 	/**

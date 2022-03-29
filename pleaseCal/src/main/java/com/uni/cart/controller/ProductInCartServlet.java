@@ -2,7 +2,6 @@ package com.uni.cart.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +15,16 @@ import com.uni.cart.model.vo.Cart;
 import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class CartListDataServlet
+ * Servlet implementation class ProductInCartServlet
  */
-@WebServlet("/cartListData.do")
-public class CartListDataServlet extends HttpServlet {
+@WebServlet("/productInCart.do")
+public class ProductInCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListDataServlet() {
+    public ProductInCartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,23 +33,30 @@ public class CartListDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member user = ((Member)request.getSession().getAttribute("loginUser"));
-		//System.out.println(user);
-		//if(!user.equals("null")) {
+	
+		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		String pId = String.valueOf(request.getParameter("pId"));
+		String pPrice = String.valueOf(request.getParameter("pPrice"));
+		String amount = String.valueOf(request.getParameter("amount"));
+		//System.out.println("pPrice ====================" + pPrice);
 		
-			//System.out.println("여기가 찍히나?");
-			String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-			//System.out.println(writer);
-			//System.out.println("Servlet writer : " + writer);
-			ArrayList<Cart> list = new CartService().CartList(writer);
+
+		Cart c = new CartService().selectPId(writer, pId);
+		//System.out.println("c ===============" + c);
+		if(c.getPId() > 0) {
 			
-			request.setAttribute("list", list);
-			
-			
-			response.setContentType("application/json; charset=utf-8"); 
+			int nAmount = c.getPAmount() + Integer.parseInt(amount);
+			int nPrice = Integer.parseInt(pPrice) * nAmount;
+			//System.out.println(nPrice);
+
+			int result2 = new CartService().PlusAmount(nAmount, writer, pId, nPrice);
+		}else {
+		//System.out.println(writer + pId + pPrice + amount);
+		int result = new CartService().insertProduct(writer, amount,  pPrice, pId);
+		//System.out.println("insert 결과 : " + result);
+		};
 		
-			new Gson().toJson(list, response.getWriter());
-			//System.out.println("list : " + list);
+		
 	}
 
 	/**
