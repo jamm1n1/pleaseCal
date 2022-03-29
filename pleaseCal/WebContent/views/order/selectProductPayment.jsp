@@ -2,15 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.uni.cart.model.vo.Cart" %>
-<%@ page import="com.uni.member.model.vo.Member" %>
-<%@ page import="java.util.ArrayList" %>
 <%
-	ArrayList<Cart> list = (ArrayList<Cart>)request.getAttribute("list");
-	Cart cd = new Cart();
-	//Member m = (Member)request.getAttribute("m");
-	int totPrice = (int)(request.getAttribute("totPrice"));
+	
+	Cart c = (Cart)(request.getAttribute("c"));
+	int pPrice = (int)(request.getAttribute("pPrice"));
+ 	int pQ = (int)request.getAttribute("pQ");
+
 %>
 
 <!DOCTYPE html>
@@ -571,11 +569,11 @@
 </head>
 <body>
 <jsp:include page = "../common/menu.jsp"/> 
-<br><br><br><br><br>
+<br><br><br>
 <section id="contents-cart" class="contents-cart async-content" style="visibility: visible;">    <!-- 전체 섹션 -->    
+	
         <section class="cart-title">
         주문/결제
-        <hr>
         </section>
         
 <%--구매자 정보 --%> <div data-component="customer"><div class="customer__root">
@@ -616,22 +614,23 @@
 		        </tr>
 		    </tbody>
 		</table>
-		</div></div>
-		        
-<%--받는사람 정보 --%><div data-component="deliveryAddress">    <h2 class="delivery-address__caption-header">
-        받는사람정보
-        <button class="delivery-address__popup-list-button" type="button" data-delivery-address__popup-list-button="">
-            배송지변경
-        </button>
+		</div></div>        
+		
+<%--받는사람 정보 --%><div data-component="deliveryAddress">    
+	<h2 class="delivery-address__caption-header">
+	받는사람정보
+	    <button class="delivery-address__popup-list-button" type="button" data-delivery-address__popup-list-button="">
+	        배송지변경
+	    </button>
     </h2>
     <table class="delivery-address">
         <tbody>
-        <tr>
-            <th class="delivery-address__th">이름</th>
-            <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
-                <span class="delivery-address__name">박정유</span>
-            </td>
-        </tr>
+	        <tr>
+	            <th class="delivery-address__th">이름</th>
+	            <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+	                <span class="delivery-address__name">${m.userName}</span>
+	            </td>
+	        </tr>
         <tr>
             <th class="delivery-address__th">배송주소</th>
             <td class="delivery-address__td">
@@ -650,7 +649,7 @@
         </tr>
         </tbody>
     </table>
-</div>
+</div>        
         
 <%--배송요청사항 --%> <div data-delivery-address__related-table="">
        					 <div data-component="deliveryRequestMessage"><div class="delivery-request-message__container" data-delivery-request-message__container="">
@@ -673,84 +672,118 @@
 						</div>
 						</div>
         
-    				</div>
-
-        <div class="bundle-info__pdd-group-title">배송 상품 정보</div>
-	<div id="list">
-	<%--모든상품 삽입 --%>
-	</div>
-	
-	
-	
-	
-	<div id="pay-price-section" class="order-section orderBox mb10 multiple-coupon">
-	<h2 class="checkout__h2">
-		결제정보
-	</h2>
-	<table class="pay-price">
-
-		<colgroup>
-			<col width="144">
-			<col>
-		</colgroup>
-		<tbody>
-		
-		<tr class="payOrder-wrap">
-			<th class="wrap-title" scope="row">
-				총상품가격
-			</th>
-			<td>
-				<div class="payOrder">
-					<strong class="price">
-                        
-                            <span id="totalPriceDisp" class="use-calculation-for-totalprice" >11800</span><span class="unit">원</span>
-                        
-					</strong>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<th class="wrap-title" scope="row">할인쿠폰</th>
-			<td>
-				
-					<div class="payCoupon" data-controller="PayCoupon">
-
-    			
+    				</div>        
 			
-				    <div class="selected-coupon">
-				    
-				        <span class="message">적용 가능한 할인쿠폰이 없습니다.</span>
-				    
-				    </div>
-					</div>
+				<div class="bundle-info__pdd-group-title">배송 상품 정보</div>
+        
+         	
+   									<table class="cartTable">
+   						   		   
+   							     <caption class="none"></caption> <!-- 여백 생성  -->
+   							     <colgroup><col width="50"><col width="100"><col width="30"><col width="30"></colgroup> <!-- 상품정보 자리 잡아주기 -->
+   							   
+   							     <thead>
+   							           <tr class="head">
+   							               
+   							       	   <th scope="colgroup" id="th-product-box" colspan="2" style="text-align:center">상품정보</th>
+						               <th scope="col" id="th-unit-total-price" style="text-align:center">상품금액</th>
+						               <th scope="col" id="th-delivery-fee" style="text-align:center">배송비</th>
+   							               
+   							           </tr>
+   							     </thead>
+   						           
+   						   		<tbody id="cartTable-sku">
+   						   
+   						           <tr class="cart-deal-item">
+   						               
+   						           		<td class="cart-deal-item__image" id="pImg">
+   						                       
+   						                   <a href="<%=request.getContextPath() %>/detailProduct.do?no=<%=c.getPId()%>"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/<%=c.getPiName() %>" width=78px height=78px alt="상품이미지" /></a>
+   						                     
+   						                </td>
+   						                   <td class="product-box">
+   						                       
+   						                       <div class="product-name-part">
+   						                           
+   						                           <a href="<%=request.getContextPath() %>/detailProduct.do?no=<%=c.getPId()%>" class="product-name moveProduct modify-color" style=" text-decoration: none; color: inherit"><b><%=c.getPName() %></b></a>
+   						                           
+   						                       </div>
+   						                       
+   						                       <div id="80200404752" data-dawn-only="false" class="option-item modify-float" data-quantity="1" >
+   						                       
+   						                           <div class="option-item-info" data-restock-notification-state="false">
+   						                            
+   						                                <div class="delivery-date rocket modify-padding">
+   						                                
+   						                                     <span class="arrive-date" style="display: inline-block; font-size:14px;"><strong><%=c.getDDate() %></strong></span>
+   						                                  
+   						                                </div>
 
-				
-			</td>
-		</tr>
-
-		
-		
-			<tr>
-				<th class="wrap-title" scope="row">배송비</th>
-				<td class="delivery-total-price">
-				</td>
-				</tr>
+   						                           </div>
+   						                           
+   						                                <div class="option-price-part" >
+										
+   															<div id="product-list-amount"><b><%=pQ %> 개</b></div>
+ 	   						                                   
+   						                                </div>
+   						                         
+   						                         	</div>
+   						                          
+   						                   </td>
+   						                   
+   						                   <td class="unit-total-price">
+   							                    
+   											   <div class="unit-total-sale-price" name="twochangePrice"><%=pPrice %></div>
+   									
+   										   </td>
+   						                  
+   							               <td class="delivery-fee" rowspan="1" headers="th-delivery-fee">
+   						                           
+   						                       <span class="delivery-fee__free"  name="dPrice">2500</span>
+   						                           
+   						                   </td>
+   						                      
+   						           </tr>
+   							        
+   						       	   <tr class="special-gift-area" style="display: none;"></tr>
+   						       	   
+   						       	   <tr class="bundle-price-total">
+   						       	   
+   						           	  <td colspan="5">
+   						               
+   						                 <span class="rocket-total-price-area">상품가격
+   						                 
+   											 <span class="total-product-price number"  name="ChangePrice" ><%=pPrice %></span>원 <span class="coupon-area">
+   						                   
+   							                     <span class="symbol symbol-plus"><span class="sr-only">더하기</span></span>
+   							                     
+   												 배송비 <span id="rocket-delivery-charge" class="delivery-charge" name="dPrice"><strong>2500원</strong></span>
+   												 
+   												 <span class="symbol symbol-equal"><span class="sr-only">결과는</span></span>
+   												 
+   												 주문금액 <span class="total-order-price number"  name="changetotal"><%=pPrice + 2500 %></span>원
+   						                 
+   										     </span>
+   						           		  </span>
+   						           	   </td>
+   						      	    </tr>
+   						   
+   						   		</tbody>
+   						     </table>
+   							                  
+   						 <form id="listInfo" action="<%=request.getContextPath()%>/productPaymentResult.do">
+   						 	 	 <input type="hidden" id="pId" name="pId" value="<%=c.getPId()%>">
+						       	 <input type="hidden" id="pAmount" name="pAmount" value="<%=pQ%>">
+						       	 <input type="hidden" id="total" name="total" value="<%=pPrice + 2500 %>">
+						       	
+   						     
+   						      	 <input type="hidden" id="dDate" value="'+list[0].dDate+'">
+   						     	 <input type="hidden" id="lZero" value="'+list[0].pName+'">
+   						   		 <input type="hidden" id="lSize" value="'+list.length+'">
+   						     </form> <%-- 본문 끝--%>
+        
 	
-	</tbody>
-	</table>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    <div class="order-buttons">
+     <div class="order-buttons">
 	 
 		<a id="continueShoopingBtn" class="goShopping logging" href="<%=request.getContextPath()%>/cartList.do">이전 단계로</a>
 		<a id="check_module" type="button" class="goPayment">결제하기</a>
@@ -760,163 +793,11 @@
 	</section>
 	<jsp:include page = "../common/footer.jsp"/>
 	
-	<script>
-   		$(function(){
-   			
-   			$.ajax({
-   		   		url: "orderProductList.do",
-   		   		
-   		   		type: "post",
-   		   		
-   		   		success:function(list){
-   		   	
-   		   			let value = "";
-   		   			console.log(list)
-   		   			for(var i  in list){
-			 
-   								value +=  
-   									'<table class="cartTable">'+
-   						   		   
-   							     '<caption class="none"></caption>'+ <!-- 여백 생성  -->
-   							     '<colgroup><col width="50"><col width="100"><col width="30"><col width="30"></colgroup>'+ <!-- 상품정보 자리 잡아주기 -->
-   							     
-   							     '<thead>'+
-   							           '<tr class="head">'+
-   							               
-   							       	   '<th scope="colgroup" id="th-product-box" colspan="2" style="text-align:center">상품정보</th>'+
-						               '<th scope="col" id="th-unit-total-price" style="text-align:center">상품금액</th>'+
-						               '<th scope="col" id="th-delivery-fee" style="text-align:center">배송비</th>'+
-   							               
-   							           '</tr>'+
-   							     '</thead>'+
-   						           
-   						   		'<tbody id="cartTable-sku">'+
-   						   
-   						           '<tr class="cart-deal-item">'+
-   						               
-   						           		'<td class="cart-deal-item__image" id="pImg">'+
-   						                       
-   						                   '<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'"><img class="card-img-top" src="<%=request.getContextPath() %>/resources/image/'+list[i].piName+'" width=78px height=78px alt="상품이미지" /></a>'+
-   						                     
-   						                '</td>'+
-   						                   '<td class="product-box">'+
-   						                       
-   						                       '<div class="product-name-part">'+
-   						                           
-   						                           '<a href="<%=request.getContextPath() %>/detailProduct.do?no='+list[i].pId+'" class="product-name moveProduct modify-color" style=" text-decoration: none; color: inherit"><b>'+list[i].pName+'</b></a>'+
-   						                           
-   						                       '</div>'+
-   						                       
-   						                       '<div id="80200404752" data-dawn-only="false" class="option-item modify-float" data-quantity="1" >'+
-   						                       
-   						                           '<div class="option-item-info" data-restock-notification-state="false">'+
-   						                            
-   						                                '<div class="delivery-date rocket modify-padding">'+
-   						                                
-   						                                     '<span class="arrive-date" style="display: inline-block; font-size:14px;"><strong>'+list[i].dDate+'</strong></span>'+
-   						                                  
-   						                                '</div>'+
-
-   						                           '</div>'+
-   						                           
-   						                                '<div class="option-price-part" >'+
-
-   															'<div id="product-list-amount"><b>'+list[i].pAmount+' 개</b></div>'+
-
-   						                                '</div>'+
-   						                         
-   						                         '</div>'+
-   						                          
-   						                   '</td>'+
-   						                   
-   						                   '<td class="unit-total-price">'+
-   							                    
-   											   '<div class="unit-total-sale-price" name="twochangePrice'+i+'">'+list[i].pPrice+'</div>'+
-   									
-   										   '</td>'+
-   						                   
-   							               '<td class="delivery-fee" rowspan="1" headers="th-delivery-fee">'+
-   						                           
-   							            '<span class="delivery-fee__free"  name="dPrice'+i+'">'+ dPrice(i) +'원</span>'+
-				                           
-						                   '</td>'+
-						                      
-						           '</tr>'+
-							        
-						       	   '<tr class="special-gift-area" style="display: none;"></tr>'+
-						       	   
-						       	   '<tr class="bundle-price-total">'+
-						       	   
-						           	  '<td colspan="5">'+
-						               
-						                 '<span class="rocket-total-price-area">상품가격'+
-						                 
-											 '<span class="total-product-price number"  name="ChangePrice'+i+'" >'+list[i].pPrice+'</span>원 <span class="coupon-area">'+
-						                   
-							                     '<span class="symbol symbol-plus"><span class="sr-only">더하기</span></span>'+
-							                     
-												 '배송비 <span id="rocket-delivery-charge" class="delivery-charge" name="dPrice'+i+'"><strong>'+ dPrice(i) +'원</strong></span>'+
-												 
-												 '<span class="symbol symbol-equal"><span class="sr-only">결과는</span></span>'+
-												 
-												 '주문금액 <span class="total-order-price number"  name="changetotal'+i+'">'+(list[i].pPrice + dPrice(i))+'</span>원'+
-   						                 
-   										     '</span>'+
-   						           		  '</span>'+
-   						           	   '</td>'+
-   						      	    '</tr>'+
-   						   
-   						   		'</tbody>'+
-
-   						     '</table>'+
-   							                  
-   						   	 '<form id="listInfo'+i+'" action="<%=request.getContextPath()%>/pay">'+
-   						 	 '<input type="hidden" id="title'+i+'" name="title'+i+'" value="'+list[i].pId+'">'+	
-						       	 '<input type="hidden" id="price'+i+'" value="'+list[i].poPrice+'">'+	
-						       	 '<input type="hidden" id="total" name="total'+i+'" value="">'+	
-						       	 
-   						     
-   						      	 '<input type="hidden" id="dDate" value="'+list[0].dDate+'">'+	
-   						     	 '<input type="hidden" id="lZero" value="'+list[0].pName+'">'+	
-   						   		'<input type="hidden" id="lSize" value="'+list.length+'">'+	
-   						     '</form>' <%-- 본문 끝--%>
-						     
-							function dPrice(i){
-  			   		   			let c = 0;
-  			   		   			if(i == 0){
-  			   		   					c = 2500;
-  			   		   				}else{
-  			   		   					c = 0;
-  			   		   				}
-  			   		   				
-  			   		   			return c	
-   			   		   		}
+	  
    							
-   		   			} <%-- for문 끝--%>
-   		   		
-   		    	$('[name="total"]').val(${totPrice})
-   		    	console.log($('[name="total"]').val())
-   		   		$('#list').html(value);
-   		   		//console.log(list)
-				
-   	   		},
-		   	   	error:function(request, error){
-		   	   		
-		   	   		//alert("fail");
-		   	   		alert("code:" + request.status + "\n" + "message:" + request.reponseText + "\n" + "error:" + error);
-		   	   		
-			   		//console.log("ajax통신실패");
-			   		//console.log(list)
-	   		
-			}
-   		})
-   	})
-   	
-   
-   </script>
-	
 	<script>
-	
+	console.log(<%=pPrice %>)
+	console.log(<%=c.getPoPrice() %>)
 		$("#check_module").click(function () {
 			
 			var IMP = window.IMP; // 생략가능
@@ -956,10 +837,10 @@
 							나중에 포스팅 해볼게요.
 						*/
 						
-					name: '주문명: ' + $('#lZero').val() + '외 ' + ($('#lSize').val()-1) + '개',
+					name: '주문명:  <%=c.getPName()%>',
 					//결제창에서 보여질 이름
 					
-					amount: '<%=totPrice%>' <%--$('[name="total"]').val()--%>
+					amount: '<%=pPrice + 2500%>' 
 					//가격
 					
 					//buyer_email: 'iamport@siot.do',
@@ -975,6 +856,10 @@
 				
 				let dRequest = $('[name=dRequest]').val();
 				let re = rsp.success;
+				let pAmount = $('#pAmount').val();
+				let pPrice = $('#total').val();
+				let pId = $('#pId').val();
+				
 				console.log(dDate)
 				console.log(re)				
 				let data = {
@@ -983,15 +868,67 @@
 				};
 				console.log(re)
 
-				location.href="<%=request.getContextPath()%>/paymentResult.do?re="+re+"&dRequest="+dRequest;
-				<%--location.href="<%=request.getContextPath()%>/paymentResult.do?re="+re+"?dMessage="+dms;--%>
-			//pageChange(rsp);
+				
+				location.href="<%=request.getContextPath()%>/productPaymentResult.do?re="+re+"&dRequest="+dRequest+"&pPrice="+pPrice+"&pAmount="+pAmount+"&pId="+pId;
 
+				
 					});<%--- 함수 종료지점 --%>
-							
+					
 			}); <%---클릭--%>
-		
+			
+			
 </script>
+
+    <script type="text/javascript">
+    
+    
+    function change(value, name){
+    	
+		let String = name; // 값이 바뀐 select 이름
+
+    	let count = value; // 바뀐 갯수
+    	let index = String.charAt(String.length-1); // 몇변째상품의 select인지 인덱스 찾기
+    	
+    	let original = $('#original'+index+'').html(); // 값이 바뀐 상품의 1개당 가격 칸
+    	let totprice2 = $('[name="twochangePrice'+index+'"]').html(); // 노란색칸 상품금액(origianl * count) 칸
+    	let pid = $('[name="title'+index+'"]').val(); // 갯수바뀐상품의 상품번호 칸
+    	let changetotal = $('[name="changetotal'+index+'"]').html(); // 노란색칸 주문금액(origianl * count + 2500)	칸
+    	
+    	let result = original * count
+    	console.log(result)
+    	// 바뀐갯수와 * 1개당 가격 => DB에 들어갈 총금액
+    	
+    	
+    	$.ajax({
+			
+			url: "amountChange.do",
+			
+			type: "get",
+			
+			data:{
+					q:count,
+					name:pid,
+					p:result
+	
+				},
+			
+			success:function(){
+				
+				console.log("성공")
+				$('[name="ChangePrice'+index+'"]').html(result);
+				$('[name="twochangePrice'+index+'"]').html(result);
+				$('[name="changetotal'+index+'"]').html(result+2500);
+				
+			},
+			
+			error:function(){
+		   			console.log("ajax통신실패");
+		   			
+		   		}
+		
+			})
+	}
+    </script>
 
 </body>
 </html>

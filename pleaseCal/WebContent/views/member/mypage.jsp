@@ -84,7 +84,7 @@
 		
 		<table>
 			<tr>
-				<td><button id="membut" type="button" ><h4>주문 목록</h4><small>고객님의 소중한 상품을 담고 있어요(≧∇≦)/</small></button></td>
+				<td><button onclick="location.href='<%=request.getContextPath()%>/myOrderList.do'" id="membut" type="button" ><h4>주문목록</h4><small>고객님의소중한상품을담고있어요(≧∇≦)/</small></button></td>
 				<td><button id="memup" style="margin-left: 200px;" onClick="memberupdate();"><h4>정보 수정</h4><small>고객님의 주소 및 비밀번호를 변경할 수 있어요<br>ヾ(・ᆺ・✿)ﾉﾞ</small></button></td>
 				<form id="memdelete">	
 					<td><button id="memdel" style="margin-left: 200px;" onclick="deleteMember();"><h4>회원 탈퇴</h4><small>정말로..탈퇴할 건가요｡ﾟ( ﾟஇ‸இﾟ+)ﾟ｡</small></button></td>

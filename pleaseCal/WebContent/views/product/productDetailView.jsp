@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,10 +42,10 @@
                 <div class="col-md-6">
                 
                  <input type="hidden" id="io" value="${io.pnum}">
-     			 <form id="orderStart" action="views/test/orderForm.jsp" method="post">
+     			 <form id="orderStart" action="<%=request.getContextPath()%>/productDetailPayment.do" method="post">
                 
                     <input type="hidden" name="pId" value="${p.pId}">
-                
+                	
                     <div class="small mb-1">
                     	<c:if test= "${fn:contains(p.pName, '프로틴')}">
                     	<h4>프로틴파우더</h4>
@@ -122,7 +125,7 @@
                         <br>
                         <label id = "userCheck"></label>
                     </div>
-                    
+                    <input type="hidden" name="pId" value="">
                  </form>
                  
                 </div>
@@ -209,6 +212,43 @@
 			
    	     });
 
+    </script>
+    
+     <script>
+    $('#cart').click(function(){
+    	
+    	let pId = $('[name="pId"]').val();
+    	let pPrice = $('#changePrice').val();
+    	let amount = $('#numBox').val();
+    	
+    	//console.log(pId)
+    	//console.log(pPrice)
+    	//console.log(amount)
+    	
+    	$.ajax({
+    		
+    		url:"productInCart.do",
+    		
+    		data : {
+    			
+    			pId:pId,
+    			pPrice:pPrice,
+    			amount:amount
+    			
+    		},
+    		success:function(){
+    			
+    			let result = confirm("장바구니에 성공적으로 담았습니다! 장바구니로 이동하시겟습니까?");
+    			if(result){
+    				location.href="<%=request.getContextPath()%>/cartList.do";
+    			}
+ 
+    		}
+    		
+    	})<%-- ajax 끝--%>
+    	
+    })
+    
     </script>
     
     <section class="py-5 bg-light">
