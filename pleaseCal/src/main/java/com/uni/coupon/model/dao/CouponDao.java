@@ -49,7 +49,7 @@ public class CouponDao {
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				Coupon c =	new Coupon( 
-						               rset.getInt("C_SALE"), 					                      
+						               rset.getString("C_SALE"), 					                      
 						               rset.getString("C_NAME"));
                       list.add(c);
 			}
@@ -78,7 +78,7 @@ public class CouponDao {
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
 				Coupon c =	new Coupon(rset.getInt("C_ID"),
-						               rset.getInt("C_SALE"), 					                      
+						               rset.getString("C_SALE"), 					                      
 						               rset.getString("C_NAME"));
                       list.add(c);
 			}

@@ -4,7 +4,7 @@ public class Coupon {
 
 	
 	private int cid;
-	private int csale;
+	private String csale;
 	private String cname;
 	
 	
@@ -12,14 +12,14 @@ public class Coupon {
 	
 	
 	 
-	public Coupon(int cid, int csale, String cname) {
+	public Coupon(int cid, String csale, String cname) {
 		super();
 		this.cid = cid;
 		this.csale = csale;
 		this.cname = cname;
 	}
 
-	public Coupon(int csale, String cname) {
+	public Coupon(String csale, String cname) {
 		super();
 		this.csale = csale;
 		this.cname = cname;
@@ -31,10 +31,10 @@ public class Coupon {
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
-	public int getCsale() {
+	public String getCsale() {
 		return csale;
 	}
-	public void setCsale(int csale) {
+	public void setCsale(String csale) {
 		this.csale = csale;
 	}
 	public String getCname() {
