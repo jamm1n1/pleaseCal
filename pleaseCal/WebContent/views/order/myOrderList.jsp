@@ -62,7 +62,7 @@
 				    <li class="list-group-item">배송요청사항 : <%=o.getDeliveryRequest() %></li>
 			    </ul>
 			    <div class="card-body">
-			    	<button type="button" id="<%=o.getOrderNo()%><%=o.getPId() %>" >후기작성</button>
+			    	<button type="submit" id="<%=o.getOrderNo()%><%=o.getPId() %>" >후기작성</button>
 			    </div>
 			    
 			</div>
