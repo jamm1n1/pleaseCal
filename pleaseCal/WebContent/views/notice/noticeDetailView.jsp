@@ -123,7 +123,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td width="250px">관리자</td>
+				<td width="450px">관리자</td>
 				<th>작성일</th>
 				<td>${notice.createDate}</td>
 			</tr>
