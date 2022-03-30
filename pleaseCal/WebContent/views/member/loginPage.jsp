@@ -90,7 +90,7 @@
                        
                         <div class="text-center">
                         <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-1" type="submit" width="40%" onclick="findid();">아이디및비밀번호 찾기</button>                   
-                          <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-1" id = "enrollBtn" type="button" onclick="enrollPage();">회원가입</button>
+                          <button class="btn btn-lg btn-primary btn-insert text-uppercase fw-bold mb-1" id = "enrollBtn" onclick="enrollPage();">회원가입</button>
                           <script>
                            function enrollPage(){
     	                    location.href = "<%= request.getContextPath()%>/newfacego.do"; 
@@ -126,16 +126,16 @@ function login(){
 	 location.href = "<%= request.getContextPath()%>/LoginPage.do"; 
 }
 
-Kakao.init('41b691f572c4e925ecf7ab3d3c7a8b8f');
+Kakao.init('41b691f572c4e925ecf7ab3d3c7a8b8f'); //카카오에서 제공해주는 앱키
 function kakaoLogin() {
     Kakao.Auth.login({
       success: function (res) {
-        Kakao.API.request({
-          url: '/v2/user/me',
+        Kakao.API.request({ // 카카오에있는 api를 가죠오고
+          url: '/v2/user/me', // 여기서 유저정보를 res로받아온다 
           success: function (res) {       	  
         	  $.ajax({
                   url:"<%=request.getContextPath()%>/main.do",
-                  data:{"id":res.id, "name":JSON.stringify(res.properties.nickname)}, //JSON.stringify문자열로 반환
+                  data:{"id":res.id}, //JSON.stringify문자열로 반환
                   Type:"post",
                   success:function(data){
                       //성공적으로 하고나면 이동할 url

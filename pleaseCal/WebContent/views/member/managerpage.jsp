@@ -45,7 +45,7 @@ background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfi
    </button>
      
     <button id="membut" style="margin-left: 400px;" onClick="product_IO();">
-    <h4>상품 관리</h4><small>쇼핑몰의 상풀을 입고및출고할 수 있어요<br>＼(╹◡╹＼Ξ／╹◡╹)／</small>
+    <h4>상품 관리</h4><small>쇼핑몰의 상품을 입고및출고할 수 있어요<br>＼(╹◡╹＼Ξ／╹◡╹)／</small>
     </button>
     
     <br><br><br>

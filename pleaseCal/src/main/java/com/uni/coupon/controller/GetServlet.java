@@ -33,7 +33,7 @@ public class GetServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int userno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int userno = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();//세션에서 회원번호를 가져옴
 		int cid = Integer.parseInt(request.getParameter("cid")) ;
 		System.out.println(cid);
 		MemberCoupon c = new CouponService().get(userno,cid);

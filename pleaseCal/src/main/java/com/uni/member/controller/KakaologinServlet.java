@@ -31,8 +31,7 @@ public class KakaologinServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String[] names = name.split("\"");
+   
         
         Member loginUser = new MemberService().kakaoMember(id);
               if(loginUser != null) {

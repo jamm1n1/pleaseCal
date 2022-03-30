@@ -86,11 +86,12 @@ color : blue;
 	
 	</div>
 	<script>
+	//키발급 필요없음,사용량 제한없음,상업적으로 써도 상관없음 
 	   window.onload = function(){
     document.getElementById("waddress").addEventListener("click", function(){ 
        new daum.Postcode({
-       oncomplete: function(data) { //선택시 입력값 세팅
-           document.getElementById("address").value = data.address; // 주소 넣기        
+       oncomplete: function(data) { 
+           document.getElementById("address").value = data.address; //선택 주소 넣기        
        }
    }).open();
 });
@@ -146,8 +147,8 @@ color : blue;
 	
 	const Hyphen = (target) => {
 		 target.value = target.value
-		   .replace(/[^0-9]/g, '') //전체에서  0~9사이에 아무 숫자 '하나'  찾음 
-		  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
+		   .replace(/[^0-9]/g, '') //숫자가아니면 안됨 
+		  .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, ""); //3~4~4면 3-4-4로되게 //
 		}
 	</script>
 <script>
