@@ -92,6 +92,7 @@
 	.detailArea th {
 		background-color: lightgrey;
 		text-align: center;
+		width: 100px;
 	}
 	
 	.detailArea td {
@@ -117,12 +118,12 @@
 		
 		<table class="detailArea" border="1">
 			<tr>
-				<th><h4>제목</h4></th>
+				<th>제목</th>
 				<td colspan="3"><h4>${notice.noticeTitle}</h4></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>관리자</td>
+				<td width="250px">관리자</td>
 				<th>작성일</th>
 				<td>${notice.createDate}</td>
 			</tr>

@@ -94,12 +94,7 @@ public class BoardListServlet extends HttpServlet {
 		// jsp로 보내기
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
-
-		// json 으로 변환 설정
-		//response.setContentType("application/json; charset=utf-8");
-		// getWriter() 메소드를 사용해 jsp로 데이터를 전달
-		//new Gson().toJson(list, response.getWriter());
-		//new Gson().toJson(pi, response.getWriter());
+		
 		
 		// 화면 전환 > 게시판 목록으로
 		request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);

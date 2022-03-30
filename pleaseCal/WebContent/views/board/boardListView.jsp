@@ -28,12 +28,6 @@
 		text-align:center;
 	}
 	
-	.searchArea{
-		margin:auto;
-		margin-top:30px;
-		margin-bottom:30px;
-	}
-	
 	.pagingArea {
 		margin:auto;
 		margin-top:50px;
@@ -47,7 +41,6 @@
 	#insertBtn {
 		margin:auto;
 		margin-top:30px;
-		margin-bottom:15px;
 	}
 	
 	.btn {
@@ -277,52 +270,6 @@
 	<br>
 	
 	<script>
-		/*
-		$(function() {
-			
-			$("#boardList").empty(); // 리스트 가져올 때마다 비우고 새로 가져오도록
-			
-			$.ajax({
-				url: "boardList.do",
-				
-				type: "get",
-				
-				//dataType: "html",
-				
-				success: function(list) {
-					console.log(list);
-					
-					var value = "";
-					
-					if(list != null) {
-	                     
-						for(var i in list) {
-							value += '<tr>' +
-										'<td>' + list[i].boardNo + '</td>' +
-										'<td>' + list[i].category + '</td>' +
-										'<td>' + list[i].boardWriter + '</td>' +
-										'<td>' + list[i].createDate + '</td>' +
-										'<td>' + list[i].count + '</td>' +
-									 '</tr>';
-						}
-						
-					} else {
-						
-						value = '<tr><td>존재하는 게시글이 없습니다.</td></tr>';
-					}
-					
-					$("#boardList").html(value);
-				},
-				
-				error: function(e) {
-					console.log("ajax 통신 실패");
-				}
-
-			})
-			
-		})*/
-		
-		
 		
 		// list 가 비어있지 않으면
 		<c:if test="${!empty list}">
@@ -338,11 +285,13 @@
 	   					location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
 	   				
 	   				} else {
-	   					// 
+	   					// 실행할 url 
 		   				let url = "<%=request.getContextPath()%>/boardDetailPwdCheck.do?bno="+bno;
+		   				// 팝업 이름
 		   				let name = "boardPwdCheckPopup";
-	   					let option = "width = 500, height = 200, position = absolute , top = 300, left = 500"
-						
+		   				// 팝업 속성
+		   				let option = "width = 500, height = 200, position = absolute , top = 300, left = 500"
+		   				// 위 세 가지는 필수 항목이며 이름은 없는 경우 "" 으로 대체 가능
 		   				open(url, name, option);
 	   				}
 					
@@ -351,15 +300,6 @@
    		</c:if>
 			
 	</script>
-	<%-- 
-	// 비밀번호 입력창 팝업으로 열기
-	location.href= "<%=request.getContextPath()%>/boardPwdInsert.do?bno="+bno;
-	
-	상세 페이지로 넘어가는 서블릿
-	// 해당 게시글 상세 페이지로 넘어가기
-	// 쿼리스트링으로 작성
-	location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
-	--%>
 	
 	
 	<!-- footer-->
