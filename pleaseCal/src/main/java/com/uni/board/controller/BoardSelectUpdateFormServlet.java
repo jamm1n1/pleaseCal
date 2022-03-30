@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.uni.board.model.service.BoardService;
-import com.uni.board.model.vo.Reply;
+import com.uni.board.model.vo.Attachment;
+import com.uni.board.model.vo.Board;
 
 /**
- * Servlet implementation class ReplyInsertServlet
+ * Servlet implementation class BoardUpdateFormServlet
  */
-@WebServlet("/replyInsert.do")
-public class ReplyInsertServlet extends HttpServlet {
+@WebServlet("/boardSelectUpdateForm.do")
+public class BoardSelectUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyInsertServlet() {
+    public BoardSelectUpdateFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,31 +30,29 @@ public class ReplyInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// jsp 에서 보낸 데이터 가져오기
-		// 참조 게시글 번호
+		// 해당 게시글 번호 가져와서
 		int bno = Integer.parseInt(request.getParameter("bno"));
-		// 댓글 내용
-		String content = request.getParameter("content");
+		// 해당 게시글 가져오기
+		Board b = new BoardService().selectBoard(bno);
+		// 해당 게시글 첨부파일 가져오기
+		Attachment at = new BoardService().selectAttachment(bno);
 		
-		// 기본생성자 사용해서 set으로 설정
-		Reply re = new Reply();
-		re.setReplyContent(content.replaceAll("\n", "<br>"));
-		re.setRefBoardNo(bno);
+		// 수정할 게시글이 있다면
+		if(b != null) {
+			// 게시글, 첨부파일 jsp로 넘기기
+			request.setAttribute("b", b);
+			request.setAttribute("at", at);
+			// 화면 전환
+			request.getRequestDispatcher("views/board/boardSelectUpdateForm.jsp").forward(request, response);
 		
-		// 댓글 넘겨서 받은 결과 result에 담기
-		int result = new BoardService().insertReply(re);
-		
-		// 잘 등록이 됐으면
-		if(result > 0) {
-			response.getWriter().print("success"); // success 문자열 넘기기
-		} else {
-			response.getWriter().print("fail"); // fail 문자열 넘기기
+		}	else {
+			// 에러메시지 jsp로 전달 - menubar 를 include 해서 가능
+			request.setAttribute("msg", "수정할 게시글 조회 실패");
+			// 에러페이지
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
-		// getWriter() 메소드 이용 시 필수
-		response.getWriter().flush();
-		response.getWriter().close();
+		
 	}
 
 	/**

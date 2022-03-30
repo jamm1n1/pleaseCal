@@ -14,33 +14,141 @@
 <title>게시글 상세 페이지</title>
 
 <style>
-	.outer{
+	.outer {
 		width:800px;
 		height:500px;
 		margin:auto;
-		margin-top:50px;
+		margin-top:30px;
 	}
 	
-	.outer>table, .outer>table tr>*{
+	.outer>table, .outer>table tr>* {
 		border:1px solid black;
+		border-left: none;
+		border-right: none;
 	}
 	
-	.outer>table{
-		width:600px;
+	.outer>table {
+		width:800px;
 		height:300px;
 	}
 	
-	.outer>table p{
+	.outer>table p {
 		height:230px;
-		margin:0;
 	}
 	
-	.replyArea{
+	.replyArea {
 		width:800px;
-		color:white;
+		color: black;
 		margin:auto;
+		margin-top: 80px;
 		margin-bottom:50px;
 	}
+	
+	.button {
+		color: #fff;
+  		border-radius: 5px;
+  		padding: 5px 15px;
+  		font-family: 'Lato', sans-serif;
+  		font-weight: 500;
+  		background: transparent;
+  		cursor: pointer;
+  		transition: all 0.3s ease;
+  		position: relative;
+  		display: inline-block;
+   		box-shadow:	inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		outline: none;
+  		
+		background: black;
+	  	border: none;
+	  	z-index: 1;
+	}
+	
+	.button:after {
+		position: absolute;
+  		content: "";
+  		width: 0;
+  		height: 100%;
+	  	top: 0;
+	  	right: 0;
+	  	z-index: -1;
+	  	background-color: grey;
+	  	border-radius: 5px;
+   		box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		transition: all 0.3s ease;
+	}
+	
+	.button:hover {
+		color: #fff;
+	}
+	
+	.button:hover:after {
+	  	left: 0;
+	  	width: 100%;
+	}
+	
+	.button:active {
+	  	top: 2px;
+	}
+	
+	.detailArea {
+		width:60%;
+		margin:auto;
+		margin-bottom: 20px;
+		border:1px solid black;
+		border-left: none;
+		border-right: none;
+		align: center;
+	}
+	
+	.detailArea th {
+		background-color: lightgrey;
+		text-align: center;
+	}
+	
+	.detailArea td {
+		padding: 5px 5px 5px 10px;
+		padding-left: 10px;
+	}
+	
+	#replyContent {
+		margin: 0 10px 10px 10px;
+		width: 600px;
+	}
+	
+	#replyList {
+		border-left: none;
+		border-right: none;
+		width: 600px;
+	}
+	
+	#replyList tr:nth-child(2n+1) {
+		background-color: lightgrey;
+	}
+	
+	#replyList tr:nth-child(2n) {
+		background-color: ;
+	}
+	
+	.replyContent {
+		padding-left: 10px;
+	}
+	
+	.replyDate {
+		padding-right: 10px;
+	}
+	
+	.rArea {
+		margin-left: 84px;
+	}
+	
+	.replyDate {
+		text-align: right;
+	}
+	
 </style>
 
 </head>
@@ -49,22 +157,25 @@
 	<!-- menu -->
 	<jsp:include page = "../common/menu.jsp"/>
 	
+	<!-- header -->
+   	<jsp:include page = "../common/header.jsp"/>
+	
 	
 	<div class="outer">
 		<br>
 		
-		<h2 align="center">게시글 상세보기</h2>
+		<h2 align="center">내가 작성한 게시글</h2>
 		<br>
 		
-		<table align="center" id="board">
+		<table align="center" class="detailArea">
 			<tr>
-				<th width="100">분야</th>
+				<th width="80px">분야</th>
 				<td>${b.category}</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
 				<td>${b.boardWriter}</td>
-				<th>작성일</th>
+				<th width="80px">작성일</th>
 				<td>${b.createDate}</td>
 			</tr>
 			<tr>
@@ -93,12 +204,12 @@
 		<br>
 		
 		<div class="btns" align="center">
-			<button type="button" onclick="location.href='<%=request.getContextPath()%>/boardSelectList.do?currentPage=1;">목록으로</button>
+			<button class="button" type="button" onclick="location.href='<%=request.getContextPath()%>/boardSelectList.do?currentPage=1';">목록으로</button>
 			<%-- 작성자가 본인이거나 관리자인 경우 수정, 삭제 버튼 활성화 --%>
 			<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.getUserId() == b.boardWriter
 							|| !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
-				<button type="submit" onclick="location.href='<%=request.getContextPath()%>/boardUpdateForm.do?bno=${b.boardNo}';">수정하기</button>
-				<button type="button" onclick="deleteBoard();">삭제하기</button>
+				<button class="button" type="submit" onclick="location.href='<%=request.getContextPath()%>/boardSelectUpdateForm.do?bno=${b.boardNo}';">수정하기</button>
+				<button class="button" type="button" onclick="deleteBoard();">삭제하기</button>
 			</c:if>
 		</div>
 		
@@ -133,18 +244,18 @@
 	
 	<div class="replyArea">
 		<!-- 댓글 작성하는 div -->
-		<table border="1" align="center">
+		<table class="replyTable" align="center">
 			<tr>
 				<th>댓글작성</th>
 				<c:choose>
 					<%-- 로그인 되어있는 유저가 관리자라면 댓글 달 수 있도록 --%>
 					<c:when test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
 						<td><textarea rows="3" cols="60" id="replyContent" style="resize:none;"></textarea></td>
-						<td><button id="addReply">댓글등록</button></td>	
+						<td><button class="button" id="addReply">댓글등록</button></td>	
 					</c:when>
 					<c:otherwise>
 						<td><textarea readonly rows="3" cols="60" id="replyContent" style="resize:none;">관리자만 사용 가능한 서비스입니다.</textarea></td>
-						<td><button disabled>댓글등록</button></td>
+						<td><button class="button" disabled>댓글등록</button></td>
 					</c:otherwise>
 				</c:choose>
 			</tr>
@@ -153,7 +264,7 @@
 		
 		<!-- 댓글 리스트들 보여주는 div -->
 		<div id="replyListArea">
-			<table id="replyList" border="1" align="center">
+			<table id="replyList" class="rArea">
 				<!-- <tr>
 					<td width="100px">admin</td>
 					<td width="330px">댓글작성내용</td>
@@ -174,7 +285,7 @@
 	</div>
 
 	<script>
-	
+		
 		// 댓글 입력
 		$(function() {
 			
@@ -233,8 +344,8 @@
 					for(var i in list){
 						
 						value += '<tr>'+
-									'<td width="330px">'+ list[i].replyContent+'</td>'+ 
-									'<td width="150px">'+ list[i].createDate+'</td>'+ 
+									'<td width="300px" class="replyContent">'+ list[i].replyContent+'</td>'+ 
+									'<td width="120px" class="replyDate">'+ list[i].createDate+'</td>'+ 
 								'</tr>';
 					}
 					

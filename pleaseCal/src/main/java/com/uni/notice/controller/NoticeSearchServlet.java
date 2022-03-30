@@ -51,8 +51,8 @@ public class NoticeSearchServlet extends HttpServlet {
 		String condition = request.getParameter("condition");
 		String search = request.getParameter("search");
 		
-		System.out.println("condition == servlet == " + condition);
-		System.out.println("search == servlet == " + search);
+		//System.out.println("condition == servlet == " + condition);
+		//System.out.println("search == servlet == " + search);
 		// =====================================================
 		
 		

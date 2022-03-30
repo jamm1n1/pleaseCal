@@ -14,12 +14,12 @@
 
 <style>
 	
-	.outer {
+	.outer{
 		margin:auto;
 		margin-top:50px;
 	}
 	
-	.detailArea {
+	.detailArea{
 		width:60%;
 		margin:auto;
 		margin-top: 40px;
@@ -37,7 +37,7 @@
 	
 	.detailArea p {height:150px;}
 	
-	.btns {margin:atuo; margin-bottom:50px;}
+	.btns{margin:atuo; margin-bottom:50px}
 	
 	.button {
 		color: #fff;
@@ -89,6 +89,10 @@
 	  	top: 2px;
 	}
 	
+	.title {
+		height: 50px;
+	}
+	
 	.detailArea th {
 		background-color: lightgrey;
 		text-align: center;
@@ -98,6 +102,7 @@
 		padding: 5px 5px 5px 10px;
 		padding-left: 10px;
 	}
+	
 	
 </style>
 
@@ -109,12 +114,12 @@
 	
 	<!-- header -->
    	<jsp:include page = "../common/header.jsp"/>
-   	
+	
 	
 	<div class="outer">
-		
+	
 		<h2 align="center"> 공지사항 </h2>
-		
+
 		<table class="detailArea" border="1">
 			<tr>
 				<th><h4>제목</h4></th>
@@ -128,7 +133,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td colspan="3">
+				<td colspan="4">
 					<p>${notice.noticeContent}</p>
 				</td>
 			</tr>	
@@ -138,7 +143,7 @@
 		
 		<div class="btns" align="center">
 
-			<button class="button" type="button" onclick="location.href='<%=request.getContextPath()%>/noticeList.do';">목록으로</button>
+			<button class="button" type="button" onclick="location.href='<%=request.getContextPath()%>/noticeSearch.do?condition=${condition}&search=${search}';">목록으로</button>
 			
 			<%-- 로그인이 되어있고 해당 아이디가 관리자라면 --%>
 			<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">

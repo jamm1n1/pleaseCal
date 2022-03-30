@@ -13,30 +13,96 @@
 
 <style>
 	
-	.outer{
+	.outer {
 		margin:auto;
 		margin-top:50px;
 		margin-bottom:50px;
 	}
 	
-	#enrollForm{
+	#enrollForm {
 		width:60%;
 		margin:auto;
 		margin-top:50px;
 		margin-bottom:50px;
 	}
 	
-	#enrollForm>table{
-		border:1px solid black;
-	
-	}
-	
-	#enrollForm>table input, #enrollForm>table textarea{
+	#enrollForm>table input, #enrollForm>table textarea {
 		width:100%;
 		box-sizing:border-box;
 	}
 	
-	.btns{margin:auto; margin-bottom:20px}
+	.btns {
+		margin: auto;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	
+	.button {
+		color: #fff;
+  		border-radius: 5px;
+  		padding: 5px 15px;
+  		font-family: 'Lato', sans-serif;
+  		font-weight: 500;
+  		background: transparent;
+  		cursor: pointer;
+  		transition: all 0.3s ease;
+  		position: relative;
+  		display: inline-block;
+   		box-shadow:	inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		outline: none;
+  		
+		background: black;
+	  	border: none;
+	  	z-index: 1;
+	}
+	
+	.button:after {
+		position: absolute;
+  		content: "";
+  		width: 0;
+  		height: 100%;
+	  	top: 0;
+	  	right: 0;
+	  	z-index: -1;
+	  	background-color: grey;
+	  	border-radius: 5px;
+   		box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		transition: all 0.3s ease;
+	}
+	
+	.button:hover {
+		color: #fff;
+	}
+	
+	.button:hover:after {
+	  	left: 0;
+	  	width: 100%;
+	}
+	
+	.button:active {
+	  	top: 2px;
+	}
+	
+	.insertArea th {
+		text-align: center;
+		background-color: lightgrey;
+		
+	}
+	
+	.insertArea tr {
+		border:1px solid black;
+		border-left: none;
+		border-right: none;
+		
+	}
+	
+	.insertArea td {
+		padding: 5px 5px 5px 5px;
+	}
 	
 </style>
 
@@ -46,19 +112,20 @@
 	<!-- menu -->
 	<jsp:include page = "../common/menu.jsp"/>
 	
-	<div>
-		<br>
+	<!-- header -->
+   	<jsp:include page = "../common/header.jsp"/>
+	
+	<div class="outer">
 		
 		<h2 align="center">질문 게시글 작성하기</h2>
 		
 		<%-- enctype="multipart/form-data" : 첨부파일 넘겨 받을 때 사용 --%>
 		<form id="enrollForm" action="<%=request.getContextPath()%>/boardInsert.do" method="post" enctype="multipart/form-data">
 			
-			<table align="center">
-
+			<table class="insertArea" align="center">
 				<tr>
 					<th width="100">카테고리</th>
-					<td width="500">
+					<td width="500" colspan="2">
 						<select id="category" name="category">
 							<option>상품 문의</option>
 							<option>배송 문의</option>
@@ -68,23 +135,27 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>
+					<td colspan="2">
 						<textarea rows="15" id="content" name="content" style="resize:none;"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" name="upfile"></td>
+					<td colspan="2"><input type="file" name="upfile"></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input tyle="text" id="pwd" name="pwd"></td>
+					<td colspan="2"><input tyle="text" id="pwd" name="pwd"></td>
 				</tr>
 				<tr>
 					<th>비밀글 설정</th>
 					<td>
 						<label>
 					    	<input type="radio" id="public" name="public" disabled> 공개글
+					  	</label>
+					</td>
+					<td>
+						<label>
 					    	<input type="radio" id="secret" name="secret" checked> 비밀글
 					  	</label>
 					</td>
@@ -95,7 +166,7 @@
 			<br>
 			
 			<div class="btns" align="center">
-				<button type="submit" id="insert">등록하기</button>
+				<button class="button" type="submit" id="insert">등록하기</button>
 			</div>
 			
 		</form>

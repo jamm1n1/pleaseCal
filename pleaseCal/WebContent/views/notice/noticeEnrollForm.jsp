@@ -25,6 +25,7 @@
 	#enrollForm{
 		width:100%;
 		margin:auto;
+		margin-top: 40px;
 	}
 	
 	#enrollForm>table{
@@ -35,6 +36,79 @@
 	#enrollForm>table input{
 		width:100%;
 		box-sizing:border-box;
+	}
+	
+	.btns {
+		margin:auto;
+		margin-top:30px;
+		margin-bottom:40px;
+	}
+	
+	.button {
+		color: #fff;
+  		border-radius: 5px;
+  		padding: 5px 15px;
+  		font-family: 'Lato', sans-serif;
+  		font-weight: 500;
+  		background: transparent;
+  		cursor: pointer;
+  		transition: all 0.3s ease;
+  		position: relative;
+  		display: inline-block;
+   		box-shadow:	inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		outline: none;
+  		
+		background: black;
+	  	border: none;
+	  	z-index: 1;
+	}
+	
+	.button:after {
+		position: absolute;
+  		content: "";
+  		width: 0;
+  		height: 100%;
+	  	top: 0;
+	  	right: 0;
+	  	z-index: -1;
+	  	background-color: grey;
+	  	border-radius: 5px;
+   		box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		transition: all 0.3s ease;
+	}
+	
+	.button:hover {
+		color: #fff;
+	}
+	
+	.button:hover:after {
+	  	left: 0;
+	  	width: 100%;
+	}
+	
+	.button:active {
+	  	top: 2px;
+	}
+	
+	.insertArea th {
+		text-align: center;
+		background-color: lightgrey;
+		
+	}
+	
+	.insertArea tr {
+		border:1px solid black;
+		border-left: none;
+		border-right: none;
+		
+	}
+	
+	.insertArea td {
+		padding: 5px 5px 5px 5px;
 	}
 
 </style>
@@ -47,26 +121,32 @@
 	<!-- menu -->
 	<jsp:include page = "../common/menu.jsp"/>
 	
+	<!-- header -->
+   	<jsp:include page = "../common/header.jsp"/>
+	
 	<div class="outer">
-		<br>
 		
 		<h2 align="center">공지사항 작성하기</h2>
 		
 		<form id="enrollForm" action="<%=request.getContextPath()%>/noticeInsert.do" method="post">
 			<div align="center">
-				<table width="100%">
+				
+				<table class="insertArea" width="870px">
 					<tr>
-						<td>제목</td>
+						<th>제목</th>
 						<td><input type="text" id="title" name="title"/></td>
 					</tr>
 					<tr>
-						<td>내용</td>
-						<td><textarea id="content" name="content" rows="10" cols="30" style="width:766px; height:412px;"></textarea></td>
+						<th>내용</th>
+						<td>
+							<textarea id="content" name="content" rows="10" cols="30" style="width:766px; height:412px;"></textarea>
+						</td>
 					</tr>
 				</table>
+				
 			</div>
 			<div class="btns" align="center">
-				<button type="submit" id="insert" onClick="submitPost()">등록하기</button>
+				<button type="submit" class="button" id="insert" onClick="submitPost()">등록하기</button>
 			</div>
 		</form>
 
@@ -113,6 +193,7 @@
 	    })
 		
 	    
+	    // 내용이 비어 있을 경우
 		submitPost = function() {
 	    	
 	    	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
@@ -130,11 +211,11 @@
 	    
 		// 폼 제출 시 카테고리, 내용, 비밀번호 비어 있으면 알림창 띄우기
 		$("form").submit(function() {
-			// 내용, 비밀번호 값을 변수에 담아서
+			// 제목, 내용 값을 변수에 담아서
 			var title = $("#title").val();
 			var content = $("#content").val();
 			
-			// 내용이 비어있는 경우
+			// 제목이 비어있는 경우
 			if(title == "" || title == null) {
 				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
 				$(this).removeAttr("action");
