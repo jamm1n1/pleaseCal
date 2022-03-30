@@ -1,4 +1,4 @@
-package com.uni.product.controller;
+package com.uni.Review.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.uni.product.model.service.ProductService;
-import com.uni.product.model.vo.Product;
-
+import com.uni.Review.model.service.ReviewService;
+import com.uni.Review.model.vo.Review;
+ 
 /**
- * Servlet implementation class ProductRanListServlet
+ * Servlet implementation class ReviewCheckServlet
  */
-@WebServlet("/ranListProduct.do")
-public class ProductRanListServlet extends HttpServlet {
+@WebServlet("/reviewCheck.do")
+public class ReviewCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductRanListServlet() {
+    public ReviewCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,32 +33,15 @@ public class ProductRanListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Product> list = new ProductService().productList();
-		System.out.println(list);
-		 
-		int ran;
-		int ran2;
-		// 두 개의 난수가 같지 않을때까지 반복하여 난수 2개 얻음
-		while(true) {
-			ran = (int)(Math.random() * list.size()) ;
-			ran2 = (int)(Math.random() * list.size()) ;
-			
-			if(ran != ran2) {
-				break;
-			}
+		int no = Integer.parseInt(request.getParameter("no"));
+
+		ArrayList<Review> list = new ReviewService().checkReview(no);
+
+		if(!list.isEmpty()) {
+			response.setContentType("application/json; charset=utf-8"); 
+			new Gson().toJson(list, response.getWriter());
 		}
 		
-		// 추천상품리스트에 추가하여 반환
-		ArrayList<Product> ranList = new ArrayList<Product>();
-		for(int i = 0; i < list.size(); i++) {
-			
-			if(i == ran || i == ran2) {
-				ranList.add(list.get(i));
-			}
-		}
-
-		response.setContentType("application/json; charset=utf-8"); 
-		new Gson().toJson(ranList, response.getWriter());
 	}
 
 	/**

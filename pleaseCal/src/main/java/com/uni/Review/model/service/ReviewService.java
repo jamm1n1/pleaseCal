@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import com.uni.Review.model.dao.ReviewDao;
 import com.uni.Review.model.vo.Review;
-
+ 
 
 public class ReviewService {
 
@@ -19,21 +19,6 @@ public class ReviewService {
 		
 		close(conn);
 		
-		return result;
-	}
-
-	public int InsertReview(Review r) {
-		
-		Connection conn = getConnection();
-		
-		int result = new ReviewDao().inserReview(conn, r);
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
 		return result;
 	}
 
@@ -84,5 +69,32 @@ public class ReviewService {
 		
 		return list;
 	}
+
+	public int insertReview(Review r) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ReviewDao().inserReview(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<Review> checkReview(int no) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDao().checkReview(conn, no);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 
 }

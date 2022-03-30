@@ -1,7 +1,7 @@
 package com.uni.Review.model.vo;
 
 import java.sql.Date;
-
+ 
 public class Review {
 	
 	private int rId;
@@ -34,6 +34,14 @@ public class Review {
 		this.rName = rName;
 		this.rContent = rContent;
 		
+	}
+	
+	public Review(int orderNo, int pId, String rName, String rContent, int userNo) {
+		this(orderNo);
+		this.pId = pId;
+		this.rName = rName;
+		this.rContent = rContent;
+		this.userNo = userNo;
 	}
 	
 	public Review(int rId, int orderNo, int pId, String rName, String rContent, Date rUpdate) {

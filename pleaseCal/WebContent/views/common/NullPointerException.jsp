@@ -50,10 +50,11 @@ div {
 
          <!-- Begin Page Content -->
          <div class="container-fluid">
-
+ 
              <!-- 404 Error Text -->
              <div class="text-center">
-                 <div class="error mx-auto" data-text="NullPointer">NullPointer</div>
+                 <div class="error mx-auto" data-text="Null">Null</div>
+                 <br><br>
                  <a href="index.jsp" class="btn btn-secondary btn-icon-split">
                      <span class="text">메인</span>
                  </a>
