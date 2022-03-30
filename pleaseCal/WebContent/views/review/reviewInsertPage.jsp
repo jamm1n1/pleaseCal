@@ -45,14 +45,24 @@ body {
 
 		$("#btnSave").click(function(){
 			
-			if(confirm("후기를 등록 하시겠습니까?")) {
+			if($("#title").val() == "") {
 				
-				$("#enrollForm").submit();
-		
+				alert("제목을 작성해주세요");
+				
+			} else if($("#content").val() == ""){
+				
+				alert("내용을 작성해주세요");
+			} else {
+				
+				if(confirm("후기를 등록 하시겠습니까?")) {
+					
+					$("#enrollForm").submit();
+			
+				}
+				
 			}
-		})
-			 
-		
+			
+		})		
 	
 	</script>
 	<jsp:include page = "../common/footer.jsp"/>
