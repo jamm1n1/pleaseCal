@@ -96,6 +96,7 @@
 	.detailArea th {
 		background-color: lightgrey;
 		text-align: center;
+		width: 100px;
 	}
 	
 	.detailArea td {
@@ -127,7 +128,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>관리자</td>
+				<td width="450px">관리자</td>
 				<th>작성일</th>
 				<td>${notice.createDate}</td>
 			</tr>

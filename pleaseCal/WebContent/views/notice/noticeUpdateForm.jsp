@@ -168,7 +168,7 @@
 					bUseModeChanger : true,
 					
 					fOnBeforeUnload : function(){
-						alert("완료!");
+						//alert("완료!");
 					}
 				}, //boolean
 				
@@ -188,11 +188,12 @@
 	
 		// 폼 제출 시 카테고리, 내용, 비밀번호 비어 있으면 알림창 띄우기
 		$("form").submit(function() {
+			// 에디터 내용을 텍스트박스에 업데이트
+	    	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
+	    	
 			// 제목, 내용 값을 변수에 담아서
 			let title = $("#title").val();
-			let content = $("#content").val();
-			
-	    	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
+			let content = $("#content").val().trim();
 			
 			// 제목이 비어있는 경우
 			if(title == "" || title == null) {
@@ -205,8 +206,8 @@
 				
 				return false;
 			
-				// 내용이 비어있는 경우
-			} else if(content == ""  || content == null || content == '&nbsp;' || content == '<p>&nbsp;</p>') {
+			// 내용이 비어있는 경우
+			} else if(content == "" || content == null || content == '&nbsp;' || content == '<p>&nbsp;</p>') {
 				// 알림 띄우기
 				alert("내용을 입력해주세요.")
 				// 포커싱 주기
