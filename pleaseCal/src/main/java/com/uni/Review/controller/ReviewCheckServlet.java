@@ -1,7 +1,6 @@
 package com.uni.Review.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -10,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.uni.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.uni.Review.model.service.ReviewService;
+import com.uni.Review.model.vo.Review;
 
 /**
- * Servlet implementation class ReviewInsertFormServlet
+ * Servlet implementation class ReviewCheckServlet
  */
-@WebServlet("/reviewInsertForm.do")
-public class ReviewInsertFormServlet extends HttpServlet {
+@WebServlet("/reviewCheck.do")
+public class ReviewCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewInsertFormServlet() {
+    public ReviewCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,13 +33,15 @@ public class ReviewInsertFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int no = Integer.parseInt(request.getParameter("no"));
 
-		int pId = Integer.parseInt(request.getParameter("pId")); 
-		int oId = Integer.parseInt(request.getParameter("oId")); 
+		ArrayList<Review> list = new ReviewService().checkReview(no);
+
+		if(!list.isEmpty()) {
+			response.setContentType("application/json; charset=utf-8"); 
+			new Gson().toJson(list, response.getWriter());
+		}
 		
-		request.setAttribute("pId", pId);
-		request.setAttribute("oId", oId);
-		request.getRequestDispatcher("views/review/reviewInsertPage.jsp").forward(request, response);
 	}
 
 	/**

@@ -38,7 +38,8 @@ public class MyOrderListServlet extends HttpServlet {
 		int uNo = user.getUserNo();
 		
 		list = new OrdertService().selectOrderList(uNo);
-
+		
+		request.setAttribute("uNo", uNo);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/order/myOrderList.jsp").forward(request, response);
 		

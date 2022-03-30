@@ -22,21 +22,6 @@ public class ReviewService {
 		return result;
 	}
 
-	public int InsertReview(Review r) {
-		
-		Connection conn = getConnection();
-		
-		int result = new ReviewDao().inserReview(conn, r);
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
-
 	public int deleteReview(Review r) {
 		
 		Connection conn = getConnection();
@@ -84,5 +69,32 @@ public class ReviewService {
 		
 		return list;
 	}
+
+	public int insertReview(Review r) {
+		
+		Connection conn = getConnection();
+		
+		int result = new ReviewDao().inserReview(conn, r);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<Review> checkReview(int no) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new ReviewDao().checkReview(conn, no);
+		
+		close(conn);
+		
+		return list;
+	}
+	
 
 }

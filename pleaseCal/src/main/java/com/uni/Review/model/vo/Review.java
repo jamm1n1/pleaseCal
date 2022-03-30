@@ -36,6 +36,14 @@ public class Review {
 		
 	}
 	
+	public Review(int orderNo, int pId, String rName, String rContent, int userNo) {
+		this(orderNo);
+		this.pId = pId;
+		this.rName = rName;
+		this.rContent = rContent;
+		this.userNo = userNo;
+	}
+	
 	public Review(int rId, int orderNo, int pId, String rName, String rContent, Date rUpdate) {
 		this(orderNo, pId, rName, rContent);
 		this.rId = rId;

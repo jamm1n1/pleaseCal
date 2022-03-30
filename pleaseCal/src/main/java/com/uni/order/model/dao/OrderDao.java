@@ -90,6 +90,7 @@ private Properties prop = new Properties();
 				o.setPiName(rset.getString("PI_NAME"));
 				o.setPName(rset.getString("P_NAME"));
 				o.setDState(rset.getString("D_STATE"));
+				o.setPId(rset.getInt("P_ID"));
 				
 				if(o.getDeliveryRequest() == null) {
 					

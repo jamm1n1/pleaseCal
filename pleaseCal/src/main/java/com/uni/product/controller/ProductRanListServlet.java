@@ -40,8 +40,8 @@ public class ProductRanListServlet extends HttpServlet {
 		int ran2;
 		// 두 개의 난수가 같지 않을때까지 반복하여 난수 2개 얻음
 		while(true) {
-			ran = (int)(Math.random() * list.size() + 1) ;
-			ran2 = (int)(Math.random() * list.size() + 1) ;
+			ran = (int)(Math.random() * list.size()) ;
+			ran2 = (int)(Math.random() * list.size()) ;
 			
 			if(ran != ran2) {
 				break;

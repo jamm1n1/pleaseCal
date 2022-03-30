@@ -82,6 +82,7 @@ public class ReviewDao {
 			pstmt.setInt(2, r.getpId());
 			pstmt.setString(3, r.getrName());
 			pstmt.setString(4, r.getrContent());
+			pstmt.setInt(5, r.getUserNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -224,6 +225,44 @@ public class ReviewDao {
 				r.setPiName(rs.getString("PI_NAME"));
 				r.setpName(rs.getString("P_NAME"));
 				r.setpId(rs.getInt("P_ID"));
+				list.add(r);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Review> checkReview(Connection conn, int no) {
+		
+		ArrayList<Review> list = new ArrayList<Review>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = prop.getProperty("checkReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			Review r = null;
+			while (rs.next()) {
+				
+				r = new Review();
+				r.setOrderNo(rs.getInt("ORDER_NO"));
+				r.setpId(rs.getInt("P_ID"));
+				
 				list.add(r);
 				
 			}
