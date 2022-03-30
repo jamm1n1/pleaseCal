@@ -13,23 +13,20 @@
 <title>게시글 수정 폼</title>
 
 <style>
-	.outer{
+	.outer {
 		width:900px;
 		height:500px;
 		margin:auto;
-		margin-top:50px;
+		margin-top:40px;
 		margin-bottom:250px;
 	}
 	
-	#updateForm>table{
-		border:1px solid black;
+	.updateForm {
+		margin:auto;
+		margin-top: 40px;
 	}
 	
-	#updateForm{
-		
-	}
-	
-	#updateForm>table input, #updateForm>table textarea{
+	.updateForm>table input, .updateForm>table textarea {
 		width:100%;
 		box-sizing:border-box;
 	}
@@ -37,7 +34,78 @@
 	/*#deleteBtn{color:gray;}
 	#deleteBtn:hover{cursor:pointer}*/
 	
-	/*.btns{margin:auto; margin-bottom:20px}*/
+	.btns {
+		margin:auto;
+		margin-top:35px;
+	}
+	
+	.button {
+		color: #fff;
+  		border-radius: 5px;
+  		padding: 5px 15px;
+  		font-family: 'Lato', sans-serif;
+  		font-weight: 500;
+  		background: transparent;
+  		cursor: pointer;
+  		transition: all 0.3s ease;
+  		position: relative;
+  		display: inline-block;
+   		box-shadow:	inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		outline: none;
+  		
+		background: black;
+	  	border: none;
+	  	z-index: 1;
+	}
+	
+	.button:after {
+		position: absolute;
+  		content: "";
+  		width: 0;
+  		height: 100%;
+	  	top: 0;
+	  	right: 0;
+	  	z-index: -1;
+	  	background-color: grey;
+	  	border-radius: 5px;
+   		box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		transition: all 0.3s ease;
+	}
+	
+	.button:hover {
+		color: #fff;
+	}
+	
+	.button:hover:after {
+	  	left: 0;
+	  	width: 100%;
+	}
+	
+	.button:active {
+	  	top: 2px;
+	}
+	
+	.updateArea th {
+		text-align: center;
+		background-color: lightgrey;
+		
+	}
+	
+	.updateArea tr {
+		border:1px solid black;
+		border-left: none;
+		border-right: none;
+		
+	}
+	
+	.updateArea td {
+		padding: 5px 5px 5px 5px;
+	}
+	
 </style>
 
 </head>
@@ -46,19 +114,23 @@
 	<!-- menu -->
 	<jsp:include page = "../common/menu.jsp"/>
 	
+	<!-- header -->
+   	<jsp:include page = "../common/header.jsp"/>
+	
 	<div class="outer">
-		<br>
 			
-		<h2 align="center">게시판 수정하기</h2>
-		<br>
+		<h2 align="center">질문 게시글 수정하기</h2>
+		
 		<%-- enctype="multipart/form-data" : 첨부파일 넘겨 받을 때 사용 --%>
-		<form id="updateForm" action="<%= request.getContextPath() %>/boardUpdate.do" method="post" enctype="multipart/form-data">
+		<form class="updateForm" action="<%= request.getContextPath() %>/boardUpdate.do" method="post" enctype="multipart/form-data">
+			
 			<%-- 게시글 번호 히든으로 넘기기 - 수정할 때 해당 게시글 번호로 하기 위해 --%>
 			<input type="hidden" name="bno" value="${b.boardNo}">
-			<table align="center">
+			
+			<table class="updateArea" align="center">
 				<tr>
-					<th width="100">분야</th>
-					<td width="500">
+					<th width="100">카테고리</th>
+					<td width="500" colspan="2">
 						<select name="category">
 							<option>상품 문의</option>
 							<option>배송 문의</option>
@@ -68,13 +140,13 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>
+					<td colspan="2">
 						<textarea rows="15" id="content" name="content" style="resize:none;">${b.boardContent}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td>
+					<td colspan="2">
 						<%-- 기존에 첨부파일이 있었을 경우 --%>
 						<c:if test="${!empty at}">
 							<%-- 첨부파일 출력 --%>
@@ -89,22 +161,25 @@
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input tyle="text" id="pwd" name="pwd"></td>
+					<td colspan="2"><input tyle="text" id="pwd" name="pwd"></td>
 				</tr>
 				<tr>
 					<th>비밀글 설정</th>
 					<td>
 						<label>
 					    	<input type="radio" id="public" name="public" disabled> 공개글
+					  	</label>
+					</td>
+					<td>
+						<label>
 					    	<input type="radio" id="secret" name="secret" checked> 비밀글
 					  	</label>
 					</td>
 				</tr>
 			</table>
-			<br>
 		
 			<div class="btns" align="center">
-				<button type="submit">수정하기</button>
+				<button class="button" type="submit">수정하기</button>
 			</div>
 		</form>
 	</div>

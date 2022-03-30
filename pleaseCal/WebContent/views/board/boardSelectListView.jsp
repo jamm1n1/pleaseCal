@@ -20,7 +20,7 @@
 
 	.content {
 		margin:auto;
-		margin-top:100px;
+		margin-top:50px;
 	}
 
 	.table{
@@ -37,11 +37,123 @@
 	.pagingArea {
 		margin:auto;
 		margin-top:50px;
+		margin-bottom:30px;
 	}
 	
 	.table>tbody>tr:hover{
 		background:darkgrey;
 		cursor:pointer
+	}
+	
+		.btn {
+		backgroud-color: #ccc;
+		border-radius: 5px;
+	 	cursor: pointer;
+	  	transition: all 0.3s ease;
+	  	position: relative;
+	  	display: inline-block;
+	   	box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+	   				7px 7px 20px 0px rgba(0,0,0,.1),
+	   				4px 4px 5px 0px rgba(0,0,0,.1);
+	  	outline: none;
+	}
+	
+	.btn:after {
+		position: absolute;
+	  	content: "";
+	  	width: 0;
+	  	height: 100%;
+	  	top: 0;
+	  	left: 0;
+	  	direction: rtl;
+	  	z-index: -1;
+	  	box-shadow: -7px -7px 20px 0px #fff9,
+	   				-4px -4px 5px 0px #fff9,
+	   				7px 7px 20px 0px #0002,
+	   				4px 4px 5px 0px #0001;
+	  	transition: all 0.3s ease;
+	}
+	
+	.btn:hover {
+		color: #000;
+	}
+	
+	.btn:hover:after {
+		left: auto;
+	  	right: 0;
+	  	width: 100%;
+	}
+	
+	.btn:active {
+		top: 2px;
+	}
+	
+	input {
+		border: 1px solid darkgrey;
+		border-radius: 5px;
+		outline: none;
+		background-color: rgb(233, 233, 233);
+		padding-left: 5px;
+	}
+	
+	input:focus {
+		outline: none;
+		box-shadow: box-shadow: 0 0 0 2px #f00;
+	}
+	
+	select, .searchBtn {
+		border: 1px solid darkgrey;
+		border-radius: 5px;
+	}
+	
+	.insertBtn {
+		color: #fff;
+  		border-radius: 5px;
+  		padding: 5px 15px;
+  		font-family: 'Lato', sans-serif;
+  		font-weight: 500;
+  		background: transparent;
+  		cursor: pointer;
+  		transition: all 0.3s ease;
+  		position: relative;
+  		display: inline-block;
+   		box-shadow:	inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		outline: none;
+  		
+		background: black;
+	  	border: none;
+	  	z-index: 1;
+	}
+	
+	.insertBtn:after {
+		position: absolute;
+  		content: "";
+  		width: 0;
+  		height: 100%;
+	  	top: 0;
+	  	right: 0;
+	  	z-index: -1;
+	  	background-color: grey;
+	  	border-radius: 5px;
+   		box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   					7px 7px 20px 0px rgba(0,0,0,.1),
+   					4px 4px 5px 0px rgba(0,0,0,.1);
+  		transition: all 0.3s ease;
+	}
+	
+	.insertBtn:hover {
+		color: #fff;
+	}
+	
+	.insertBtn:hover:after {
+	  	left: 0;
+	  	width: 100%;
+	}
+	
+	.insertBtn:active {
+	  	top: 2px;
 	}
 
 
@@ -53,6 +165,9 @@
 	
 	<!-- menu -->
 	<jsp:include page = "../common/menu.jsp"/>
+	
+	<!-- header -->
+   	<jsp:include page = "../common/header.jsp"/>
 	
 	<div class="content">
        <div class="row">
@@ -81,7 +196,7 @@
 						<%-- list가 비어있으면 --%>
 	                    <c:if test="${ empty list }">
 	                         <tr>
-	                           <td colspan="5">존재하는 게시글이 없습니다.</td>
+	                           <td colspan="5">작성한 게시글이 없습니다.</td>
 	                        </tr>
 	                    </c:if>
 	                    
@@ -118,19 +233,19 @@
 	<!-- 페이징바 만들기 -->
 	<div class="pagingArea" align="center">
 		<!-- 맨 처음으로 (<<) -->
-		<button onclick="location.href='<%=request.getContextPath()%>/boardSelectList.do?currentPage=1'"> &lt;&lt; </button>
+		<button class="btn" onclick="location.href='<%=request.getContextPath()%>/boardSelectList.do?currentPage=1'"> &lt;&lt; </button>
 	
 		<!-- 이전페이지로(<) -->
 		<c:choose>
 			<%-- 현재 페이지가 1인 경우 --%>
 			<c:when test="${pi.currentPage == 1}">
 				<%-- 이전 페이지로 가는 버튼 비활성화 --%>
-				<button disabled> &lt; </button>
+				<button class="btn" disabled> &lt; </button>
 			</c:when>
 			<%-- 그 외에는 --%>
 			<c:otherwise>
 				<%-- 현재 페이지에서 하나 뺀 페이지로 이동하도록 --%>
-				<button onclick="location.href='<%= request.getContextPath()%>/boardSelectList.do?currentPage=${pi.currentPage - 1}'"> &lt; </button>
+				<button class="btn" onclick="location.href='<%= request.getContextPath()%>/boardSelectList.do?currentPage=${pi.currentPage - 1}'"> &lt; </button>
 			</c:otherwise>
 		</c:choose>
 		 
@@ -140,11 +255,11 @@
 			<c:choose>
 				<%-- 현재 페이지에 해당하는 버튼 비활성화 --%>
 				<c:when test="${p == pi.currentPage}">
-					<button disabled> ${p} </button>
+					<button class="btn" disabled> ${p} </button>
 				</c:when>
 				<%-- 그 외에는 클릭하면 해당 페이지로 넘어가도록 --%>
 				<c:otherwise>
-					<button onclick="location.href='<%=request.getContextPath() %>/boardSelectList.do?currentPage=${p}'"> ${p} </button>
+					<button class="btn" onclick="location.href='<%=request.getContextPath() %>/boardSelectList.do?currentPage=${p}'"> ${p} </button>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -154,29 +269,20 @@
 			<%-- 현재 페이지가 마지막 페이지인 경우 --%>
 			<c:when test="${pi.currentPage == pi.maxPage}">
 				<%-- 다음 페이지로 가는 버튼 비활성화 --%>
-				<button disabled> &gt; </button>
+				<button class="btn" disabled> &gt; </button>
 			</c:when>
 			<%-- 그 외에는 --%>
 			<c:otherwise>
 				<%-- 현재 페이지에서 하나 더한 페이지로 이동하도록 --%>
-				<button onclick="location.href='<%= request.getContextPath() %>/boardSelectList.do?currentPage=${pi.currentPage + 1}'"> &gt; </button>
+				<button class="btn" onclick="location.href='<%= request.getContextPath() %>/boardSelectList.do?currentPage=${pi.currentPage + 1}'"> &gt; </button>
 			</c:otherwise>
 		</c:choose>
 	
 		<!-- 맨 끝으로 (>>) -->
-		<button onclick="location.href='<%=request.getContextPath()%>/boardSelectList.do?currentPage=${pi.maxPage}'"> &gt;&gt; </button>
+		<button class="btn" onclick="location.href='<%=request.getContextPath()%>/boardSelectList.do?currentPage=${pi.maxPage}'"> &gt;&gt; </button>
 		 
 	</div>
-	
-	
-   	<form class="searchArea" align="center">
-        <select id="condition" name="condition">
-           <option value="title">제목</option>
-           <option value="content">내용</option>
-        </select>
-        <input type="search" id="search" name="search">
-        <button type="submit">검색하기</button>
-  	</form>
+
 	
 	<br>
 	
@@ -227,7 +333,6 @@
 		})*/
 		
 		
-		
 		// list 가 비어있지 않으면
 		<c:if test="${!empty list}">
 			$(function() {
@@ -236,21 +341,12 @@
 	   				// 게시글 번호 가져와서 변수에 담기
 	   				let bno = $(this).children().eq(0).text();
 
-   					location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
+   					location.href= "<%=request.getContextPath()%>/boardSelectDetail.do?bno="+bno;
 	   			})
 	   		})
    		</c:if>
 			
 	</script>
-	<%-- 
-	// 비밀번호 입력창 팝업으로 열기
-	location.href= "<%=request.getContextPath()%>/boardPwdInsert.do?bno="+bno;
-	
-	상세 페이지로 넘어가는 서블릿
-	// 해당 게시글 상세 페이지로 넘어가기
-	// 쿼리스트링으로 작성
-	location.href= "<%=request.getContextPath()%>/boardDetail.do?bno="+bno;
-	--%>
 	
 	
 	<!-- footer-->
