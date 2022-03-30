@@ -112,7 +112,7 @@ color : blue;
 		
 	}
 	function checkId(){
-		var userId = $("#newFace input[name=userId]");
+		var userId = $("#enrollForm input[name=userId]");
 		
 		if(userId.val() ==""){
 			alert("아이디를 입력해주세요")
