@@ -35,7 +35,7 @@ public class ProductRanListServlet extends HttpServlet {
 		
 		ArrayList<Product> list = new ProductService().productList();
 		System.out.println(list);
-		
+		 
 		int ran;
 		int ran2;
 		// 두 개의 난수가 같지 않을때까지 반복하여 난수 2개 얻음

@@ -1,7 +1,7 @@
 package com.uni.Review.model.vo;
 
 import java.sql.Date;
-
+ 
 public class Review {
 	
 	private int rId;
