@@ -327,22 +327,7 @@
 	   			})
 	   		})
    		</c:if>
-			
-		/*
-		// 폼 제출 시
-		$("form").submit(function() {
-			
-			let input = $("#search").val();
-			
-			console.log(input);
-			// 검색창 비어 있으면 공지사항 리스트 페이지 다시 호출
-			if(input == "") {
-				//$(this).removeAttr("action");
-			} else {
-					
-			}
-			
-		})*/
+		
 	</script>
 	
 

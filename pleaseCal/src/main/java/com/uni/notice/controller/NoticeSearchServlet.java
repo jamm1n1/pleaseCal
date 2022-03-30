@@ -97,10 +97,6 @@ public class NoticeSearchServlet extends HttpServlet {
 		// ============================
 		
 		
-		/*if(condition == null) {
-			
-		}*/
-		
 		// 페이징처리 위한 PageInfo와 둘 다 넘겨 받은 결과 list에 담기
 		ArrayList<Notice> list = new NoticeService().searchList(pi, condition, search);
 		

@@ -30,7 +30,6 @@
 	
 	#enrollForm>table{
 		border:1px solid black;
-	
 	}
 	
 	#enrollForm>table input{
@@ -146,7 +145,7 @@
 				
 			</div>
 			<div class="btns" align="center">
-				<button type="submit" class="button" id="insert" onClick="submitPost()">등록하기</button>
+				<button type="submit" class="button" id="insert">등록하기</button>
 			</div>
 		</form>
 
@@ -187,34 +186,20 @@
 	      	})
 	    }
 		
-	    
+	    // 페이지 열자마자 에디터 API 실행
 	    $(document).ready(function() {
 	      smartEditor();
 	    })
-		
-	    
-	    // 내용이 비어 있을 경우
-		submitPost = function() {
-	    	
-	    	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
-	    	let content = document.getElementById("content").value;
-	    	
-	    	if(content == "") {
-   		    	alert("내용을 입력해주세요.")
-   		    	oEditors.getById["content"].exec("FOCUS")
-   		    	return;
-   		  	} else {
-   		    	console.log(content);
-	    	}
-	    }
 	  
 	    
 		// 폼 제출 시 카테고리, 내용, 비밀번호 비어 있으면 알림창 띄우기
 		$("form").submit(function() {
 			// 제목, 내용 값을 변수에 담아서
-			var title = $("#title").val();
-			var content = $("#content").val();
+			let title = $("#title").val();
+			let content = $("#content").val();
 			
+	    	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+	    	
 			// 제목이 비어있는 경우
 			if(title == "" || title == null) {
 				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
@@ -227,14 +212,14 @@
 				return false;
 			
 			// 내용이 비어있는 경우
-			} else if(content == "" || content == null) {
+			} else if(content == ""  || content == null || content == '&nbsp;' || content == '<p>&nbsp;</p>') {
 				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
 				$(this).removeAttr("action");
 				// 알림 띄우기
-				alert("내용을 작성해주세요.");
-				// 해당 입력창에 포커스 주기
-				$("#content").attr("tabindex", -1).focus();
-				
+				alert("내용을 입력해주세요.");
+				// 포커싱 주기
+   		    	oEditors.getById["content"].exec("FOCUS");
+   		    	
 				return false;
 			
 			// 잘 작성이 되어있으면

@@ -337,8 +337,8 @@
 		
 		
 		// condition hidden 으로 넘긴 input 찍어보기
-		let input = $("#con").val();
-		console.log(input);
+		/*let input = $("#con").val();
+		console.log(input);*/
 	</script>
 	
 	

@@ -287,51 +287,6 @@
 	<br>
 	
 	<script>
-		/*
-		$(function() {
-			
-			$("#boardList").empty(); // 리스트 가져올 때마다 비우고 새로 가져오도록
-			
-			$.ajax({
-				url: "boardList.do",
-				
-				type: "get",
-				
-				//dataType: "html",
-				
-				success: function(list) {
-					console.log(list);
-					
-					var value = "";
-					
-					if(list != null) {
-	                     
-						for(var i in list) {
-							value += '<tr>' +
-										'<td>' + list[i].boardNo + '</td>' +
-										'<td>' + list[i].category + '</td>' +
-										'<td>' + list[i].boardWriter + '</td>' +
-										'<td>' + list[i].createDate + '</td>' +
-										'<td>' + list[i].count + '</td>' +
-									 '</tr>';
-						}
-						
-					} else {
-						
-						value = '<tr><td>존재하는 게시글이 없습니다.</td></tr>';
-					}
-					
-					$("#boardList").html(value);
-				},
-				
-				error: function(e) {
-					console.log("ajax 통신 실패");
-				}
-
-			})
-			
-		})*/
-		
 		
 		// list 가 비어있지 않으면
 		<c:if test="${!empty list}">

@@ -35,8 +35,6 @@ public class BoardDetailPwdCheckServlet extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		// 해당 게시글 가져오기
 		Board b = new BoardService().selectBoard(bno);
-		// 해당 게시글 첨부파일 가져오기
-		//Attachment at = new BoardService().selectAttachment(bno);
 		
 		//System.out.println("board == servlet == " + b);
 		
@@ -44,7 +42,6 @@ public class BoardDetailPwdCheckServlet extends HttpServlet {
 		if(b != null) {
 			// 게시글 jsp로 넘기기
 			request.setAttribute("b", b);
-			//request.setAttribute("at", at);
 			// 게시글 비밀번호 입력창으로 전환
 			request.getRequestDispatcher("views/board/boardDetailPwdCheck.jsp").forward(request, response);
 		

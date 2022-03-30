@@ -225,13 +225,15 @@
 		
 		// 삭제 버튼 클릭 시
 		function deleteBoard(){
-			
+			// 게시글 번호 변수에 담기
 			let bno = ${b.boardNo};
-			
+			// 실행할 url
 			let url = "<%=request.getContextPath()%>/boardDeletePwdCheck.do?bno="+bno;
+			// 팝업 이름
 			let name = "boardPwdCheckPopup";
+			// 팝업 속성
 			let option = "width = 500, height = 300, top = 50%, left = 50%, location = no"
-		
+			// 위 세 가지는 필수 항목이며 이름은 없는 경우 "" 으로 대체 가능
 			open(url, name, option);
 		}
 		
@@ -285,43 +287,11 @@
 	</div>
 
 	<script>
+	
+		// 댓글 리스트 조회하는 함수 실행
+		selectReplyList();
 		
-		// 댓글 입력
-		$(function() {
-			
-			selectReplyList(); // 입력하기 전에 댓글 리스트 출력하는 함수 먼저 실행
-			
-			$("#addReply").click(function() {
-				var content = $("#replyContent").val(); // 댓글 내용
-				var bno = ${b.boardNo}; // 게시글 번호
-				
-				$.ajax({
-					url: "replyInsert.do", // 댓글 입력 서블릿으로 연결
-					
-					type: "post", // servlet에서 인코딩 먼저
-					
-					// servlet 변수명 : jsp 변수명
-					data: {
-							content : content,
-							bno : bno
-					},
-					
-					success: function(status){
-						if(status =="success"){ // 성공적으로 입력되면 (넘겨 받은 문자가 success 이면)
-							selectReplyList(); // 리스트 조회해서 실시간으로 바뀌도록
-							$("#replyContent").val(""); // 입력했으니 댓글 입력창 비워주기
-						}
-					},
-					
-					error: function(){
-						console.log("ajax 통신 실패 - 댓글등록");
-					}
-				})
-				
-			})
-		})
-		
-		// 댓글 리스트 조회
+		// 댓글 리스트 조회하는 함수
 		function selectReplyList() {
 			
 			$("#replyList").empty(); // 조회할 때마다 비우고 다시 출력하도록

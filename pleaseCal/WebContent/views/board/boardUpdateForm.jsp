@@ -18,7 +18,7 @@
 		height:500px;
 		margin:auto;
 		margin-top:40px;
-		margin-bottom:250px;
+		margin-bottom:270px;
 	}
 	
 	.updateForm {
@@ -31,8 +31,6 @@
 		box-sizing:border-box;
 	}
 	
-	/*#deleteBtn{color:gray;}
-	#deleteBtn:hover{cursor:pointer}*/
 	
 	.btns {
 		margin:auto;

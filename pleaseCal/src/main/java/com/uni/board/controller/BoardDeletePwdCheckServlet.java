@@ -44,7 +44,7 @@ public class BoardDeletePwdCheckServlet extends HttpServlet {
 		if(b != null) {
 			// 게시글 jsp로 넘기기
 			request.setAttribute("b", b);
-			//request.setAttribute("at", at);
+			
 			// 게시글 비밀번호 입력창으로 전환
 			request.getRequestDispatcher("views/board/boardDeletePwdCheck.jsp").forward(request, response);
 		

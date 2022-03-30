@@ -50,12 +50,6 @@ public class BoardSelectDetailServlet extends HttpServlet {
 			request.setAttribute("b", b);
 			request.setAttribute("at", at);
 			
-			// json 타입으로 응답할 것이다
-			//response.setContentType("application/json; charset=utf-8");
-			
-			//new Gson().toJson(b, response.getWriter());
-			//new Gson().toJson(at, response.getWriter());
-			
 			request.getRequestDispatcher("views/board/boardSelectDetailView.jsp").forward(request, response);
 			
 			

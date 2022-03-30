@@ -216,7 +216,7 @@
 			// 잘 작성이 되어있으면
 			} else {
 				// 제거했던 액션 태그 다시 추가해서 잘 진행되도록
-				$(this).attr("action", "<%=request.getContextPath()%>/boardUpdate.do");
+				$(this).attr("action", "<%=request.getContextPath()%>/boardSelectUpdate.do");
 			}	
 		})
 		
