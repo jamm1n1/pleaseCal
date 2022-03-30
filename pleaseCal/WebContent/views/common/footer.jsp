@@ -39,8 +39,8 @@
 	      <p class="m-0 text-center text-black"><b>서제민</b></p>
 	      <ul class="nav flex-column">
 		<li class="nav-item mb-2"></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">회원가입 기능</p></li>
-	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">로그인 기능</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">회원가입</p></li>
+	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">로그인</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">마이페이지</p></li>
 	        <li class="nav-item mb-2"><p class="m-0 text-center text-white">관리자 페이지</p></li>
 	      </ul>
