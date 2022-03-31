@@ -41,6 +41,7 @@ public class CartChangeServlet extends HttpServlet {
 		//System.out.println("q , name, writer : " + q + name + writer);
 		int result = new CartService().changeAmount(q, name, writer, p);
 
+		response.sendRedirect("cartList.do");
 		//System.out.println("servlet result : " + result);
 		
 	}

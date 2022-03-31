@@ -1,31 +1,27 @@
-package com.uni.cart.controller;
+package com.uni.order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.uni.cart.model.service.CartService;
 import com.uni.cart.model.vo.Cart;
 import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class CartListDataServlet
+ * Servlet implementation class ProductDetailPaymentServlet
  */
-@WebServlet("/cartListData.do")
-public class CartListDataServlet extends HttpServlet {
+@WebServlet("/productDetailPayment.do")
+public class ProductDetailPaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListDataServlet() {
+    public ProductDetailPaymentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +30,23 @@ public class CartListDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			Member user = ((Member)request.getSession().getAttribute("loginUser"));
-
-			String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-	
-			ArrayList<Cart> list = new CartService().CartList(writer);
-			System.out.println("list ==========" + list);
-			
-			
-			request.setAttribute("list", list);
-			
-			
-			response.setContentType("application/json; charset=utf-8"); 
+		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		Member m = new CartService().MemberInfo(writer);
 		
-			new Gson().toJson(list, response.getWriter());
-
+		int pId = Integer.parseInt(request.getParameter("pId"));
+		int pQ = Integer.parseInt(request.getParameter("numBox"));
+		int poPrice =  Integer.parseInt(request.getParameter("pPrice"));
+		
+		Cart c = new CartService().selectDetailProduct(pId);
+		int pPrice = poPrice * pQ;
+		
+		request.setAttribute("c", c);
+		request.setAttribute("pPrice", pPrice);
+		request.setAttribute("pQ", pQ);
+		request.setAttribute("m", m);
+		
+		request.getRequestDispatcher("views/order/selectProductPayment.jsp").forward(request, response);
+		
 	}
 
 	/**

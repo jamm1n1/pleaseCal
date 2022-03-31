@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
- 
+
 <%
 	ArrayList<Order> list = (ArrayList<Order>)request.getAttribute("list");
 	int uNo = (int)request.getAttribute("uNo");
@@ -33,7 +33,7 @@
 </head>
 <body>
 	<jsp:include page = "../common/menu.jsp"/>
-	<br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br>
 	<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
 	<%if (!list.isEmpty()){ %>
@@ -74,45 +74,45 @@
 
 </div>
 	<script>
-
-	$(function(){
-		
-		let uNo = "<%=uNo%>";
-		
-		$.ajax({
-			
-			url: "reviewCheck.do",
-			
-			type: "post",
-			
-			data: {
-				no: uNo
-			},
-			
-			success:function(list){
-				
-				let val = "";
-				
-				for(var i in list) {
-					
-					val = "" + list[i].orderNo + list[i].pId 
-					$('#'+val+'').hide();
-					
-				}
-
-			},
-			error:function(e){
-		   			
-				console.log(e)
-
-			}
-		})
-		
-	})
-		
 	
-	</script>
-
-	<jsp:include page = "../common/footer.jsp"/>
+		$(function(){
+			
+			let uNo = "<%=uNo%>";
+			
+			$.ajax({
+				
+				url: "reviewCheck.do",
+				
+				type: "post",
+				
+				data: {
+					no: uNo
+				},
+				
+				success:function(list){
+					
+					let val = "";
+					
+					for(var i in list) {
+						
+						val = "" + list[i].orderNo + list[i].pId 
+						$('#'+val+'').hide();
+						
+					}
+	
+				},
+				error:function(e){
+			   			
+					console.log(e)
+	
+				}
+			})
+			
+		})
+			
+		
+		</script>
+		
+		<jsp:include page = "../common/footer.jsp"/>
 </body>
 </html>

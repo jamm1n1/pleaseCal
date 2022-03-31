@@ -6,7 +6,7 @@
 <%@ page import="com.uni.cart.model.vo.Cart" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-	//ArrayList<Cart> list = //(ArrayList<Cart>)request.getAttribute("list");
+	
 	Cart cd = new Cart();
 %>
 
@@ -452,9 +452,9 @@
    						                               
    						                               		'<span class="unit-cost" id="original'+i+'">'+list[i].poPrice+'</span> &nbsp'+
    						                                   
-   																'<select class="quantity-select" id="amountChange" name="amountChange'+i+'" onchange="change(this.value, this.name)" >'+
+   																'<select class="quantity-select" id="amountChange'+i+'" name="amountChange'+i+'" onChange="change(this.value, this.name)" >'+
    																		
-   																		'<option>'+list[i].pAmount+'</option>'+
+   																		'<option id="op'+i+'" display="none">'+list[i].pAmount+'</option>'+
    																		
    																		'<option value="1">1</option>'+
    																	
@@ -473,8 +473,7 @@
    																		'<option value="8">8</option>'+
    																	
    																		'<option value="9">9</option>'+
-   																	
-   																		'<option value="10">10+</option>'+
+   																							
    																		
    																'</select>'+
    																
@@ -531,10 +530,10 @@
    						       	 '<input type="hidden" id="title'+i+'" name="title'+i+'" value="'+list[i].pId+'">'+	
    						       	 '<input type="hidden" id="price'+i+'" value="'+list[i].poPrice+'">'+	
    						       	 '<input type="hidden" id="total" name="total'+i+'" value="'+list[i].poPrice+'">'+	
-   						     	 '<input type="hidden" id="listLe" value="'+list.length+'">'+	
+   						     	 '<input type="hidden" id="pNum'+i+'" value="'+list[i].pNum +'">'+	
    						     '</form>' <%-- 본문 끝--%>
    								
-   							  function dPrice(i){
+   							  function dPrice(i){ <%-- 상품이 두개 이상 히면 하나의 상품에만 배송비가 찍히게 입력--%>
    			   		   			let c = 0;
    			   		   			if(i == 0){
    			   		   					c = 2500;
@@ -579,14 +578,6 @@
    		})
    	})
    	
-   		function totDPrice(){
- 		  			let dp = 0;
- 		  			if($('#listLe') != null){
- 		  				dp = 2500;
- 		  			}else{
- 		  			return dp;
- 		  			}
-   		  		}
    </script>
         <%-- 여기까지 반복 --%>
            
@@ -648,6 +639,57 @@
 
     	let count = value; // 바뀐 갯수
     	let index = String.charAt(String.length-1); // 몇변째상품의 select인지 인덱스 찾기
+    	let pNum = $('#pNum'+index+'').val();
+    	console.log($('#op'+index+'').val())
+    	console.log(pNum)
+    	
+    	if(value > pNum){
+    		
+    		$('#amountChange'+index+'').val(pNum);
+    		$('#op'+index+'').val(pNum);
+    		alert("재고량이 부족합니다. 더 이상 주문할 수 없습니다")
+    		
+    	let original = $('#original'+index+'').html(); // 값이 바뀐 상품의 1개당 가격 칸
+    	let totprice2 = $('[name="twochangePrice'+index+'"]').html(); // 노란색칸 상품금액(origianl * count) 칸
+    	let pid = $('[name="title'+index+'"]').val(); // 갯수바뀐상품의 상품번호 칸
+    	let changetotal = $('[name="changetotal'+index+'"]').html(); // 노란색칸 주문금액(origianl * count + 2500)	칸
+    	
+    	let result = original * pNum
+    	console.log(result)
+    	// 바뀐갯수와 * 1개당 가격 => DB에 들어갈 총금액
+    	
+    	
+    	$.ajax({
+			
+			url: "amountChange.do",
+			
+			type: "get",
+			
+			data:{
+					q:pNum,
+					name:pid,
+					p:result
+	
+				},
+			
+			success:function(){
+				
+				console.log("성공")
+				$('[name="ChangePrice'+index+'"]').html(result);
+				$('[name="twochangePrice'+index+'"]').html(result);
+				$('[name="changetotal'+index+'"]').html(result+2500);
+				
+			},
+			
+			error:function(){
+		   			console.log("ajax통신실패");
+		   			
+		   		}
+		
+			})
+    		
+    	}else{
+    	
     	
     	let original = $('#original'+index+'').html(); // 값이 바뀐 상품의 1개당 가격 칸
     	let totprice2 = $('[name="twochangePrice'+index+'"]').html(); // 노란색칸 상품금액(origianl * count) 칸
@@ -688,7 +730,7 @@
 		
 			})
 			
-		
+    	}
 	}
     </script>
    
@@ -696,10 +738,6 @@
    	$('#btnPay').click(function(){
    		
    		$('#listInfo0').submit();
-   		<%--location.href="<%=request.getContextPath()%>/orderList.do";--%>
-   		
-   		<%--location.href="<%=request.getContextPath()%>/paymentMember.do";--%>
-   		
    		
    	})
    		

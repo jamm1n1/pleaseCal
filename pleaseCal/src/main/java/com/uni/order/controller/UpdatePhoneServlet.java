@@ -1,31 +1,26 @@
-package com.uni.cart.controller;
+package com.uni.order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.uni.cart.model.service.CartService;
-import com.uni.cart.model.vo.Cart;
 import com.uni.member.model.vo.Member;
+import com.uni.order.model.service.OrdertService;
 
 /**
- * Servlet implementation class CartListDataServlet
+ * Servlet implementation class UpdatePhoneServlet
  */
-@WebServlet("/cartListData.do")
-public class CartListDataServlet extends HttpServlet {
+@WebServlet("/updatePhone.do")
+public class UpdatePhoneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartListDataServlet() {
+    public UpdatePhoneServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +29,18 @@ public class CartListDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			Member user = ((Member)request.getSession().getAttribute("loginUser"));
-
-			String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-	
-			ArrayList<Cart> list = new CartService().CartList(writer);
-			System.out.println("list ==========" + list);
-			
-			
-			request.setAttribute("list", list);
-			
-			
-			response.setContentType("application/json; charset=utf-8"); 
 		
-			new Gson().toJson(list, response.getWriter());
+		// 입력한 전화번호
+		String phone = String.valueOf(request.getParameter("phone"));
 
+		String userNo = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		//System.out.println("phone Servlet ==========   " + phone);
+		
+		int result = new OrdertService().updatePhone(phone, userNo);
+		
+		
+		//response.sendRedirect("paymentMember.do");
+		
 	}
 
 	/**

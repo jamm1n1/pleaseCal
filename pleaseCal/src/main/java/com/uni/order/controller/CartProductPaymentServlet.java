@@ -1,27 +1,29 @@
-package com.uni.cart.controller;
+package com.uni.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.uni.cart.model.service.CartService;
 import com.uni.cart.model.vo.Cart;
 import com.uni.member.model.vo.Member;
 
 /**
- * Servlet implementation class ProductDetailPaymentServlet
+ * Servlet implementation class ProductPaymentServlet
  */
-@WebServlet("/productDetailPayment.do")
-public class ProductDetailPaymentServlet extends HttpServlet {
+@WebServlet("/orderProductList.do")
+public class CartProductPaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductDetailPaymentServlet() {
+    public CartProductPaymentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,25 +32,16 @@ public class ProductDetailPaymentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-		Member m = new CartService().MemberInfo(writer);
-		
-		int pId = Integer.parseInt(request.getParameter("pId"));
-		int pQ = Integer.parseInt(request.getParameter("numBox"));
-		int poPrice =  Integer.parseInt(request.getParameter("pPrice"));
-		
-		Cart c = new CartService().selectDetailProduct(pId);
-		int pPrice = poPrice * pQ;
-		
-		request.setAttribute("c", c);
-		request.setAttribute("pPrice", pPrice);
-		request.setAttribute("pQ", pQ);
-		request.setAttribute("m", m);
-		
-		request.getRequestDispatcher("views/order/selectProductPayment.jsp").forward(request, response);
-		
-	}
 
+		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		ArrayList<Cart> list = new CartService().CartList(writer);
+		
+		request.setAttribute("list", list);
+		//System.out.println(list);
+		response.setContentType("application/json; charset=utf-8"); 
+		
+		new Gson().toJson(list, response.getWriter());
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

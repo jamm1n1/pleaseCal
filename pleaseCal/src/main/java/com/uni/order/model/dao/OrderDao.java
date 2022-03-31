@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.uni.cart.model.dao.CartDao;
-import com.uni.cart.model.vo.Cart;
 import com.uni.order.model.vo.Order;
 import static com.uni.common.JDBCTemplate.*;
- 
+
 
 public class OrderDao {
 
@@ -23,8 +22,6 @@ private Properties prop = new Properties();
 	public OrderDao() {
 		
 		String fileName = CartDao.class.getResource("/sql/order/order-query.properties").getPath();
-		
-		//System.out.println("fileName   " + fileName);
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -40,7 +37,6 @@ private Properties prop = new Properties();
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		//changeAmount=UPDATE CART SET PRODUCT_AMOUNT = ? WHERE PRODUCT_NAME = ? AND USER_NO = ?
 		String sql = prop.getProperty("productInOrderList");
 		
 		try {
@@ -62,12 +58,10 @@ private Properties prop = new Properties();
 		}  finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao result : " + result);
 		return result;
 	}
 	public ArrayList<Order> selectOrderList(Connection conn, int uNo) {
 		ArrayList<Order> list = new ArrayList<Order>();
-		//Order o = new Order();
 		Order o = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -106,9 +100,32 @@ private Properties prop = new Properties();
 			close(rset);
 			close(pstmt);
 		}
-		
-		//System.out.println("Dao list : " + list);
 		return list;
+	}
+	public int updatePhone(Connection conn, String phone, String userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+
+		String sql = prop.getProperty("updatePhone");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, phone);
+			pstmt.setInt(2, Integer.parseInt(userNo));
+
+		
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

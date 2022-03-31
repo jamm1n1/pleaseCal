@@ -1,5 +1,5 @@
 package com.uni.order.controller;
- 
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class MyOrderListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Order> list = new ArrayList<>();
 		Member user = ((Member)request.getSession().getAttribute("loginUser"));
 		
