@@ -58,7 +58,8 @@ private Properties prop = new Properties();
 								  rset.getInt("PRODUCT_PRICE"),
 								  rset.getInt("PRODUCT_AMOUNT"),
 								  rset.getString("P_NAME"),
-							  	  rset.getDate("D_DATE"));
+							  	  rset.getDate("D_DATE"),
+							  	  rset.getInt("P_NUM"));
 				
 				list.add(c);
 				//System.out.println("Dao list =====" + list);

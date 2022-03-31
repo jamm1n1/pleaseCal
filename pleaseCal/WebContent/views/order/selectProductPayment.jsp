@@ -601,9 +601,9 @@
 			    <form data-customer-phone--form-tel="">
 				    <div>
 				        <input type="tel" class="customer-phone__input-tel " value="${m.phone}">
-				        <button type="submit" >
+					 <button type="button" id="updatePhone">
 				            수정
-				        </button>
+				     </button>
 				    </div>
 				</form>
 			</div>
@@ -619,32 +619,31 @@
 <%--받는사람 정보 --%><div data-component="deliveryAddress">    
 	<h2 class="delivery-address__caption-header">
 	받는사람정보
-	    <button class="delivery-address__popup-list-button" type="button" data-delivery-address__popup-list-button="">
-	        배송지변경
-	    </button>
+	     <button class="delivery-address__popup-list-button" type="button" id="ChangeDA">
+            배송지변경
+        </button>
     </h2>
     <table class="delivery-address">
         <tbody>
 	        <tr>
-	            <th class="delivery-address__th">이름</th>
-	            <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
-	                <span class="delivery-address__name">${m.userName}</span>
-	            </td>
-	        </tr>
-        <tr>
-            <th class="delivery-address__th">배송주소</th>
-            <td class="delivery-address__td">
-                ${m.address}
-                <div id="blocked-address-error-message" class="blocked-address-section" data-delivery-address__blocked-message="">
-
-
-                </div>
+	              <th class="delivery-address__th">이름</th>
+            <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+      
+             <input type="text"  class="delivery-address__name" id="userName" value="${m.userName}" readOnly></input>
             </td>
         </tr>
         <tr>
-            <th class="delivery-address__th delivery-address__th--no-line">연락처</th>
-            <td class="delivery-address__td delivery-address__td--no-line">
-                ${m.phone }
+            <th class="delivery-address__th">배송주소</th>
+             <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+           
+                <input type="text"  class="delivery-address__name" id="userAddress" value="${m.address}" readOnly></input>
+            </td>
+        </tr>
+        <tr>
+            <th  class="delivery-address__th delivery-address__th--no-line">연락처</th>
+          	 <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+          
+                <input type="text"  class="delivery-address__name" id="userPhone" value="${m.phone }" readOnly></input>
             </td>
         </tr>
         </tbody>
@@ -782,6 +781,45 @@
    						   		 <input type="hidden" id="lSize" value="'+list.length+'">
    						     </form> <%-- 본문 끝--%>
         
+	<div class="bundle-info__pdd-group-title"><h3>결제 정보</h3></div>
+
+	<div data-component="deliveryAddress">    
+    	<table class="delivery-address">
+	        <tbody>
+		        <tr>
+		            <th class="delivery-address__th">총 상품 금액</th>
+		            <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+		                <span class="delivery-address__name"><%=pPrice%> 원</span>
+		            </td>
+		        </tr>
+		        <tr>
+		            <th class="delivery-address__th">할인쿠폰</th>
+		            <td class="delivery-address__td">적용 가능한 할인쿠폰이 없습니다.</td>
+		        </tr>
+		        <tr>
+		            <th class="delivery-address__th delivery-address__th--no-line">배송비</th>
+		            <td class="delivery-address__td delivery-address__td--no-line">2500 원</td>
+		        </tr>
+		        <tr>
+		            <th class="delivery-address__th delivery-address__th--no-line">총 결제 금액</th>
+		            <td class="delivery-address__td delivery-address__td--no-line"><%=pPrice + 2500 %> 원</td>
+		        </tr>
+		        <tr>
+		            <th class="delivery-address__th delivery-address__th--no-line">결제 방법</th>
+		            <td class="delivery-address__td delivery-address__td--no-line"><input type="radio" checked>&nbsp 카카오 페이</td>
+		        </tr>
+	        </tbody>
+    	</table>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
      <div class="order-buttons">
 	 
@@ -792,12 +830,43 @@
 	<iframe id="ab_iframe" class="ab_test"width="0" height="0"></iframe> 
 	</section>
 	<jsp:include page = "../common/footer.jsp"/>
+	<script>
+	// 배송지 변경 이벤트
+	$("#ChangeDA").click(function() {
+        var openWin;
+		//부모 팝업 이름
+		window.name = "parent";
+		// 팝업 url
+		let url = "views/order/changeDA.jsp";
+		// 팝업 이름
+		let name = "changeDAPopup";
+		// 팝업 속성
+		let option = "width = 800, height = 300, top = 50%, left = 50%, location = no";
+		
+		openWin = window.open(url, name, option);
+					
+	})
 	
+	
+		$("#updatePhone").click(function() {
+			window.name = "parent";
+			// 팝업 url
+			let url = "<%=request.getContextPath()%>/updatePhoneForm.do";
+			// 팝업 이름
+			let name = "updatePhonePopup";
+			// 팝업 속성
+			let option = "width = 600, height = 200, top = 50%, left = 50%, location = no";
+			
+			open(url, name, option);
+						
+		})
+	
+	
+	</script>
 	  
    							
 	<script>
-	console.log(<%=pPrice %>)
-	console.log(<%=c.getPoPrice() %>)
+
 		$("#check_module").click(function () {
 			
 			var IMP = window.IMP; // 생략가능
@@ -878,57 +947,5 @@
 			
 			
 </script>
-
-    <script type="text/javascript">
-    
-    
-    function change(value, name){
-    	
-		let String = name; // 값이 바뀐 select 이름
-
-    	let count = value; // 바뀐 갯수
-    	let index = String.charAt(String.length-1); // 몇변째상품의 select인지 인덱스 찾기
-    	
-    	let original = $('#original'+index+'').html(); // 값이 바뀐 상품의 1개당 가격 칸
-    	let totprice2 = $('[name="twochangePrice'+index+'"]').html(); // 노란색칸 상품금액(origianl * count) 칸
-    	let pid = $('[name="title'+index+'"]').val(); // 갯수바뀐상품의 상품번호 칸
-    	let changetotal = $('[name="changetotal'+index+'"]').html(); // 노란색칸 주문금액(origianl * count + 2500)	칸
-    	
-    	let result = original * count
-    	console.log(result)
-    	// 바뀐갯수와 * 1개당 가격 => DB에 들어갈 총금액
-    	
-    	
-    	$.ajax({
-			
-			url: "amountChange.do",
-			
-			type: "get",
-			
-			data:{
-					q:count,
-					name:pid,
-					p:result
-	
-				},
-			
-			success:function(){
-				
-				console.log("성공")
-				$('[name="ChangePrice'+index+'"]').html(result);
-				$('[name="twochangePrice'+index+'"]').html(result);
-				$('[name="changetotal'+index+'"]').html(result+2500);
-				
-			},
-			
-			error:function(){
-		   			console.log("ajax통신실패");
-		   			
-		   		}
-		
-			})
-	}
-    </script>
-
 </body>
 </html>

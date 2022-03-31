@@ -13,6 +13,7 @@ public class Cart {
 	private int pPrice;
 	private int poPrice;
 	private int pId;
+	private int pNum;
 	private String pName;
 	private String piName;
 	private Date dDate;
@@ -32,19 +33,8 @@ public class Cart {
 		this.pId = pId;
 	}
 	
-	// insertOrder에 쓰일 생성자
-	public Cart(int userNo, int cartNo,int pAmount, int pPrice, Date dDate, String dRequest) {
-		super();
-		this.cartNo = cartNo;
-		this.userNo = userNo;
-		this.pAmount = pAmount;
-		this.pPrice = pPrice;
-		this.dDate = dDate;
-		this.dRequest = dRequest;
-		}
-	
 	// selectCart에 쓰일 생성자
-	public Cart(int cartNo, int pId, String piName, int poPrice, int pPrice, int pAmount, String pName, Date dDate) {
+	public Cart(int cartNo, int pId, String piName, int poPrice, int pPrice, int pAmount, String pName, Date dDate, int pNum) {
 		super();
 		this.cartNo = cartNo;
 		this.pId = pId;
@@ -54,6 +44,7 @@ public class Cart {
 		this.pAmount = pAmount;
 		this.pName = pName;
 		this.dDate = dDate;
+		this.pNum = pNum;
 		
 	}
 	// selectProduct

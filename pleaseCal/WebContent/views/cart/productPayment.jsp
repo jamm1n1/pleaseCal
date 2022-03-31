@@ -26,6 +26,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 
 	
@@ -531,42 +532,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
 </head>
 <body>
@@ -574,8 +539,8 @@
 <br><br><br><br><br>
 <section id="contents-cart" class="contents-cart async-content" style="visibility: visible;">    <!-- 전체 섹션 -->    
         <section class="cart-title">
-        주문/결제
-        <hr>
+	        주문/결제
+	        <hr>
         </section>
         
 <%--구매자 정보 --%> <div data-component="customer"><div class="customer__root">
@@ -603,7 +568,7 @@
 			    <form data-customer-phone--form-tel="">
 				    <div>
 				        <input type="tel" class="customer-phone__input-tel " value="${m.phone}">
-				        <button type="submit" >
+				        <button type="button" id="updatePhone">
 				            수정
 				        </button>
 				    </div>
@@ -620,7 +585,7 @@
 		        
 <%--받는사람 정보 --%><div data-component="deliveryAddress">    <h2 class="delivery-address__caption-header">
         받는사람정보
-        <button class="delivery-address__popup-list-button" type="button" data-delivery-address__popup-list-button="">
+        <button class="delivery-address__popup-list-button" type="button" id="ChangeDA">
             배송지변경
         </button>
     </h2>
@@ -629,23 +594,22 @@
         <tr>
             <th class="delivery-address__th">이름</th>
             <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
-                <span class="delivery-address__name">박정유</span>
+      
+             <input type="text"  class="delivery-address__name" id="userName" value="${m.userName}" readOnly></input>
             </td>
         </tr>
         <tr>
             <th class="delivery-address__th">배송주소</th>
-            <td class="delivery-address__td">
-                ${m.address}
-                <div id="blocked-address-error-message" class="blocked-address-section" data-delivery-address__blocked-message="">
-
-
-                </div>
+             <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+           
+                <input type="text"  class="delivery-address__name" id="userAddress" value="${m.address}" readOnly></input>
             </td>
         </tr>
         <tr>
-            <th class="delivery-address__th delivery-address__th--no-line">연락처</th>
-            <td class="delivery-address__td delivery-address__td--no-line">
-                ${m.phone }
+            <th  class="delivery-address__th delivery-address__th--no-line">연락처</th>
+          	 <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+          
+                <input type="text"  class="delivery-address__name" id="userPhone" value="${m.phone }" readOnly></input>
             </td>
         </tr>
         </tbody>
@@ -674,82 +638,43 @@
 						</div>
         
     				</div>
-
-        <div class="bundle-info__pdd-group-title">배송 상품 정보</div>
+    <br><br>
 	<div id="list">
 	<%--모든상품 삽입 --%>
 	</div>
 	
-	
-	
-	
-	<div id="pay-price-section" class="order-section orderBox mb10 multiple-coupon">
-	<h2 class="checkout__h2">
-		결제정보
-	</h2>
-	<table class="pay-price">
+    <div class="bundle-info__pdd-group-title"><h3>결제 정보</h3></div>
 
-		<colgroup>
-			<col width="144">
-			<col>
-		</colgroup>
-		<tbody>
-		
-		<tr class="payOrder-wrap">
-			<th class="wrap-title" scope="row">
-				총상품가격
-			</th>
-			<td>
-				<div class="payOrder">
-					<strong class="price">
-                        
-                            <span id="totalPriceDisp" class="use-calculation-for-totalprice" >11800</span><span class="unit">원</span>
-                        
-					</strong>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<th class="wrap-title" scope="row">할인쿠폰</th>
-			<td>
-				
-					<div class="payCoupon" data-controller="PayCoupon">
-
-    			
-			
-				    <div class="selected-coupon">
-				    
-				        <span class="message">적용 가능한 할인쿠폰이 없습니다.</span>
-				    
-				    </div>
-					</div>
-
-				
-			</td>
-		</tr>
-
-		
-		
-			<tr>
-				<th class="wrap-title" scope="row">배송비</th>
-				<td class="delivery-total-price">
-				</td>
-				</tr>
-	
-	</tbody>
-	</table>
+	<div data-component="deliveryAddress">    
+    	<table class="delivery-address">
+	        <tbody>
+		        <tr>
+		            <th class="delivery-address__th">총 결제 금액</th>
+		            <td class="delivery-address__td delivery-address__td--name delivery-address__td-rocket-fresh-mvp2">
+		                <span class="delivery-address__name">${totPrice - 2500} 원</span>
+		            </td>
+		        </tr>
+		        <tr>
+		            <th class="delivery-address__th">할인쿠폰</th>
+		            <td class="delivery-address__td">적용 가능한 할인쿠폰이 없습니다.</td>
+		        </tr>
+		        <tr>
+		            <th class="delivery-address__th delivery-address__th--no-line">배송비</th>
+		            <td class="delivery-address__td delivery-address__td--no-line">2500 원</td>
+		        </tr>
+		          <tr>
+		            <th class="delivery-address__th delivery-address__th--no-line">총 결제 금액</th>
+		            <td class="delivery-address__td delivery-address__td--no-line">${totPrice} 원</td>
+		        </tr>
+		        <tr>
+		            <th class="delivery-address__th delivery-address__th--no-line">결제 방법</th>
+		            <td class="delivery-address__td delivery-address__td--no-line"><input type="radio" checked>&nbsp 카카오 페이</td>
+		        </tr>
+	        </tbody>
+    	</table>
 	</div>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
     <div class="order-buttons">
 	 
 		<a id="continueShoopingBtn" class="goShopping logging" href="<%=request.getContextPath()%>/cartList.do">이전 단계로</a>
@@ -813,8 +738,8 @@
    						                            
    						                                '<div class="delivery-date rocket modify-padding">'+
    						                                
-   						                                     '<span class="arrive-date" style="display: inline-block; font-size:14px;"><strong>'+list[i].dDate+'</strong></span>'+
-   						                                  
+   						                                     '<span class="arrive-date" style="display: inline-block; font-size:14px;"><strong>'+list[i].dDate+' <br>도착 예정</strong></span>'+
+   						                                  	 
    						                                '</div>'+
 
    						                           '</div>'+
@@ -916,6 +841,49 @@
    </script>
 	
 	<script>
+		
+		// 배송지 변경 이벤트
+		$("#ChangeDA").click(function() {
+	        var openWin;
+			//부모 팝업 이름
+			window.name = "parent";
+			// 팝업 url
+			let url = "views/order/changeDA.jsp";
+			// 팝업 이름
+			let name = "changeDAPopup";
+			// 팝업 속성
+			let option = "width = 800, height = 300, top = 50%, left = 50%, location = no";
+			
+			openWin = window.open(url, name, option);
+						
+		})
+	
+	</script>
+	
+	<script>
+		
+	// 전화번호 업데이트하는 이벤트
+		$("#updatePhone").click(function() {
+			window.name = "parent";
+			// 팝업 url
+			let url = "<%=request.getContextPath()%>/updatePhoneForm.do";
+			// 팝업 이름
+			let name = "updatePhonePopup";
+			// 팝업 속성
+			let option = "width = 600, height = 200, top = 50%, left = 50%, location = no";
+			
+			open(url, name, option);
+						
+		})
+			
+	
+	
+	</script>
+	
+	
+	
+	
+	<script>
 	
 		$("#check_module").click(function () {
 			
@@ -959,7 +927,7 @@
 					name: '주문명: ' + $('#lZero').val() + '외 ' + ($('#lSize').val()-1) + '개',
 					//결제창에서 보여질 이름
 					
-					amount: '<%=totPrice%>' <%--$('[name="total"]').val()--%>
+					amount: '<%=totPrice%>'
 					//가격
 					
 					//buyer_email: 'iamport@siot.do',
@@ -990,8 +958,7 @@
 					});<%--- 함수 종료지점 --%>
 							
 			}); <%---클릭--%>
-		
-</script>
+	</script>
 
 </body>
 </html>

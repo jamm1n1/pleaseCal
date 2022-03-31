@@ -32,4 +32,14 @@ public class OrdertService {
 		return list;
 	}
 
+	public int updatePhone(String phone, String userNo) {
+		Connection conn = getConnection();
+		
+		int result = new OrderDao().updatePhone(conn, phone, userNo);
+		
+		close(conn);
+		
+		return result;
+	}
+
 }
