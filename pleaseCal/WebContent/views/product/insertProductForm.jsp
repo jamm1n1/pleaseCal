@@ -112,7 +112,15 @@
     
     	$("#save").click(function(){
     		
-    		$("#productinsert").submit();
+    		if($("#imgThum").html() == "" || $("#imgThum").html() == "" || $("#pId").val() == "" || $("#pName").val() == "" || 
+    				$("#pPrice").val() =="" || $("#pQ").val() =="" || $("#cal").val() =="" || $("#car").val() =="" || $("#pro").val() =="" ||
+    				$("#fat").val() =="" || $("#nat").val() =="" || $("#count").val() == "") {
+    			alert("모든 값을 입력하세요")
+    			
+    		} else {
+    			$("#productinsert").submit();
+    		}
+ 
     		
     	})
     	
