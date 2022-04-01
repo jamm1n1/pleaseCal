@@ -290,10 +290,11 @@
 		   				// 팝업 이름
 		   				let name = "boardPwdCheckPopup";
 		   				// 팝업 속성
-		   				let option = "width = 500, height = 200, position = absolute , top = 300, left = 500"
+		   				let option = "width = 500, height = 200, position = absolute , top = 300, left = 500";
 		   				// 위 세 가지는 필수 항목이며 이름은 없는 경우 "" 으로 대체 가능
 		   				open(url, name, option);
 	   				}
+	   				
 					
 	   			})
 	   		})

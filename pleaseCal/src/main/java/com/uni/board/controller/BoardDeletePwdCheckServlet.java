@@ -34,7 +34,7 @@ public class BoardDeletePwdCheckServlet extends HttpServlet {
 		// 해당 게시글 번호 가져와서
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		// 해당 게시글 가져오기
-		Board b = new BoardService().selectBoard(bno);
+		Board b = new BoardService().selectOneBoard(bno);
 		// 해당 게시글 첨부파일 가져오기
 		//Attachment at = new BoardService().selectAttachment(bno);
 		
@@ -48,7 +48,7 @@ public class BoardDeletePwdCheckServlet extends HttpServlet {
 			// 게시글 비밀번호 입력창으로 전환
 			request.getRequestDispatcher("views/board/boardDeletePwdCheck.jsp").forward(request, response);
 		
-		}	else {
+		} else {
 			// 에러메시지 jsp로 전달 - menubar 를 include 해서 가능
 			request.setAttribute("msg", "게시글 삭제 실패");
 			// 에러페이지

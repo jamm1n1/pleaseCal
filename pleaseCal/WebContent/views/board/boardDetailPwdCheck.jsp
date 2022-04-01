@@ -57,7 +57,7 @@
 					<tr>
 						<td> 비밀번호 입력 </td>
 						<td>
-							<input type="text" id="pwd" name="pwd" autofocus>
+							<input type="password" id="pwd" name="pwd" autofocus>
 							<button type="submit" id="submit" name="submit" value="확인">확인</button>
 						</td>
 					</tr>
@@ -74,11 +74,18 @@
 	
 	
 	<script>
+		
+		//console.log("${b.boardPwd}");
+	
 		// 확인 버튼 클릭 시
 		$("#submit").click(function() {
 			// 입력한 비밀번호와 해당 게시글 비밀번호를 변수에 담아서
 			let input = $("#pwd").val().trim();
-			let pwd = ${b.boardPwd};
+			// 문자열이기 때문에 "" 따옴표 안에 넣어줘야 함
+			let pwd = "${b.boardPwd}";
+			
+			/*console.log(pwd);
+			console.log(input);*/
 			
 			// 입력창 비워진 채로 확인 버튼 클릭 시
 			if(input == "") {
@@ -91,7 +98,7 @@
 			if(input != null && input != pwd) {
 				// 알림 띄우기
 				alert("비밀번호가 일치하지 않습니다.");
-				$("#pwd").focus();
+				$("#pwd").select();
 				return false;
 			
 			// 일치하는 경우

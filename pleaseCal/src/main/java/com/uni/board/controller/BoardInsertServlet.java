@@ -73,6 +73,7 @@ public class BoardInsertServlet extends HttpServlet {
 				userId = "비회원";
 			}*/
 			
+			
 			// 게시글 객체 생성
 			Board b = new Board();
 			
@@ -81,6 +82,7 @@ public class BoardInsertServlet extends HttpServlet {
 			b.setBoardContent(content.replaceAll("\n", "<br>"));
 			b.setBoardPwd(pwd);
 			b.setBoardWriter(userId);
+			
 			
 			// 첨부파일 객체 생성
 			Attachment at = null;

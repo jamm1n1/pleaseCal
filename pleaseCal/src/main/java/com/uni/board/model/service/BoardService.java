@@ -265,6 +265,27 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	
+	// 게시글 상세조회가 아니라 단순 가져오기만 하는 메소드
+	public Board selectOneBoard(int bno) {
+		
+		Connection conn = getConnection(); // 커넥션 연결
+		
+		Board b = new BoardDao().selectBoard(conn, bno);
+		
+		// 조회수 잘 올라갔으면
+		if(b != null) {
+			commit(conn);
+			
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return b;
+	}
 
 	
 	
