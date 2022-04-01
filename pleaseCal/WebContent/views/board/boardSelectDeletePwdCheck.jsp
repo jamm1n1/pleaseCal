@@ -94,8 +94,10 @@
 			} else {
 				// 알림 띄우고
 				alert("삭제가 완료되었습니다.");
-				// 부모 페이지를 해당 게시글 삭제하는 서블릿 실행하도록 > 전체 질문 게시글 목록으로 페이지 전환
-				opener.location.href="<%=request.getContextPath()%>/boardDelete.do?bno=${b.boardNo}";
+				// 해당 게시글 삭제하는 서블릿 실행
+				location.href="<%=request.getContextPath()%>/boardDelete.do?bno=${b.boardNo}";
+				// 부모 페이지 내가 작성한 게시글 목록으로 이동
+				opener.location.href="<%=request.getContextPath()%>/boardSelectList.do";
 				// 팝업창 닫기
 				close();
 			}

@@ -171,7 +171,7 @@
 		
 		<table class="detailArea">
 			<tr>
-				<th width="80px">분야</th>
+				<th width="80px">카테고리</th>
 				<td>${b.category}</td>
 			</tr>
 			<tr>
@@ -207,15 +207,8 @@
 		
 		<div class="btns" align="center">
 			<button class="button" type="button" onclick="location.href='<%=request.getContextPath()%>/boardList.do?currentPage=1';">목록으로</button>
-			<%-- 작성자가 본인이거나 관리자인 경우 수정, 삭제 버튼 활성화 --%>
-			<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.getUserId() == b.boardWriter}">
-				<button class="button" type="submit" onclick="location.href='<%=request.getContextPath()%>/boardUpdateForm.do?bno=${b.boardNo}';">수정하기</button>
-			</c:if>
-			<c:if test="${ !empty sessionScope.loginUser && sessionScope.loginUser.getUserId() == b.boardWriter
-							|| !empty sessionScope.loginUser && sessionScope.loginUser.userId == 'admin'}">
-				<button class="button" type="button" onclick="deleteBoard();">삭제하기</button>
-			</c:if>
-			
+			<button class="button" type="submit" onclick="location.href='<%=request.getContextPath()%>/boardUpdateForm.do?bno=${b.boardNo}';">수정하기</button>
+			<button class="button" type="button" onclick="deleteBoard();">삭제하기</button>
 		</div>
 		
 		<form action="" id="postForm" method="post">

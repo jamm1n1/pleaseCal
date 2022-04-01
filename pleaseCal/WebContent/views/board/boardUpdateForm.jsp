@@ -159,7 +159,7 @@
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td colspan="2"><input tyle="text" id="pwd" name="pwd"></td>
+					<td colspan="2"><input type="password" id="pwd" name="pwd"></td>
 				</tr>
 				<tr>
 					<th>비밀글 설정</th>
@@ -190,6 +190,9 @@
 			var content = $("#content").val();
 			var pwd = $("#pwd").val();
 			
+			// 비밀번호 정규식 확인하기 위해 (8~16자, 영문/숫자 조합)
+			let regPwd = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
+			
 			// 내용이 비어있는 경우
 			if(content == "" || content == null) {
 				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
@@ -209,6 +212,17 @@
 				alert("비밀번호를 작성해주세요.");
 				// 해당 입력창에 포커스 주기
 				$("#pwd").focus();
+				
+				return false;
+				
+			// 비밀번호가 정규식 조건에 맞지 않는 경우
+			} else if(!regPwd.test(pwd)) {
+				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
+				$(this).removeAttr("action");
+				// 알림 띄우기
+				alert("비밀번호는 영문/숫자 포함 8~16자로 입력해주세요.")
+				// 입력된 값 선택
+				$("#pwd").select();
 				
 				return false;
 			
