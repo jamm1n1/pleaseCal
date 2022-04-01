@@ -205,7 +205,7 @@
 				$("#pwd").focus();
 				
 				return false;
-			/*
+			
 			// 비밀번호가 정규식 조건에 맞지 않는 경우
 			} else if(!regPwd.test(pwd)) {
 				// 폼의 액션 태그 제거 (서블릿으로 넘어가 게시글 등록 막기 위해)
@@ -215,7 +215,7 @@
 				// 입력된 값 선택
 				$("#pwd").select();
 				
-				return false;*/
+				return false;
 				
 			// 잘 작성이 되어있으면
 			} else {
