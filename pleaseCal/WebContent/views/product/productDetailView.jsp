@@ -331,8 +331,15 @@
 					// 후기 있을때		
    		   			for(var i in list){
    		   				
+   		   				let day = "";
+   		   				
+   		   				if(list[i].rUpdate.length == 10) {
+   		   					day = "0" + list[i].rUpdate.substring(3,4);
+   		   				} else {
+   		   					day = list[i].rUpdate.substring(3,5);
+   		   				}
+   		   				
    		   				let month = list[i].rUpdate.substring(0,2);
-   		   				let day = list[i].rUpdate.substring(3,5);
    		   				let year = list[i].rUpdate.slice(-4,11);
    		   				let update = year+"년 "+month+" "+day+"일";
    		   				
