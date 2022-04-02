@@ -154,7 +154,7 @@ public class BoardService {
 				result2 = new BoardDao().updateAttachment(conn, at);
 			// 없으면 insert
 			} else {
-				result2 = new BoardDao().insertAttachment(conn, at);
+				result2 = new BoardDao().insertNewAttachment(conn, at);
 			}
 		}
 		

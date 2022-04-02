@@ -441,6 +441,38 @@ public class BoardDao {
 		
 		return result;
 	}
+	
+	
+	// 게시글 수정 시 파일이 없었다면 새로 등록해주는 메소드
+	public int insertNewAttachment(Connection conn, Attachment at) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		// ResultSet 필요 없음
+		
+		String sql = prop.getProperty("insertNewAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, at.getRefBoardNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 
 	public int deleteBoard(Connection conn, int bno) {
@@ -588,6 +620,9 @@ public class BoardDao {
 		
 		return result;
 	}
+
+
+
 
 
 		
