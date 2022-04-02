@@ -204,7 +204,7 @@
 		<br>
 		
 		<div class="btns" align="center">
-			<button class="button" type="button" onclick="location.href='<%=request.getContextPath()%>/boardList.do?currentPage=1';">목록으로</button>
+			<button class="button" type="button" onclick="location.href='<%=request.getContextPath()%>/boardSelectList.do?currentPage=1';">목록으로</button>
 			<button class="button" type="submit" onclick="location.href='<%=request.getContextPath()%>/boardUpdateForm.do?bno=${b.boardNo}';">수정하기</button>
 			<button class="button" type="button" onclick="deleteBoard();">삭제하기</button>
 		</div>
