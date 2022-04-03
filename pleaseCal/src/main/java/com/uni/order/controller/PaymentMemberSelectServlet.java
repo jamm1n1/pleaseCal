@@ -30,19 +30,19 @@ public class PaymentMemberSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//				String 형변환      맴버로 현변환 해준 loginUser값의 유저 번호를 가져옴
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		// 회원정보를 가져옴
 		Member m = new CartService().MemberInfo(writer);
+		// 총 상품가격의 합을 parameter로 가져옴
 		int totPrice = Integer.parseInt(request.getParameter("total0"));
 		
-		
+		// 받아온 회원정보와 총 결제금액을 출력 페이지에 넘겨줌 
 		request.setAttribute("totPrice", totPrice);
-		//System.out.println("totPrice" + totPrice);
 		request.setAttribute("m", m);
 		
-		//new Gson().object(m, response.getWriter());
-		//System.out.println("servlet m  : " + m);
 		request.getRequestDispatcher("views/cart/productPayment.jsp").forward(request, response);
-		//response.sendRedirect("orderProductList.do");
 		
 	}
 

@@ -511,10 +511,10 @@
 		<p> ${msg}</p>
 	</div>
 
-  	<div class="order-buttons">p
+  	<div class="order-buttons">
 	 
 		<a id="continueShoopingBtn" class="goShopping logging" href="<%=request.getContextPath()%>">쇼핑 계속 하기</a>
-		<a id="continueShoopingBtn" class="goShopping logging" href="<%=request.getContextPath()%>/myOrderList.do">주문내역으로 이동</a>
+		<a id="orderListBtn" class="goShopping logging" href="<%=request.getContextPath()%>/myOrderList.do">주문내역으로 이동</a>
 
 	</div>
  <jsp:include page = "../common/footer.jsp"/>

@@ -22,8 +22,6 @@ private Properties prop = new Properties();
 		
 		String fileName = CartDao.class.getResource("/sql/cart/cart-query.properties").getPath();
 		
-		//System.out.println("fileName   " + fileName);
-		
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
@@ -34,7 +32,7 @@ private Properties prop = new Properties();
 			e.printStackTrace();
 		} 
 	}
-
+	// 장바구니 안의 상품 정보를 가져오는 메소드.
 	public ArrayList<Cart> CartList(Connection conn, String writer) {
 		ArrayList<Cart> list = new ArrayList<>();
 		
@@ -42,11 +40,11 @@ private Properties prop = new Properties();
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectCartList");
-		//System.out.println("DAO sql : " + sql);
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(writer));
-			//System.out.println("Dao writer : " + writer);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -62,7 +60,7 @@ private Properties prop = new Properties();
 							  	  rset.getInt("P_NUM"));
 				
 				list.add(c);
-				//System.out.println("Dao list =====" + list);
+
 			}
 			
 		} catch (SQLException e) {
@@ -72,16 +70,15 @@ private Properties prop = new Properties();
 			close(rset);
 			close(pstmt);
 		}
-		
-		//System.out.println("Dao list : " + list);
+
 		return list;
 	}
-	
+	// 상품 수량을 수정하는 메소드
 	public int changeAmount(Connection conn, int q, String name, String writer, int p) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		//changeAmount=UPDATE CART SET PRODUCT_AMOUNT = ? WHERE PRODUCT_NAME = ? AND USER_NO = ?
+
 		String sql = prop.getProperty("changeAmount");
 		
 		try {
@@ -94,55 +91,52 @@ private Properties prop = new Properties();
 		
 			result = pstmt.executeUpdate();
 			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao result : " + result);
 		return result;
 	}
+	// 회원 정보를 가져오는 메소드
 	public Member MemberInfo(Connection conn, String writer) {
 		// TODO Auto-generated method stub
-				Member m = null;
-				PreparedStatement pstmt = null;
-				ResultSet rset = null;
-				
-				String sql = prop.getProperty("selectMember");
-			
-				try {
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, writer);
-					rset = pstmt.executeQuery();
-				
-				
-				if(rset.next()) {
-					m = new Member(rset.getInt("USER_NO"), 
-		                    rset.getString("USER_NAME"),
-		                    rset.getString("PHONE"),
-		                    rset.getString("ADDRESS"),
-		                    rset.getInt("MILEAGE"),
-		                    rset.getInt("C_ID"));
-				}
-				}catch(SQLException e) {
-					e.printStackTrace();
-				}finally {
-					close(rset);
-					close(pstmt);
-				}
-				//System.out.println("Dao m = " + m);
-			
-				return m;
-				
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rset = pstmt.executeQuery();
+		
+		
+		if(rset.next()) {
+			m = new Member(rset.getInt("USER_NO"), 
+                    rset.getString("USER_NAME"),
+                    rset.getString("PHONE"),
+                    rset.getString("ADDRESS"),
+                    rset.getInt("MILEAGE"),
+                    rset.getInt("C_ID"));
+		}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+	
+		return m;		
 	}
-
+	// 상품 정보를 장바구니에 입력하는 메소드
 	public int insertProduct(Connection conn, String writer, String amount, String pPrice, String pId) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		//changeAmount=UPDATE CART SET PRODUCT_AMOUNT = ? WHERE PRODUCT_NAME = ? AND USER_NO = ?
+
 		String sql = prop.getProperty("insertCart");
 		
 		try {
@@ -162,15 +156,13 @@ private Properties prop = new Properties();
 		}  finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao result : " + result);
 		return result;
 	}
-
+	// 상품의 상태값을 N에서 Y로 변경해주는 메소드
 	public int updateCart(Connection conn, String writer) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		//changeAmount=UPDATE CART SET PRODUCT_AMOUNT = ? WHERE PRODUCT_NAME = ? AND USER_NO = ?
 		String sql = prop.getProperty("updateCart");
 		
 		try {
@@ -187,10 +179,9 @@ private Properties prop = new Properties();
 		}  finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao result : " + result);
 		return result;
 	}
-
+	// 장바구니 안의 상품정보를 가져오는 메소드
 	public Cart selectPId(Connection conn, String writer, String pId) {
 		Cart c = new Cart();
 		PreparedStatement pstmt = null;
@@ -218,11 +209,10 @@ private Properties prop = new Properties();
 			close(rset);
 			close(pstmt);
 		}
-		//System.out.println("Dao m = " + m);
 	
 		return c;
 	}
-
+	// 장바구니 상품의 수량을 변경하는 메소드
 	public int PlusAmount(Connection conn, int nAmount, String writer, String pId, int nPrice) {
 		int result = 0;
 		
@@ -246,10 +236,9 @@ private Properties prop = new Properties();
 		}  finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao result : " + result);
 		return result;
 	}
-
+	// 장바구니 상품을 삭제하는 메소드
 	public int deleteProduct(Connection conn, String uNo, int pId) {
 		int result = 0;
 		
@@ -270,10 +259,9 @@ private Properties prop = new Properties();
 		}  finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao result : " + result);
 		return result;
 	}
-
+	// 상품의 이미지명, 상품명, 배송예정날짜를 받아오는 메소드
 	public Cart selectProduct(Connection conn, int pId) {
 		Cart c = null;
 		PreparedStatement pstmt = null;
@@ -301,10 +289,9 @@ private Properties prop = new Properties();
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("Dao ============= c : " + c);
 		return c;
 	}
-
+	// 상품의 상세정보에서 주문페이지로 쓰일 상품 정보를 가져오는 메소드
 	public Cart selectDetailProduct(Connection conn, int pId) {
 		Cart c = null;
 		PreparedStatement pstmt = null;
@@ -334,15 +321,13 @@ private Properties prop = new Properties();
 			close(rset);
 			close(pstmt);
 		}
-		//System.out.println("Dao ============= c : " + c);
 		return c;
 	}
-
+	// 선택한 상품을 장바구니로 넣어주는 메소드
 	public int insertSelectProduct(Connection conn, String writer, String pA, String pP, String pId) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		//changeAmount=UPDATE CART SET PRODUCT_AMOUNT = ? WHERE PRODUCT_NAME = ? AND USER_NO = ?
 		String sql = prop.getProperty("insertSelectCart");
 		
 		try {
@@ -362,7 +347,6 @@ private Properties prop = new Properties();
 		}  finally {
 			close(pstmt);
 		}
-		//System.out.println("Dao result : " + result);
 		return result;
 	}
 

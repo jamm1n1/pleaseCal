@@ -17,7 +17,7 @@ public class CartService {
 		Connection conn = getConnection();
 		
 		ArrayList<Cart> list = new CartDao().CartList(conn, writer);
-		//System.out.println("Service list ============" + list);
+
 		close(conn);
 		
 		return list;
@@ -38,8 +38,7 @@ public class CartService {
 		Connection conn = getConnection();
 		
 		Member m = new CartDao().MemberInfo(conn, writer);
-		//System.out.println("service c : " + c);
-		//System.out.println("Service list ============" + list);
+
 		close(conn);
 		
 		return m;
@@ -70,7 +69,7 @@ public class CartService {
 		Connection conn = getConnection();
 		
 		Cart c = new CartDao().selectPId(conn, writer, pId);
-		//System.out.println("Service list ============" + list);
+
 		close(conn);
 		
 		return c;
@@ -101,7 +100,7 @@ public class CartService {
 		Connection conn = getConnection();
 		
 		Cart c = new CartDao().selectProduct(conn, pId);
-		//System.out.println("Service list ============" + list);
+
 		close(conn);
 		
 		return c;
@@ -111,7 +110,7 @@ public class CartService {
 		Connection conn = getConnection();
 		
 		Cart c = new CartDao().selectDetailProduct(conn, pId);
-		//System.out.println("Service list ============" + list);
+
 		close(conn);
 		
 		return c;

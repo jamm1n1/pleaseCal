@@ -567,7 +567,7 @@
 		    <div data-component="customer-phone-form-tel">
 			    <form data-customer-phone--form-tel="">
 				    <div>
-				        <input type="tel" class="customer-phone__input-tel " value="${m.phone}">
+				        <input type="tel" class="customer-phone__input-tel " value="${m.phone}" id="buyerPhone" readOnly>
 				        <button type="button" id="updatePhone">
 				            수정
 				        </button>
@@ -844,7 +844,7 @@
 		
 		// 배송지 변경 이벤트
 		$("#ChangeDA").click(function() {
-	        var openWin;
+
 			//부모 팝업 이름
 			window.name = "parent";
 			// 팝업 url
@@ -854,7 +854,7 @@
 			// 팝업 속성
 			let option = "width = 800, height = 300, top = 50%, left = 50%, location = no";
 			
-			openWin = window.open(url, name, option);
+			window.open(url, name, option);
 						
 		})
 	
@@ -862,7 +862,7 @@
 	
 	<script>
 		
-	// 전화번호 업데이트하는 이벤트
+		// 전화번호 업데이트하는 이벤트
 		$("#updatePhone").click(function() {
 			window.name = "parent";
 			// 팝업 url
@@ -875,8 +875,6 @@
 			open(url, name, option);
 						
 		})
-			
-	
 	
 	</script>
 	
@@ -887,57 +885,27 @@
 	
 		$("#check_module").click(function () {
 			
-			var IMP = window.IMP; // 생략가능
+			var IMP = window.IMP; 
 			
 			IMP.init('imp70634783');
-				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+				//가맹점식별코드
 				
 			IMP.request_pay({
 				
-					pg: 'inicis', // version 1.1.0부터 지원.
-						/*
-							'kakao':카카오페이,
-							html5_inicis':이니시스(웹표준결제)
-							'nice':나이스페이
-							'jtnet':제이티넷
-							'uplus':LG유플러스
-							'danal':다날
-							'payco':페이코
-							'syrup':시럽페이
-							'paypal':페이팔
-						*/
+					pg: 'kakao', 
+					// 결제에 사용할 브랜드명
 					pay_method: 'card',
-						/*
-							'samsung':삼성페이,
-							'card':신용카드,
-							'trans':실시간계좌이체,
-							'vbank':가상계좌,
-							'phone':휴대폰소액결제
-						*/
+					
 					merchant_uid: new Date().getTime(),
-						/*
-							merchant_uid에 경우
-							https://docs.iamport.kr/implementation/payment
-							위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-							참고하세요.
-							나중에 포스팅 해볼게요.
-						*/
-						
+					// 결제 실행 시간
 					name: '주문명: ' + $('#lZero').val() + '외 ' + ($('#lSize').val()-1) + '개',
 					//결제창에서 보여질 이름
 					
 					amount: '<%=totPrice%>'
 					//가격
 					
-					//buyer_email: 'iamport@siot.do',
-					//buyer_name: '${m.userName},
-					//buyer_tel: ${m.phone},
-					//buyer_addr: '${m.address}',
-					//buyer_postcode: '123-456',
-					//m_redirect_url: "http://localhost:8030/pleaseCal_Backup/paymentResult.do",
-				
-			}<%-- 584번 중괄호--%>, function(rsp){
+					
+			}, function(rsp){
 				
 				let dDate = $('#dDate').val();
 				
@@ -952,8 +920,6 @@
 				console.log(re)
 
 				location.href="<%=request.getContextPath()%>/paymentResult.do?re="+re+"&dRequest="+dRequest;
-				<%--location.href="<%=request.getContextPath()%>/paymentResult.do?re="+re+"?dMessage="+dms;--%>
-			//pageChange(rsp);
 
 					});<%--- 함수 종료지점 --%>
 							

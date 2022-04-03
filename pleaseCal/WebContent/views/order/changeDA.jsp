@@ -8,27 +8,29 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
-input{
-width:500px;
-height:50px;
-}
-#waddress{
-width:70px;
-height:50px;
-}
-body{
-background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150404_201%2Fbbilla_1428082120293qFxQp_JPEG%2F%25C7%25CF%25B3%25AA%25BE%25B2%25B9%25D9%25C5%25C1%25C8%25AD%25B8%25E9_05_1920x1080_20150402-01.jpg&type=a340')
-}
-#joinBtn{
-width: 120px;
-background-color : #64FE2E;
-color : blue;
-}
+	input{
+		width:500px;
+		height:50px;
+	}
+	#waddress{
+		width:70px;
+		height:50px;
+	}
+	body{
+		background-image:url('https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150404_201%2Fbbilla_1428082120293qFxQp_JPEG%2F%25C7%25CF%25B3%25AA%25BE%25B2%25B9%25D9%25C5%25C1%25C8%25AD%25B8%25E9_05_1920x1080_20150402-01.jpg&type=a340')
+	}
+	#joinBtn{
+		width: 120px;
+		background-color : #64FE2E;
+		color : blue;
+	}
 </style>
 </head>
 <body>
 <script>
+	
 	window.onload = function(){
+		// Daum 주소API 실행함수 수정 버튼 클릭시 이벤트 발생
 	    document.getElementById("waddress").addEventListener("click", function(){ 
 	       new daum.Postcode({
 	       oncomplete: function(data) { //선택시 입력값 세팅
@@ -37,7 +39,7 @@ color : blue;
 	   }).open();
 	});
 	}
-	
+	// 전화번호 입력시 중간에 '-'를 넣어주는 함수
 	const Hyphen = (target) => {
 		 target.value = target.value
 		   .replace(/[^0-9]/g, '') //전체에서  0~9사이에 아무 숫자 '하나'  찾음 
@@ -46,10 +48,7 @@ color : blue;
 
 	
 	function insert(){
-		console.log($('#name').val())
-		console.log($('#address').val())
-		console.log($('#phone').val())
-		
+		// opener : 부모창, 부모창의 아이디값의 value에 현제(자식) 페이지 의 아이디의 value값을 넣어줌
 		opener.document.getElementById("userName").value = document.getElementById("name").value
 		opener.document.getElementById("userAddress").value = document.getElementById("address").value
 		opener.document.getElementById("userPhone").value = document.getElementById("phone").value

@@ -34,12 +34,8 @@ public class UpdatePhoneServlet extends HttpServlet {
 		String phone = String.valueOf(request.getParameter("phone"));
 
 		String userNo = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-		//System.out.println("phone Servlet ==========   " + phone);
-		
+		// 회원 번호와 새로운 휴대번호를 업데이트 해줌
 		int result = new OrdertService().updatePhone(phone, userNo);
-		
-		
-		//response.sendRedirect("paymentMember.do");
 		
 	}
 

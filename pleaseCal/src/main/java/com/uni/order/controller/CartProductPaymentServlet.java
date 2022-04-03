@@ -33,13 +33,15 @@ public class CartProductPaymentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		//			String 형변환      맴버로 현변환 해준 loginUser값의 유저 번호를 가져옴
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		// 장바구니의 상품 정보를 리스트에 담아옴
 		ArrayList<Cart> list = new CartService().CartList(writer);
 		
-		request.setAttribute("list", list);
-		//System.out.println(list);
+		//response의 콘텐트타입을 Json형태로 변경하고 인코딩을 UTF-8로 설정함.
 		response.setContentType("application/json; charset=utf-8"); 
-		
+	
+		// 구글에서 제공하는 오픈소스 Gson라이브러리를 이용해 list를 Json형태로 변경해줌.
 		new Gson().toJson(list, response.getWriter());
 	}
 	/**

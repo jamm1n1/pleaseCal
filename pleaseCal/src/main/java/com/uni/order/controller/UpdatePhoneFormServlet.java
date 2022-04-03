@@ -28,7 +28,7 @@ public class UpdatePhoneFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		// 구매자(회원) 휴대폰 번호 변경 페이지로 이동하는 서블렛
 		request.getRequestDispatcher("views/order/updatePhone.jsp").forward(request, response);
 		
 	}

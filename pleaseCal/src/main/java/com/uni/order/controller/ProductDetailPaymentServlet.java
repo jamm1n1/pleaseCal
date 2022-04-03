@@ -30,6 +30,8 @@ public class ProductDetailPaymentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//				String 형변환      맴버로 현변환 해준 loginUser값의 유저 번호를 가져옴	
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
 		Member m = new CartService().MemberInfo(writer);
 		
@@ -37,6 +39,7 @@ public class ProductDetailPaymentServlet extends HttpServlet {
 		int pQ = Integer.parseInt(request.getParameter("numBox"));
 		int poPrice =  Integer.parseInt(request.getParameter("pPrice"));
 		
+		// 주문/결제 페이지로 넘길 상품 정보를 가져옴
 		Cart c = new CartService().selectDetailProduct(pId);
 		int pPrice = poPrice * pQ;
 		
