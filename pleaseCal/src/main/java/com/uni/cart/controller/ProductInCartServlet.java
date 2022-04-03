@@ -34,26 +34,30 @@ public class ProductInCartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		//				String 형변환      맴버로 현변환 해준 loginUser값의 유저 번호를 가져옴
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		
+		// 상품 등록을 위한 정볼르 parameter값으로 가져옴
 		String pId = String.valueOf(request.getParameter("pId"));
 		String pPrice = String.valueOf(request.getParameter("pPrice"));
 		String amount = String.valueOf(request.getParameter("amount"));
-		//System.out.println("pPrice ====================" + pPrice);
-		
 
+		// 장바구니에 넣으려는 상품 정보를 회원의 장바구니에서 가져옴
 		Cart c = new CartService().selectPId(writer, pId);
-		//System.out.println("c ===============" + c);
+		
+		// 가져온 값의 pId가 1이상이면 그 상품이 있다는 의미이므로
 		if(c.getPId() > 0) {
 			
+			// 수량과 가격을 수정해서 다시 업데이트 해줌.
 			int nAmount = c.getPAmount() + Integer.parseInt(amount);
 			int nPrice = Integer.parseInt(pPrice) * nAmount;
-			//System.out.println(nPrice);
-
+			
 			int result2 = new CartService().PlusAmount(nAmount, writer, pId, nPrice);
+		//동일한 상품이 장바구니에 없으면	
 		}else {
-		//System.out.println(writer + pId + pPrice + amount);
+		// 가져온 입력 값으로 상품 등록을 해줌.
 		int result = new CartService().insertProduct(writer, amount,  pPrice, pId);
-		//System.out.println("insert 결과 : " + result);
+
 		};
 		
 		

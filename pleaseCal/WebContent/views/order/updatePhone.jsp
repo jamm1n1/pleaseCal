@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td>전화번호(-포함)</td>	
-					<td><input type="tel" maxlength="13" name="phone" placeholder="전화번호 입력해주세요(-입력)010-1234-5678" oninput="Hyphen(this)" required></td>
+					<td><input type="tel" maxlength="13" name="phone" placeholder="전화번호 입력해주세요(-입력)010-1234-5678" oninput="Hyphen(this)" required id="newPhone"></td>
 					<td></td>
 				<td>
 					<button type="button" id="submit" name="submit" value="확인">확인</button>
@@ -48,6 +48,8 @@
 			return false;
 			
 		}else{
+			
+			opener.document.getElementById("buyerPhone").value = document.getElementById("newPhone").value
 			// url 변경
 			location.href="<%=request.getContextPath()%>/updatePhone.do?phone="+phone;
 			// 부모창 새로고침

@@ -32,13 +32,15 @@ public class MyOrderListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
 		ArrayList<Order> list = new ArrayList<>();
+		// 유저 정보를 가져옴
 		Member user = ((Member)request.getSession().getAttribute("loginUser"));
-		
+		// 가져온 유저정보의 유저번호를 뽑아옴
 		int uNo = user.getUserNo();
-		
+		// 주문 테이블에 있는 상품 정보를 가져옴
 		list = new OrdertService().selectOrderList(uNo);
-		
+		// 가져온 유저정보와 상품 목록을 페이지에 넘겨줌
 		request.setAttribute("uNo", uNo);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/order/myOrderList.jsp").forward(request, response);

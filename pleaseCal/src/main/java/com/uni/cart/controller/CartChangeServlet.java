@@ -32,17 +32,18 @@ public class CartChangeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//              String 형변환      맴버로 현변환 해준 loginUser값의 유저 번호를 가져옴
 		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+		
 		int q = Integer.parseInt(request.getParameter("q"));
 		int p = Integer.parseInt(request.getParameter("p"));
-		//System.out.println("p : " + p);
 		String name = request.getParameter("name");
-		//System.out.println("price : " + price);
-		//System.out.println("q , name, writer : " + q + name + writer);
-		int result = new CartService().changeAmount(q, name, writer, p);
 
+		int result = new CartService().changeAmount(q, name, writer, p);
+		
+		//수량을 변경해준 다음 다시 장바구니를 호출한다.
 		response.sendRedirect("cartList.do");
-		//System.out.println("servlet result : " + result);
 		
 	}
 

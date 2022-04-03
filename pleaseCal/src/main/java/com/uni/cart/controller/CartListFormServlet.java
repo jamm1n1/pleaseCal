@@ -37,26 +37,15 @@ public class CartListFormServlet extends HttpServlet {
 	 */
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher rd = request.getRequestDispatcher("views/cart/cartList.jsp");
-		rd.forward(request, response);
+		if(((Member)request.getSession().getAttribute("loginUser")) != null) {
+		//화면 전환을 위해 Servlet을 거쳐줌, request와 response값을 같이 넘겨줌
+		request.getRequestDispatcher("views/cart/cartList.jsp").forward(request, response);
+		}else {
+			response.sendRedirect("LoginPage.do");
+		}
 		
 	}
 	
-	/*
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String writer = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
-		//System.out.println(String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserNo()));
-		//System.out.println("Servlet writer : " + writer);
-		Cart c = new CartService().CartList(writer);
-		
-		request.setAttribute("c", c);
-		//System.out.println("servlet c : " + c);
-		//System.out.println("servlet getPAmount : " + c.getPAmount());
-		request.getRequestDispatcher("views/cart/cartList.jsp").forward(request, response);
-}
-*/
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
